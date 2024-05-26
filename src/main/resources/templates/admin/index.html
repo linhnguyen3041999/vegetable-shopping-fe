@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+    <!--    <link rel="stylesheet" href="../../static/admin/css/index.css">-->
+    <link rel="stylesheet" th:href="@{/admin/css/index.css}">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
+
+</head>
+<body>
+<div class="sidebar">
+    <div class="profile">
+        <img src="https://via.placeholder.com/80" alt="Profile Picture">
+        <h4>Vegetable Store</h4>
+        <p>Chào mừng bạn trở lại</p>
+    </div>
+    <a href="#pos" class="btn btn-warning text-dark text-center" style="margin: 10px 20px;">POS Bán Hàng</a>
+    <a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a>
+    <a href="#category"><i class="fas fa-user-tie"></i> Quản lý loại hàng</a>
+    <a href="#product"><i class="fas fa-users"></i> Quản lý sản phẩm</a>
+    <a href="#order"><i class="fas fa-box"></i>Quản lí đơn hàng</a>
+    <a href="#coupon"><i class="fas fa-shopping-cart"></i> Quản lý giảm giá</a>
+    <a href="#user"><i class="fas fa-clipboard"></i> Quản lý tài khoản</a>
+    <a href="#order-detail"><i class="fas fa-clipboard"></i>Thống kê đơn hàng</a>
+</div>
+<div class="main-content">
+    <div id="dashboard">
+        <h1 style="text-align: center; color: #48ecb2; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; font-weight: bold;">
+            BẢNG ĐIỀU KHIỂN</h1>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card bg-primary stat-card">
+                    <div>
+                        <h3>56 khách hàng</h3>
+                        <p>Tổng khách hàng</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success stat-card">
+                    <div>
+                        <h3>1850 sản phẩm</h3>
+                        <p>Tổng sản phẩm</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning stat-card">
+                    <div>
+                        <h3>247 đơn hàng</h3>
+                        <p>Tổng đơn hàng</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-danger stat-card">
+                    <div>
+                        <h3>4 sản phẩm</h3>
+                        <p>Sắp hết hàng</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-warning">Tình trạng đơn hàng</div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>ID đơn hàng</th>
+                                <th>Tên khách hàng</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>AL3947</td>
+                                <td>Phạm Thị Ngọc</td>
+                                <td>19,770,000 đ</td>
+                                <td><span class="badge badge-primary">Chờ xử lý</span></td>
+                            </tr>
+                            <tr>
+                                <td>ER3835</td>
+                                <td>Nguyễn Thị Mỹ Yến</td>
+                                <td>16,770,000 đ</td>
+                                <td><span class="badge badge-warning">Đang vận chuyển</span></td>
+                            </tr>
+                            <tr>
+                                <td>MD0837</td>
+                                <td>Triệu Thanh Phú</td>
+                                <td>9,400,000 đ</td>
+                                <td><span class="badge badge-success">Đã hoàn thành</span></td>
+                            </tr>
+                            <tr>
+                                <td>MT9835</td>
+                                <td>Đỗ Hoàng Phúc</td>
+                                <td>40,650,000 đ</td>
+                                <td><span class="badge badge-danger">Đã hủy</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Khách hàng mới</div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên khách hàng</th>
+                                <th>Ngày đăng ký</th>
+                                <th>Địa chỉ email</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>#183</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>21/12/2023</td>
+                                <td>vana@example.com</td>
+                            </tr>
+                            <tr>
+                                <td>#184</td>
+                                <td>Trần Thị B</td>
+                                <td>22/12/2023</td>
+                                <td>thib@example.com</td>
+                            </tr>
+                            <tr>
+                                <td>#185</td>
+                                <td>Phạm Văn C</td>
+                                <td>23/12/2023</td>
+                                <td>vanc@example.com</td>
+                            </tr>
+                            <tr>
+                                <td>#186</td>
+                                <td>Vũ Thị D</td>
+                                <td>24/12/2023</td>
+                                <td>thid@example.com</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info">Biểu đồ doanh thu</div>
+                    <div class="card-body">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success">Biểu đồ khách hàng</div>
+                    <div class="card-body">
+                        <canvas id="customerChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Các phần khác tương tự -->
+    <div id="category">
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div>
+                <h1 class="text-center">QUẢN LÍ LOẠI HÀNG</h1>
+                <div class="container mt-5">
+                    <form>
+                        <div class="form-group">
+                            <label for="category-name">Tên loại hàng</label>
+                            <input type="text" class="form-control" id="category-name" placeholder="Nhập tên loại hàng">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm loại hàng</button>
+                        <button type="button" class="btn btn-secondary">Xóa loại hàng</button>
+                        <button type="button" class="btn btn-danger">Cập nhật loại hàng</button>
+                    </form>
+                </div>
+                <br>
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
+                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
+                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
+                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
+                            </button>
+                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
+                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
+                            </button>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Tạo bởi</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Ngũ cốc</td>
+                                <td>Trung</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!--    Product manager-->
+    <div id="product">
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div>
+                <h1 class="text-center">QUẢN LÍ SẢN PHẨM</h1>
+                <div class="container mt-5">
+                    <form>
+                        <!-- Tên Sản Phẩm -->
+                        <div class="form-group">
+                            <label for="productName">Tên Sản Phẩm</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm">
+                        </div>
+
+                        <!-- Số Lượng -->
+                        <div class="form-group">
+                            <label for="productQuantity">Số Lượng</label>
+                            <input type="number" class="form-control" id="productQuantity"
+                                   placeholder="Nhập số lượng sản phẩm"
+                                   min="1">
+                        </div>
+
+                        <!-- Giá -->
+                        <div class="form-group">
+                            <label for="productPrice">Giá</label>
+                            <input type="number" class="form-control" id="productPrice" placeholder="Nhập giá sản phẩm"
+                                   step="0.01"
+                                   min="0">
+                        </div>
+
+                        <!-- Trọng Lượng -->
+                        <div class="form-group">
+                            <label for="productWeight">Trọng Lượng</label>
+                            <input type="number" class="form-control" id="productWeight"
+                                   placeholder="Nhập trọng lượng sản phẩm"
+                                   step="0.01" min="0">
+                        </div>
+
+                        <!-- Ảnh -->
+                        <div class="form-group">
+                            <label for="productPhoto">Ảnh</label>
+                            <input type="file" class="form-control-file" id="productPhoto">
+                        </div>
+
+                        <!-- Mô Tả -->
+                        <div class="form-group">
+                            <label for="productDescription">Mô Tả</label>
+                            <textarea class="form-control" id="productDescription" rows="3"
+                                      placeholder="Nhập mô tả sản phẩm"></textarea>
+                        </div>
+
+                        <!-- Loại Hàng -->
+                        <div class="form-group">
+                            <label>Loại Hàng</label>
+                            <select class="form-control">
+                                <option>Chọn loại hàng</option>
+                                <option>Loại 1</option>
+                                <option>Loại 2</option>
+                                <option>Loại 3</option>
+                            </select>
+                        </div>
+
+                        <!-- Các nút hành động -->
+                        <button type="submit" class="btn btn-primary">Thêm Sản Phẩm</button>
+                        <button type="button" class="btn btn-secondary">Sửa Sản Phẩm</button>
+                        <button type="button" class="btn btn-danger">Xóa Sản Phẩm</button>
+                    </form>
+                </div>
+
+                <br>
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
+                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
+                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
+                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
+                            </button>
+                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
+                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
+                            </button>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Tình trạng</th>
+                                <th>Giá tiền</th>
+                                <th>Danh mục</th>
+                                <th>Chức năng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>71309005</td>
+                                <td>Bàn ăn Theresa</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Theresa"></td>
+                                <td>40</td>
+                                <td>Còn hàng</td>
+                                <td>5,600,000 đ</td>
+                                <td>Bàn ăn</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>61304003</td>
+                                <td>Bàn ăn Reno mặt đá</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Reno mặt đá"></td>
+                                <td>70</td>
+                                <td>Còn hàng</td>
+                                <td>24,200,000 đ</td>
+                                <td>Bàn ăn</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>63204003</td>
+                                <td>Bàn ăn Vitali mặt đá</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Vitali mặt đá"></td>
+                                <td>40</td>
+                                <td>Còn hàng</td>
+                                <td>33,235,000 đ</td>
+                                <td>Bàn ăn</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>72638003</td>
+                                <td>Ghế ăn gỗ Theresa</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn gỗ Theresa"></td>
+                                <td>50</td>
+                                <td>Còn hàng</td>
+                                <td>950,000 đ</td>
+                                <td>Ghế gỗ</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>33237003</td>
+                                <td>Ghế ăn bọc da nâu</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn bọc da nâu"></td>
+                                <td>50</td>
+                                <td>Còn hàng</td>
+                                <td>1,690,000 đ</td>
+                                <td>Ghế gỗ</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>23429002</td>
+                                <td>Bàn làm việc Deborah</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Deborah"></td>
+                                <td>25</td>
+                                <td>Còn hàng</td>
+                                <td>12,700,000 đ</td>
+                                <td>Bàn làm việc</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11139003</td>
+                                <td>Bàn làm việc Just</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Just"></td>
+                                <td>20</td>
+                                <td>Còn hàng</td>
+                                <td>2,900,000 đ</td>
+                                <td>Bàn làm việc</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>65420002</td>
+                                <td>Bàn làm việc Spin</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Spin"></td>
+                                <td>22</td>
+                                <td>Còn hàng</td>
+                                <td>6,200,000 đ</td>
+                                <td>Bàn làm việc</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- order -->
+    <div id="order">
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div>
+                <h1 class="text-center">QUẢN LÍ ĐƠN HÀNG</h1>
+                <div class="container mt-5">
+                    <form>
+                        <div class="form-group">
+                            <label for="id-user">ID Người dùng</label>
+                            <input type="text" class="form-control" id="id-user" placeholder="Nhập mã khách hàng">
+                        </div>
+                        <div class="form-group">
+                            <label for="order-address">Địa chỉ giao hàng</label>
+                            <input type="text" class="form-control" id="order-address" placeholder="Nhập địa chỉ giao hàng">
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Phương thức thanh toán</label>
+                            <select class="form-control" id="productCategory">
+                                <option>Chọn phương thức thanh toán</option>
+                                <option>Online</option>
+                                <option>Khi nhận hàng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái đơn hàng</label>
+                            <select class="form-control" >
+                                <option>chọn trạng thái</option>
+                                <option>Chờ xác nhận</option>
+                                <option>Chưa giao hàng</option>
+                                <option>Đang giao hàng</option>
+                                <option>Đã giao hàng</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm đơn hàng</button>
+                        <button type="button" class="btn btn-secondary">Sửa đơn hàng</button>
+                        <button type="button" class="btn btn-danger">Xóa đơn hàng</button>
+                    </form>
+                </div>
+
+                <br>
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
+                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
+                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
+                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
+                            </button>
+                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
+                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
+                            </button>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ID người dùng</th>
+                                <th>ID phiếu gg</th>
+                                <th>Ngày đặt hàng</th>
+                                <th>Địa chỉ giao hàng</th>
+                                <th>PT thanh toán</th>
+                                <th>TT đặt hàng</th>
+                                <th>TT thanh toán</th>
+                                <th>Phí ship</th>
+                                <th>Tổng tiền</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>DSVDFDF435V</td>
+                                <td>2024-05-03</td>
+                                <td>Hồ Chí Minh</td>
+                                <td>Online</td>
+                                <td>Đang giao hàng</td>
+                                <td>Chưa thanh toán</td>
+                                <td>20000</td>
+                                <td>1500000</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    coupon-->
+    <div id="coupon">
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div>
+                <h1 class="text-center">QUẢN LÍ GIẢM GIÁ</h1>
+                <div class="container mt-5">
+                    <form>
+                        <div class="form-group">
+                            <label for="code">Mã giảm giá</label>
+                            <input type="text" class="form-control" id="code" placeholder="Nhập mã giảm giá">
+                        </div>
+                        <div class="form-group">
+                            <label for="coupon-amount">Số tiền giảm</label>
+                            <input type="number" class="form-control" id="coupon-amount" placeholder="Nhập số tiền giảm"
+                                   min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="start-date">Ngày bắt đầu</label>
+                            <input type="date" class="form-control" id="start-date" placeholder="Nhập ngày bắt đầu">
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">Ngày kết thúc</label>
+                            <input type="date" class="form-control" id="end-date" placeholder="Nhập ngày kết thúc">
+                        </div>
+                        <div class="form-group">
+                            <label for="coupon-description">Mô Tả</label>
+                            <textarea class="form-control" id="coupon-description" rows="3"
+                                      placeholder="Nhập mô tả phiếu giảm giá"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm mã giảm giá</button>
+                        <button type="button" class="btn btn-secondary">Sửa mã giảm giá</button>
+                        <button type="button" class="btn btn-danger">Xóa mã giảm giá</button>
+                    </form>
+                </div>
+
+                <br>
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
+                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
+                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
+                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
+                            </button>
+                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
+                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
+                            </button>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Mã code</th>
+                                <th>Số tiền giảm</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Mô tả</th>
+                                <th>Người tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>FDBDFB45FG</td>
+                                <td>20000</td>
+                                <td>2024-05-03</td>
+                                <td>2024-05-07</td>
+                                <td>Đây là phiếu giảm giá 1</td>
+                                <td>Trung</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    User-->
+    <div id="user">
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div>
+                <h1 class="text-center">QUẢN LÍ NGƯỜI DÙNG</h1>
+                <div class="container mt-5">
+                    <form>
+                        <div class="form-group">
+                            <label for="user-id">ID Người dùng</label>
+                            <input type="text" class="form-control" id="user-id" placeholder="ID tài khoản">
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Tên đăng nhập</label>
+                            <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập">
+                        </div>
+                        <div class="form-group">
+                            <label for="fullname">Họ tên</label>
+                            <input type="text" class="form-control" id="fullname" placeholder="Tên người dùng">
+                        </div>
+                        <div class="form-group">
+                            <label>Vai trò</label> <br>
+                            <input type="radio" name="user-role" value="User"> User
+                            <input type="radio" name="user-role" value="admin"> Admin
+                        </div>
+                        <!-- Các nút hành động -->
+                        <button type="submit" class="btn btn-primary">Cập nhật tài khoản</button>
+                        <button type="button" class="btn btn-secondary">Xóa tài khoản</button>
+                    </form>
+                </div>
+
+                <br>
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
+                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
+                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
+                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
+                            </button>
+                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
+                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
+                            </button>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Giới tính</th>
+                                <th>Vai trò</th>
+                                <th>Ngày sinh</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>NguyenBaTrung</td>
+                                <td>Email</td>
+                                <td>0333783506</td>
+                                <td>Nam</td>
+                                <td>admin-system</td>
+                                <td>2004-08-27</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    thống kê đơn hàng-->
+    <div id="order-detail">
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div>
+                <h1 class="text-center">Thống kê đơn hàng</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
+                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
+                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
+                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
+                            </button>
+                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
+                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
+                            </button>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID đơn hàng</th>
+                                <th>ID Sản phẩm</th>
+                                <th>Số luượng</th>
+                                <th>Giá</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>5</td>
+                                <td>100000</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>61304003</td>
+                                <td>Bàn ăn Reno mặt đá</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Reno mặt đá"></td>
+                                <td>70</td>
+                                <td>Còn hàng</td>
+                                <td>24,200,000 đ</td>
+                                <td>Bàn ăn</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>63204003</td>
+                                <td>Bàn ăn Vitali mặt đá</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Vitali mặt đá"></td>
+                                <td>40</td>
+                                <td>Còn hàng</td>
+                                <td>33,235,000 đ</td>
+                                <td>Bàn ăn</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>72638003</td>
+                                <td>Ghế ăn gỗ Theresa</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn gỗ Theresa"></td>
+                                <td>50</td>
+                                <td>Còn hàng</td>
+                                <td>950,000 đ</td>
+                                <td>Ghế gỗ</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>33237003</td>
+                                <td>Ghế ăn bọc da nâu</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn bọc da nâu"></td>
+                                <td>50</td>
+                                <td>Còn hàng</td>
+                                <td>1,690,000 đ</td>
+                                <td>Ghế gỗ</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>23429002</td>
+                                <td>Bàn làm việc Deborah</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Deborah"></td>
+                                <td>25</td>
+                                <td>Còn hàng</td>
+                                <td>12,700,000 đ</td>
+                                <td>Bàn làm việc</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11139003</td>
+                                <td>Bàn làm việc Just</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Just"></td>
+                                <td>20</td>
+                                <td>Còn hàng</td>
+                                <td>2,900,000 đ</td>
+                                <td>Bàn làm việc</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>65420002</td>
+                                <td>Bàn làm việc Spin</td>
+                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Spin"></td>
+                                <td>22</td>
+                                <td>Còn hàng</td>
+                                <td>6,200,000 đ</td>
+                                <td>Bàn làm việc</td>
+                                <td>
+                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', function () {
+            document.querySelectorAll('.main-content > div').forEach(section => {
+                section.style.display = 'none';
+            });
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.style.display = 'block';
+            }
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+    // Hiển thị bảng điều khiển mặc định
+    document.getElementById('dashboard').style.display = 'block';
+
+    // Biểu đồ doanh thu
+    var ctx = document.getElementById('revenueChart').getContext('2d');
+    var revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+            datasets: [{
+                label: 'Doanh thu',
+                data: [12000, 15000, 14000, 20000, 17000, 21000],
+                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                borderColor: 'rgba(0, 123, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Biểu đồ khách hàng
+    var ctx2 = document.getElementById('customerChart').getContext('2d');
+    var customerChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+            datasets: [{
+                label: 'Khách hàng',
+                data: [30, 50, 40, 70, 60, 90],
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                borderColor: 'rgba(40, 167, 69, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+</body>
+</html>
