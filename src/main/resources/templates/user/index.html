@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ogani | Template</title>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Google Font -->
     <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
           rel="stylesheet">
@@ -54,6 +54,30 @@
 </head>
 
 <body>
+<!---->
+<h1>User Homepage</h1>
+<div id="content">
+    <!-- Nội dung sẽ được load bằng Ajax -->
+    <button id="loadData">Load Data</button>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#loadData').click(function() {
+            $.ajax({
+                url: '/getData', // URL của API endpoint
+                type: 'GET',
+                success: function(data) {
+                    $('#content').html(data); // Hiển thị dữ liệu nhận được vào div#content
+                },
+                error: function(error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    });
+</script>
+<!-- -->
+
 <!-- Page Preloder -->
 <div id="preloder">
     <div class="loader"></div>
