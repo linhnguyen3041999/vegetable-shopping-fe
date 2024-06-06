@@ -100,7 +100,6 @@ document.getElementById('update-product').addEventListener('click',
         event.preventDefault();
         updateProduct();
     })
-
 async function updateProduct() {
     try {
         let photoInput = document.getElementById('product-photo');
@@ -114,7 +113,7 @@ async function updateProduct() {
             description: document.getElementById('product-description').value,
             categoryId: +document.getElementById('product-category-id').value
         }
-        await axios.put(`http://localhost:8080/api/product/${product.productId}`, product);
+        await axios.put(`http://localhost:8080/api/v1/product/${product.productId}`, product);
         alert('Update Product Success');
         getAllProductAdmin();
     } catch (error) {
