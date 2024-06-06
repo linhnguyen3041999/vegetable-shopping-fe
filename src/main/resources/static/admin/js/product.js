@@ -132,17 +132,11 @@ document.getElementById('delete-product').addEventListener('click',
 async function deleteProduct() {
    try {
        let productId = +document.getElementById('product-id').value;
-       await axios.delete(`http://localhost:8080/product/${productId}`)
+       await axios.delete(`http://localhost:8080/api/v1/product/${productId}`)
        alert('Product deleted successfully')
    } catch (error) {
        alert('Delete failed');
        console.log('Error: ' + error.message);
    }
 }
-
-
-
-
-
-
 
