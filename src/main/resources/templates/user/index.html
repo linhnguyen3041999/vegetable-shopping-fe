@@ -23,34 +23,16 @@
     <link rel="stylesheet" th:href="@{/user/template/css/owl.carousel.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/slicknav.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/style.css}" type="text/css">
-    <!-- Css Styles -->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/bootstrap.min.css" type="text/css">-->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/font-awesome.min.css" type="text/css">-->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/elegant-icons.css" type="text/css">-->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/nice-select.css" type="text/css">-->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/jquery-ui.min.css" type="text/css">-->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/owl.carousel.min.css" type="text/css">-->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/slicknav.min.css" type="text/css">-->
-    <!--    <link rel="stylesheet" href="../../static/user/template/css/style.css" type="text/css">-->
-    <style>
-        .product-item {
-            border: 1px solid gray;
-        }
-        .product-name {
-            font-weight: 600;
-            color: black;
-        }
-        .product-name:hover {
-            color: green;
-        }
-        .product-price {
-            color: red;
-            font-weight: 500;
-        }
-        .product-image {
-            min-height: 270px;
-        }
-    </style>
+
+    <!--axios-->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
+            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--    css     -->
+    <link rel="stylesheet" th:href="@{/user/css/index.css}">
+    <!-- js call api -->
+    <script th:src="@{/user/js/index.js}"></script>
+
 </head>
 
 <body>
@@ -93,7 +75,7 @@
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                    <li><a href="shopping-cart.html">Shoping Cart</a></li>
                     <li><a href="./checkout.html">Check Out</a></li>
                     <li><a href="./blog-details.html">Blog Details</a></li>
                 </ul>
@@ -171,8 +153,8 @@
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
+                                <li><a href="shopping-cart.html">Shopping Cart</a></li>
+                                <li><a href="./checkout-form.html">Check Out</a></li>
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
@@ -185,7 +167,7 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span>$150.00</span></div>
                 </div>
@@ -237,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="hero__item set-bg" data-setbg="../../static/user/template/img/hero/banner.jpg">
+                <div class="hero__item set-bg" data-setbg="/user/template/img/hero/banner.jpg">
                     <div class="hero__text">
                         <span>FRUIT FRESH</span>
                         <h2>Vegetable <br/>100% Organic</h2>
@@ -311,36 +293,9 @@
                 </div>
             </div>
         </div>
-        <div class="row featured__filter">
-            <th:block th:each="product : ${products}">
-                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="product-item border my-3">
-                        <div class="position-relative bg-light overflow-hidden">
-                            <img class="img-fluid w-100 product-image" th:src="@{'/user/template/img/product/' + ${product.photo}}" alt="Product Image">
-                            <div
-                                    class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
-                                New
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5 mb-2 product-name" href="product-detail.html"
-                               th:text="${product.name}"></a>
-                            <span class="me-1 product-price" th:text="${product.price * 0.9}"></span>
-                            <s class="text-body text-decoration-line-through" th:text="${product.price}"></s>
-                        </div>
-                        <div class="d-flex border-top  font-weight-bold">
-                            <small class="w-50 text-center border-end py-2">
-                                <a class="text-body" href="product-detail.html"><i
-                                        class="fa fa-eye text-primary me-2"></i>View detail</a>
-                            </small>
-                            <small class="w-50 text-center py-2">
-                                <a class="text-body" href="shopping-cart.html"><i
-                                        class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </th:block>
+        <div id="product-list" class="row featured__filter">
+
+
         </div>
     </div>
 </section>

@@ -3,6 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 
 <head>
@@ -12,14 +13,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+          th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="../../static/admin/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/admin/plugins/fontawesome-free/css/all.min.css}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../../static/admin/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
+
+    <!--axios-->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
+            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <style>
         .form-control {
             border-radius: 0;
@@ -64,7 +71,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="navbar-search-block">
                     <form class="form-inline">
                         <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                   aria-label="Search">
                             <div class="input-group-append">
                                 <button class="btn btn-navbar" type="submit">
                                     <i class="fas fa-search"></i>
@@ -201,7 +209,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                           aria-label="Search">
                     <div class="input-group-append">
                         <button class="btn btn-sidebar">
                             <i class="fas fa-search fa-fw"></i>
@@ -212,7 +221,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Sidebar Menu -->
             <nav class="mt-2 slidebar">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                        with font-awesome or any other icon font library -->
                     <li class="nav-item">
@@ -383,7 +393,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="categoryName">Category Name</label>
-                                    <input type="text" class="form-control" id="categoryName" placeholder="Enter the category name">
+                                    <input type="text" class="form-control" id="categoryName"
+                                           placeholder="Enter the category name">
                                 </div>
                             </div>
                         </form>
@@ -394,13 +405,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file</button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data</button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export</button>
-                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
+                                        export
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
+                                        all
                                     </button>
                                 </div>
                                 <table class="table table-bordered table-hover">
@@ -430,54 +446,68 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div id="product">
                     <div>
                         <h2 class="text-red">Manager Product</h2>
-                        <form class="form-product">
+                        <form id="product-form" class="form-product">
                             <div class="row mb-3">
                                 <!-- Loại Hàng -->
                                 <div class="form-group col-md-6">
-                                    <label>Loại Hàng</label>
-                                    <select class="form-control">
-                                        <option>Chọn loại hàng</option>
-                                        <option>Loại 1</option>
-                                        <option>Loại 2</option>
-                                        <option>Loại 3</option>
+                                    <label for="product-category-id">Category type</label>
+                                    <select id="product-category-id" class="form-control">
+                                        <option>select category type</option>
+                                        <option value="1">vegetable</option>
+                                        <option value="2">tubers</option>
+                                        <option value="3">fruit</option>
+                                        <option value="4">bean</option>
+                                        <option value="5">mushroom</option>
+                                        <option value="6">cereal</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row mb-3">
                                 <div class="form-group col-md-6">
-                                    <label for="productName">Tên Sản Phẩm</label>
-                                    <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="productQuantity">Số Lượng</label>
-                                    <input type="number" class="form-control" id="productQuantity" placeholder="Nhập số lượng sản phẩm"
-                                           min="1">
+                                    <label for="product-id">Id</label>
+                                    <input type="text" class="form-control" id="product-id"
+                                           placeholder="" disabled>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
-                                    <label for="productPrice">Giá</label>
-                                    <input type="number" class="form-control" id="productPrice" placeholder="Nhập giá sản phẩm"
-                                           step="0.01" min="0">
+                                    <label for="product-name">Name</label>
+                                    <input type="text" class="form-control" id="product-name"
+                                           placeholder="Enter name product">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="productWeight">Trọng Lượng</label>
-                                    <input type="number" class="form-control" id="productWeight" placeholder="Nhập trọng lượng sản phẩm"
+                                    <label for="product-quantity">Quantity</label>
+                                    <input type="number" class="form-control" id="product-quantity"
+                                           placeholder="Enter the quantity"
+                                           min="1" step="1">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="product-price">Price</label>
+                                    <input type="number" class="form-control" id="product-price"
+                                           placeholder="Enter the price"
+                                           min="1" step="10">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="product-weight">Weight</label>
+                                    <input type="number" class="form-control" id="product-weight"
+                                           placeholder="Enter the weight"
                                            step="0.01" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="productPhoto">Ảnh</label>
-                                <input type="file" class="form-control-file" id="productPhoto">
+                                <label for="product-photo">Photo</label>
+                                <input type="file" class="form-control-file" id="product-photo">
                             </div>
                             <div class="form-group">
-                                <label for="productDescription">Mô Tả</label>
-                                <textarea class="form-control" id="productDescription" rows="5"
-                                          placeholder="Nhập mô tả sản phẩm"></textarea>
+                                <label for="product-description">Description</label>
+                                <textarea class="form-control" id="product-description" rows="5"
+                                          placeholder="Enter the description"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Thêm Sản Phẩm</button>
-                            <button type="button" class="btn btn-secondary">Sửa Sản Phẩm</button>
-                            <button type="button" class="btn btn-danger">Xóa Sản Phẩm</button>
+                            <button id="add-product" type="button" class="btn btn-primary">Add Product</button>
+                            <button id="update-product" type="button" class="btn btn-secondary">Update Product</button>
+                            <button id="delete-product" type="button" class="btn btn-danger">Delete Product</button>
                         </form>
 
                         <br>
@@ -486,133 +516,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
-                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép
+                                    </button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất
+                                        Excel
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất
+                                        cả
                                     </button>
                                 </div>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Ảnh</th>
-                                        <th>Số lượng</th>
-                                        <th>Tình trạng</th>
-                                        <th>Giá tiền</th>
-                                        <th>Danh mục</th>
-                                        <th>Chức năng</th>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Photo</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Weight</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>71309005</td>
-                                        <td>Bàn ăn Theresa</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Theresa"></td>
-                                        <td>40</td>
-                                        <td>Còn hàng</td>
-                                        <td>5,600,000 đ</td>
-                                        <td>Bàn ăn</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>61304003</td>
-                                        <td>Bàn ăn Reno mặt đá</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Reno mặt đá"></td>
-                                        <td>70</td>
-                                        <td>Còn hàng</td>
-                                        <td>24,200,000 đ</td>
-                                        <td>Bàn ăn</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>63204003</td>
-                                        <td>Bàn ăn Vitali mặt đá</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Vitali mặt đá"></td>
-                                        <td>40</td>
-                                        <td>Còn hàng</td>
-                                        <td>33,235,000 đ</td>
-                                        <td>Bàn ăn</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>72638003</td>
-                                        <td>Ghế ăn gỗ Theresa</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Ghế ăn gỗ Theresa"></td>
-                                        <td>50</td>
-                                        <td>Còn hàng</td>
-                                        <td>950,000 đ</td>
-                                        <td>Ghế gỗ</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>33237003</td>
-                                        <td>Ghế ăn bọc da nâu</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Ghế ăn bọc da nâu"></td>
-                                        <td>50</td>
-                                        <td>Còn hàng</td>
-                                        <td>1,690,000 đ</td>
-                                        <td>Ghế gỗ</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>23429002</td>
-                                        <td>Bàn làm việc Deborah</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Deborah"></td>
-                                        <td>25</td>
-                                        <td>Còn hàng</td>
-                                        <td>12,700,000 đ</td>
-                                        <td>Bàn làm việc</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>11139003</td>
-                                        <td>Bàn làm việc Just</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Just"></td>
-                                        <td>20</td>
-                                        <td>Còn hàng</td>
-                                        <td>2,900,000 đ</td>
-                                        <td>Bàn làm việc</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>65420002</td>
-                                        <td>Bàn làm việc Spin</td>
-                                        <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Spin"></td>
-                                        <td>22</td>
-                                        <td>Còn hàng</td>
-                                        <td>6,200,000 đ</td>
-                                        <td>Bàn làm việc</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    <tbody id="product-table">
+                                    <!-- Data product show in here -->
                                     </tbody>
                                 </table>
                             </div>
@@ -648,11 +581,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="card-body">
                             <div class="mb-3">
                                 <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file</button>
-                                <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data</button>
+                                <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                </button>
                                 <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
                                 <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
                                 </button>
-                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export</button>
+                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                </button>
                                 <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
                                 </button>
                             </div>
@@ -733,11 +668,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="card-body">
                             <div class="mb-3">
                                 <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file</button>
-                                <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data</button>
+                                <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                </button>
                                 <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
                                 <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
                                 </button>
-                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export</button>
+                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                </button>
                                 <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
                                 </button>
                             </div>
@@ -785,7 +722,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="orderID">Order ID</label>
-                                    <input type="text" name="orderID" class="form-control" id="orderID" placeholder="Enter the Order ID">
+                                    <input type="text" name="orderID" class="form-control" id="orderID"
+                                           placeholder="Enter the Order ID">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Order Status</label>
@@ -808,7 +746,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <select name="paymentStatus" class="form-control">
                                         <option>Select Payment Status</option>
                                         <option value="paid">Paid</option>
-                                        <option value="paymentFailed">Payment Failed </option>
+                                        <option value="paymentFailed">Payment Failed</option>
                                         <option value="unpaid">Unpaid</option>
                                         <option value="awaitingAuthorization">Awaiting Authorization</option>
                                     </select>
@@ -817,21 +755,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="total">Total</label>
-                                    <input type="number" name="total" class="form-control" id="total" placeholder="Input total" step="0.01"
+                                    <input type="number" name="total" class="form-control" id="total"
+                                           placeholder="Input total" step="0.01"
                                            min="0">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Payment Method</label>
                                     <select name="paymentMethod" class="form-control">
                                         <option>Select Payment Method</option>
-                                        <option value="bankTranfer">Bank transfer </option>
+                                        <option value="bankTranfer">Bank transfer</option>
                                         <option value="cash">Cash</option>
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" name="addOrderDetail" class="btn btn-primary">Add Order Detail</button>
-                            <button type="button" name="revisionOrderDetail" class="btn btn-secondary">Revision Order Detail </button>
-                            <button type="button" name="remoteOrderDetail" class="btn btn-danger">Remote Order Detail</button>
+                            <button type="submit" name="addOrderDetail" class="btn btn-primary">Add Order Detail
+                            </button>
+                            <button type="button" name="revisionOrderDetail" class="btn btn-secondary">Revision Order
+                                Detail
+                            </button>
+                            <button type="button" name="remoteOrderDetail" class="btn btn-danger">Remote Order Detail
+                            </button>
                         </form>
 
                         <br>
@@ -840,13 +783,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Add New Order</button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data</button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Add New Order
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export</button>
-                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
+                                        export
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
+                                        all
                                     </button>
                                 </div>
                                 <table class="table table-bordered table-hover">
@@ -948,23 +896,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="orderID">Order ID</label>
-                                    <input type="text" name="orderID" class="form-control" id="orderID" placeholder="Input Order ID">
+                                    <input type="text" name="orderID" class="form-control" id="orderID"
+                                           placeholder="Input Order ID">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="productID">Product ID</label>
-                                    <input type="number" name="productID" class="form-control" id="productID" placeholder="Input Product ID"
+                                    <label for="product-id">Product ID</label>
+                                    <input type="number" name="product-id" class="form-control" id="productID"
+                                           placeholder="Input Product ID"
                                            min="1">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="quantity">Quantity</label>
-                                    <input type="number" name="quantity" class="form-control" id="quantity" placeholder="Input Quantity"
+                                    <input type="number" name="quantity" class="form-control" id="quantity"
+                                           placeholder="Input Quantity"
                                            step="0.01" min="0">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">Price</label>
-                                    <input type="number" name="price" class="form-control" id="price" placeholder="Input Price" step="0.01"
+                                    <input type="number" name="price" class="form-control" id="price"
+                                           placeholder="Input Price" step="0.01"
                                            min="0">
                                 </div>
                             </div>
@@ -979,13 +931,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload Files</button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print Data</button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Copy</button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Export Excel
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload Files
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Export PDF</button>
-                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Remote All
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print Data
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Copy</button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Export
+                                        Excel
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Export PDF
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Remote
+                                        All
                                     </button>
                                 </div>
                                 <table class="table table-bordered table-hover">
@@ -1001,7 +958,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <tbody>
                                     <tr>
                                         <td>#12537</td>
-                                        <td>#BM9708 </td>
+                                        <td>#BM9708</td>
                                         <td>40</td>
                                         <td>120.000 VND</td>
                                         <td>
@@ -1043,9 +1000,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </footer>
 </div>
 
-
 <script>
-
     document.querySelectorAll('.sidebar a').forEach(link => {
         link.addEventListener('click', function () {
             document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
@@ -1054,22 +1009,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
             document.querySelector(this.getAttribute('href')).style.display = 'block';
         });
     });
-
     // Set default active link and content
     window.onload = function () {
         document.querySelector('.sidebar a[href="#dashboard"]').click();
     };
+
 </script>
 
 <!-- ./wrapper -->
 <!-- REQUIRED SCRIPTS -->
 
+<!--link script-->
+<script th:src="@{/admin/js/product.js}"></script>
 <!-- jQuery -->
-<script src="../../static/admin/plugins/jquery/jquery.min.js"></script>
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->
-<script src="../../static/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
-<script src="../../static/admin/dist/js/adminlte.min.js"></script>
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
 </body>
 
 </html>

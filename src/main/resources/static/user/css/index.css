@@ -1,0 +1,18 @@
+
+.product-item {
+    border: 1px solid gray;
+}
+.product-name {
+    font-weight: 600;
+    color: black;
+}
+.product-name:hover {
+    color: green;
+}
+.product-price {
+    color: red;
+    font-weight: 500;
+}
+.product-image {
+    min-height: 270px;
+}
