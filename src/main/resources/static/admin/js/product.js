@@ -1,6 +1,5 @@
 // Load data up table
-getAllProductAdmin();
-
+window.getAllProductAdmin();
 async function getAllProductAdmin() {
     try {
         let {data: products} = await axios.get('http://localhost:8080/api/v1/product');
@@ -54,24 +53,20 @@ async function getAllProductAdmin() {
                     document.getElementById('product-weight').value = response.weight;
                     document.getElementById('product-description').value = response.description;
                     document.getElementById('product-category-id').value = response.categoryId;
-                    // document.getElementById('product-photo').value = response.photo;
                 } catch (error) {
                     console.error('Error:', error);
                     alert('edit not found');
                 }
             })
-
         });
-
     } catch (error) {
         console.error('Error: ', error);
     }
 }
-
 // Add Product
 document.getElementById('add-product').addEventListener('click',
     function (event) {
-        event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+        event.preventDefault();
         addProduct();
     })
 function addProduct() {
@@ -88,6 +83,7 @@ function addProduct() {
     axios.post('http://localhost:8080/api/v1/product', product)
         .then(response => {
             alert('Add product successfully');
+            resetForm();
             getAllProductAdmin();
         })
         .catch(error => {
@@ -115,10 +111,10 @@ async function updateProduct() {
         }
         await axios.put(`http://localhost:8080/api/v1/product/${product.productId}`, product);
         alert('Update Product Success');
+        resetForm();
         getAllProductAdmin();
     } catch (error) {
         alert('Update Product Failure');
-        console.log('Error: ' + error.message);
     }
 }
 
@@ -132,10 +128,36 @@ async function deleteProduct() {
    try {
        let productId = +document.getElementById('product-id').value;
        await axios.delete(`http://localhost:8080/api/v1/product/${productId}`)
-       alert('Product deleted successfully')
+       alert('Product deleted successfully');
+       resetForm();
+       getAllProductAdmin();
    } catch (error) {
        alert('Delete failed');
-       console.log('Error: ' + error.message);
    }
 }
+
+document.getElementById('reset-product').addEventListener('click',
+    function(event) {
+        resetForm();
+    })
+function resetForm() {
+    document.getElementById('product-id').value = null;
+    document.getElementById('product-name').value = null;
+    document.getElementById('product-quantity').value = null;
+    document.getElementById('product-price').value = null;
+    document.getElementById('product-weight').value = null;
+    document.getElementById('product-description').value = null;
+    document.getElementById('product-category-id').value = null;
+    document.getElementById('product-photo').value = null;
+}
+
+/**
+ * bổ sung thêm:
+ * function:
+ *  + load hình ảnh lên form khi click vào edit trên table
+ *  + load category lên thẻ input trong form
+ *  + load name category lên table
+ *  + table chỉ hiển thị 10 đến 15 sản phẩm
+ */
+
 
