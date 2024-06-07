@@ -383,20 +383,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <form class="form-product">
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
-                                    <label>Category ID</label>
-                                    <select class="form-control">
-                                        <option>Select product type</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
+                                    <label for="category-id">Category Id</label>
+                                    <input type="text" class="form-control" id="category-id" disabled>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="categoryName">Category Name</label>
-                                    <input type="text" class="form-control" id="categoryName"
+                                    <label for="category-name">Category Name</label>
+                                    <input type="text" class="form-control" id="category-name"
                                            placeholder="Enter the category name">
                                 </div>
                             </div>
+                            <button id="add-category" type="button" class="btn btn-primary">Add Category</button>
+                            <button id="update-category" type="button" class="btn btn-secondary">Update Category
+                            </button>
+                            <button id="delete-category" type="button" class="btn btn-danger">Delete Category</button>
+                            <button id="reset-category" type="button" class="btn btn-secondary">Reset Form</button>
                         </form>
 
                         <br>
@@ -427,15 +427,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>23</td>
-                                        <td>Cà rốt</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    <tbody id="category-table">
+                                    <!-- Category load in here-->
                                     </tbody>
                                 </table>
                             </div>
@@ -1022,6 +1015,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!--link script-->
 <script th:src="@{/admin/js/product.js}"></script>
+<script th:src="@{/admin/js/category.js}"></script>
+
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->

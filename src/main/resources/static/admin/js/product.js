@@ -45,7 +45,6 @@ async function getAllProductAdmin() {
             productEdit.addEventListener('click', async () => {
                 try {
                     let {data: response} = await axios.get(`http://localhost:8080/api/v1/product/${product.productId}`)
-                    console.log(response)
                     document.getElementById('product-id').value = response.productId;
                     document.getElementById('product-name').value = response.productName;
                     document.getElementById('product-quantity').value = response.quantity;
@@ -80,10 +79,10 @@ function addProduct() {
         description: document.getElementById('product-description').value,
         categoryId: +document.getElementById('product-category-id').value
     }
-    axios.post('http://localhost:8080/api/v1/product', product)
+     axios.post('http://localhost:8080/api/v1/product', product)
         .then(response => {
             alert('Add product successfully');
-            resetForm();
+            resetFormProduct();
             getAllProductAdmin();
         })
         .catch(error => {
@@ -111,7 +110,7 @@ async function updateProduct() {
         }
         await axios.put(`http://localhost:8080/api/v1/product/${product.productId}`, product);
         alert('Update Product Success');
-        resetForm();
+        resetFormProduct();
         getAllProductAdmin();
     } catch (error) {
         alert('Update Product Failure');
@@ -129,7 +128,7 @@ async function deleteProduct() {
        let productId = +document.getElementById('product-id').value;
        await axios.delete(`http://localhost:8080/api/v1/product/${productId}`)
        alert('Product deleted successfully');
-       resetForm();
+       resetFormProduct();
        getAllProductAdmin();
    } catch (error) {
        alert('Delete failed');
@@ -138,9 +137,10 @@ async function deleteProduct() {
 
 document.getElementById('reset-product').addEventListener('click',
     function(event) {
-        resetForm();
+        event.preventDefault();
+        resetFormProduct();
     })
-function resetForm() {
+function resetFormProduct() {
     document.getElementById('product-id').value = null;
     document.getElementById('product-name').value = null;
     document.getElementById('product-quantity').value = null;
