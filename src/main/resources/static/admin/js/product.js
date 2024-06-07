@@ -1,5 +1,6 @@
 // Load data up table
 window.getAllProductAdmin();
+
 async function getAllProductAdmin() {
     try {
         let {data: products} = await axios.get('http://localhost:8080/api/v1/product');
@@ -62,12 +63,14 @@ async function getAllProductAdmin() {
         console.error('Error: ', error);
     }
 }
+
 // Add Product
 document.getElementById('add-product').addEventListener('click',
     function (event) {
         event.preventDefault();
         addProduct();
     })
+
 function addProduct() {
     let photoInput = document.getElementById('product-photo');
     let product = {
@@ -79,7 +82,7 @@ function addProduct() {
         description: document.getElementById('product-description').value,
         categoryId: +document.getElementById('product-category-id').value
     }
-     axios.post('http://localhost:8080/api/v1/product', product)
+    axios.post('http://localhost:8080/api/v1/product', product)
         .then(response => {
             alert('Add product successfully');
             resetFormProduct();
@@ -95,6 +98,7 @@ document.getElementById('update-product').addEventListener('click',
         event.preventDefault();
         updateProduct();
     })
+
 async function updateProduct() {
     try {
         let photoInput = document.getElementById('product-photo');
@@ -124,22 +128,23 @@ document.getElementById('delete-product').addEventListener('click',
     })
 
 async function deleteProduct() {
-   try {
-       let productId = +document.getElementById('product-id').value;
-       await axios.delete(`http://localhost:8080/api/v1/product/${productId}`)
-       alert('Product deleted successfully');
-       resetFormProduct();
-       getAllProductAdmin();
-   } catch (error) {
-       alert('Delete failed');
-   }
+    try {
+        let productId = +document.getElementById('product-id').value;
+        await axios.delete(`http://localhost:8080/api/v1/product/${productId}`)
+        alert('Product deleted successfully');
+        resetFormProduct();
+        getAllProductAdmin();
+    } catch (error) {
+        alert('Delete failed');
+    }
 }
 
 document.getElementById('reset-product').addEventListener('click',
-    function(event) {
+    function (event) {
         event.preventDefault();
         resetFormProduct();
     })
+
 function resetFormProduct() {
     document.getElementById('product-id').value = null;
     document.getElementById('product-name').value = null;
@@ -151,11 +156,26 @@ function resetFormProduct() {
     document.getElementById('product-photo').value = null;
 }
 
+window.getCategoryToInputTableForm();
+async function getCategoryToInputTableForm() {
+    try {
+        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
+        let result = '<option>select category type</option>';
+        categories.forEach(category => {
+            result += `
+                <option value="${category.categoryId}">${category.categoryName}</option>
+            `;
+        })
+        document.getElementById('product-category-id').innerHTML = result;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 /**
  * bổ sung thêm:
  * function:
  *  + load hình ảnh lên form khi click vào edit trên table
- *  + load category lên thẻ input trong form
  *  + load name category lên table
  *  + table chỉ hiển thị 10 đến 15 sản phẩm
  */
