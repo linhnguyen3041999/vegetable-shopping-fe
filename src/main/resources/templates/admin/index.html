@@ -1,939 +1,1021 @@
 <!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
 <html xmlns:th="http://www.thymeleaf.org">
-
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
-    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
-    <!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
-    <!--    <link rel="stylesheet" href="../../static/admin/css/index.css">-->
-    <link rel="stylesheet" th:href="@{/admin/css/index.css}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Starter</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+          th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" th:href="@{/admin/plugins/fontawesome-free/css/all.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
     <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
 
+    <!--axios-->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
+            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        .form-control {
+            border-radius: 0;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            border: none;
+        }
+
+        .form-product {
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 10px;
+            background-color: white;
+        }
+    </style>
 </head>
-<body>
-<div class="sidebar">
-    <div class="profile">
-        <img src="https://via.placeholder.com/80" alt="Profile Picture">
-        <h4>Vegetable Store</h4>
-        <p>Chào mừng bạn trở lại</p>
-    </div>
-    <a href="#pos" class="btn btn-warning text-dark text-center" style="margin: 10px 20px;">POS Bán Hàng</a>
-    <a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a>
-    <a href="#category"><i class="fas fa-user-tie"></i> Quản lý loại hàng</a>
-    <a href="#product"><i class="fas fa-users"></i> Quản lý sản phẩm</a>
-    <a href="#order"><i class="fas fa-box"></i>Quản lí đơn hàng</a>
-    <a href="#coupon"><i class="fas fa-shopping-cart"></i> Quản lý giảm giá</a>
-    <a href="#user"><i class="fas fa-clipboard"></i> Quản lý tài khoản</a>
-    <a href="#order-detail"><i class="fas fa-clipboard"></i>Thống kê đơn hàng</a>
-</div>
-<div class="main-content">
-    <div id="dashboard">
-        <h1 style="text-align: center; color: #48ecb2; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; font-weight: bold;">
-            BẢNG ĐIỀU KHIỂN</h1>
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card bg-primary stat-card">
-                    <div>
-                        <h3>56 khách hàng</h3>
-                        <p>Tổng khách hàng</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-success stat-card">
-                    <div>
-                        <h3>1850 sản phẩm</h3>
-                        <p>Tổng sản phẩm</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-box"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-warning stat-card">
-                    <div>
-                        <h3>247 đơn hàng</h3>
-                        <p>Tổng đơn hàng</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-danger stat-card">
-                    <div>
-                        <h3>4 sản phẩm</h3>
-                        <p>Sắp hết hàng</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body class="hold-transition sidebar-mini" onload="showDashBoard()">
+<div class="wrapper">
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-warning">Tình trạng đơn hàng</div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>ID đơn hàng</th>
-                                <th>Tên khách hàng</th>
-                                <th>Tổng tiền</th>
-                                <th>Trạng thái</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>AL3947</td>
-                                <td>Phạm Thị Ngọc</td>
-                                <td>19,770,000 đ</td>
-                                <td><span class="badge badge-primary">Chờ xử lý</span></td>
-                            </tr>
-                            <tr>
-                                <td>ER3835</td>
-                                <td>Nguyễn Thị Mỹ Yến</td>
-                                <td>16,770,000 đ</td>
-                                <td><span class="badge badge-warning">Đang vận chuyển</span></td>
-                            </tr>
-                            <tr>
-                                <td>MD0837</td>
-                                <td>Triệu Thanh Phú</td>
-                                <td>9,400,000 đ</td>
-                                <td><span class="badge badge-success">Đã hoàn thành</span></td>
-                            </tr>
-                            <tr>
-                                <td>MT9835</td>
-                                <td>Đỗ Hoàng Phúc</td>
-                                <td>40,650,000 đ</td>
-                                <td><span class="badge badge-danger">Đã hủy</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">Khách hàng mới</div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên khách hàng</th>
-                                <th>Ngày đăng ký</th>
-                                <th>Địa chỉ email</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>#183</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>21/12/2023</td>
-                                <td>vana@example.com</td>
-                            </tr>
-                            <tr>
-                                <td>#184</td>
-                                <td>Trần Thị B</td>
-                                <td>22/12/2023</td>
-                                <td>thib@example.com</td>
-                            </tr>
-                            <tr>
-                                <td>#185</td>
-                                <td>Phạm Văn C</td>
-                                <td>23/12/2023</td>
-                                <td>vanc@example.com</td>
-                            </tr>
-                            <tr>
-                                <td>#186</td>
-                                <td>Vũ Thị D</td>
-                                <td>24/12/2023</td>
-                                <td>thid@example.com</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="index3.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-info">Biểu đồ doanh thu</div>
-                    <div class="card-body">
-                        <canvas id="revenueChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-success">Biểu đồ khách hàng</div>
-                    <div class="card-body">
-                        <canvas id="customerChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Các phần khác tương tự -->
-    <div id="category">
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <div>
-                <h1 class="text-center">QUẢN LÍ LOẠI HÀNG</h1>
-                <div class="container mt-5">
-                    <form>
-                        <div class="form-group">
-                            <label for="category-name">Tên loại hàng</label>
-                            <input type="text" class="form-control" id="category-name" placeholder="Nhập tên loại hàng">
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Navbar Search -->
+            <li class="nav-item">
+                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                    <i class="fas fa-search"></i>
+                </a>
+                <div class="navbar-search-block">
+                    <form class="form-inline">
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                   aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-navbar" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Thêm loại hàng</button>
-                        <button type="button" class="btn btn-secondary">Xóa loại hàng</button>
-                        <button type="button" class="btn btn-danger">Cập nhật loại hàng</button>
                     </form>
                 </div>
-                <br>
-                <hr>
+            </li>
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
-                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
-                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
-                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
-                            </button>
-                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
-                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
-                            </button>
+            <!-- Messages Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-comments"></i>
+                    <span class="badge badge-danger navbar-badge">3</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                            <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    Brad Diesel
+                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                </h3>
+                                <p class="text-sm">Call me whenever you can...</p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            </div>
                         </div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên</th>
-                                <th>Tạo bởi</th>
-                                <th>Hành động</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ngũ cốc</td>
-                                <td>Trung</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
+                        <!-- Message End -->
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                            <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    John Pierce
+                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                </h3>
+                                <p class="text-sm">I got your message bro</p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            </div>
+                        </div>
+                        <!-- Message End -->
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                            <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    Nora Silvester
+                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                </h3>
+                                <p class="text-sm">The subject goes here</p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            </div>
+                        </div>
+                        <!-- Message End -->
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                </div>
+            </li>
+            <!-- Notifications Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge">15</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-header">15 Notifications</span>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-envelope mr-2"></i> 4 new messages
+                        <span class="float-right text-muted text-sm">3 mins</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-users mr-2"></i> 8 friend requests
+                        <span class="float-right text-muted text-sm">12 hours</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-file mr-2"></i> 3 new reports
+                        <span class="float-right text-muted text-sm">2 days</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                    <i class="fas fa-th-large"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
 
-                            </tbody>
-                        </table>
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">AdminLTE 3</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Alexander Pierce</a>
+                </div>
+            </div>
+
+            <!-- SidebarSearch Form -->
+            <div class="form-inline">
+                <div class="input-group" data-widget="sidebar-search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-sidebar">
+                            <i class="fas fa-search fa-fw"></i>
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2 slidebar">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                       with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                DashBoard
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#category" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Category management
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#product" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Product management
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#account" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Account management
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#coupon" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Coupon management
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#order" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Order management
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#orderDetail" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Order Detai
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
         </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Starter Page</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Starter Page</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid main-content" id="main-content">
+                <div id="dashboard">
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>150</h3>
+
+                                    <p>New Orders</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                                    <p>Bounce Rate</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>44</h3>
+
+                                    <p>User Registrations</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>65</h3>
+
+                                    <p>Unique Visitors</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                    </div>
+                </div>
+
+                <div id="category">
+                    <div>
+                        <h2 class="text-red">Category management</h2>
+                        <form class="form-product">
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="category-id">Category Id</label>
+                                    <input type="text" class="form-control" id="category-id" disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="category-name">Category Name</label>
+                                    <input type="text" class="form-control" id="category-name"
+                                           placeholder="Enter the category name">
+                                </div>
+                            </div>
+                            <button id="add-category" type="button" class="btn btn-primary">Add Category</button>
+                            <button id="update-category" type="button" class="btn btn-secondary">Update Category
+                            </button>
+                            <button id="delete-category" type="button" class="btn btn-danger">Delete Category</button>
+                            <button id="reset-category" type="button" class="btn btn-secondary">Reset Form</button>
+                        </form>
+
+                        <br>
+                        <hr>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file
+                                    </button>
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
+                                        export
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
+                                        all
+                                    </button>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Category Code</th>
+                                        <th>Category Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="category-table">
+                                    <!-- Category load in here-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="product">
+                    <div>
+                        <h2 class="text-red">Manager Product</h2>
+                        <form id="product-form" class="form-product">
+                            <div class="row mb-3">
+                                <!-- Loại Hàng -->
+                                <div class="form-group col-md-6">
+                                    <label for="product-category-id">Category type</label>
+                                    <select id="product-category-id" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="product-id">Id</label>
+                                    <input type="text" class="form-control" id="product-id"
+                                           placeholder="" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="product-name">Name</label>
+                                    <input type="text" class="form-control" id="product-name"
+                                           placeholder="Enter name product">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="product-quantity">Quantity</label>
+                                    <input type="number" class="form-control" id="product-quantity"
+                                           placeholder="Enter the quantity"
+                                           min="1" step="1">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="product-price">Price</label>
+                                    <input type="number" class="form-control" id="product-price"
+                                           placeholder="Enter the price"
+                                           min="1" step="10">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="product-weight">Weight</label>
+                                    <input type="number" class="form-control" id="product-weight"
+                                           placeholder="Enter the weight"
+                                           step="0.01" min="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-photo">Photo</label>
+                                <input type="file" class="form-control-file" id="product-photo">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-description">Description</label>
+                                <textarea class="form-control" id="product-description" rows="5"
+                                          placeholder="Enter the description"></textarea>
+                            </div>
+                            <button id="add-product" type="button" class="btn btn-primary">Add Product</button>
+                            <button id="update-product" type="button" class="btn btn-secondary">Update Product</button>
+                            <button id="delete-product" type="button" class="btn btn-danger">Delete Product</button>
+                            <button id="reset-product" type="button" class="btn btn-secondary">Reset Form</button>
+                        </form>
+
+                        <br>
+                        <hr>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên
+                                    </button>
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép
+                                    </button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất
+                                        Excel
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất
+                                        cả
+                                    </button>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Photo</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Weight</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="product-table">
+                                    <!-- Data product show in here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="account">
+                    <form class="form-account">
+                        <div class="form-group col-md-6">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" class="form-control" id="full-name" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="user-status">Role</label><br>
+                            <input type="radio" id="admin" name="role">
+                            <label for="active">Admin</label>
+                            <input type="radio" id="user" name="role" checked>
+                            <label for="unactive">User</label>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="user-status">Status</label><br>
+                            <input type="radio" id="active" name="user-status" checked>
+                            <label for="active">Active</label>
+                            <input type="radio" id="unactive" name="user-status">
+                            <label for="unactive">Unactive</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary">Change</button>
+                    </form>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file</button>
+                                <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                </button>
+                                <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
+                                </button>
+                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                </button>
+                                <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
+                                </button>
+                            </div>
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>DOB</th>
+                                    <th>Address</th>
+                                    <th>Gender</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 4.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td> 4</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 5.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td>5</td>
+                                    <td>C</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="coupon">
+                    <form class="form-account">
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                <label for="code">Code</label>
+                                <input type="text" class="form-control" id="code" placeholder="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="amount">Amount</label>
+                                <input type="text" class="form-control" id="amount" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+
+                            <div class="form-group col-md-6">
+                                <label for="start-date">Start Date</label>
+                                <input type="date" class="form-control" id="start-date" placeholder="">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="end-date">Start Date</label>
+                                <input type="date" class="form-control" id="end-date" placeholder="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="description">Description</label>
+                                <input type="" class="form-control" id="description" placeholder="">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary">Change</button>
+                    </form>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file</button>
+                                <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                </button>
+                                <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
+                                </button>
+                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                </button>
+                                <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
+                                </button>
+                            </div>
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Coupon ID</th>
+                                    <th>Code</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 4.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td> 4</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 5.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td>5</td>
+                                    <td>C</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="order">
+                    <div>
+                        <h2 class="text-red">Order Management</h2>
+                        <form class="form-product">
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="orderID">Order ID</label>
+                                    <input type="text" name="orderID" class="form-control" id="orderID"
+                                           placeholder="Enter the Order ID">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Order Status</label>
+                                    <select name="orderStatus" class="form-control">
+                                        <option>Select Product Status</option>
+                                        <option value="shipped">Shipped</option>
+                                        <option value="processing">Processing</option>
+                                        <option value="delivered">Delivered</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="date">Date</label>
+                                    <input type="datetime-local" name="date" class="form-control" id="date">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Payment Status</label>
+                                    <select name="paymentStatus" class="form-control">
+                                        <option>Select Payment Status</option>
+                                        <option value="paid">Paid</option>
+                                        <option value="paymentFailed">Payment Failed</option>
+                                        <option value="unpaid">Unpaid</option>
+                                        <option value="awaitingAuthorization">Awaiting Authorization</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="total">Total</label>
+                                    <input type="number" name="total" class="form-control" id="total"
+                                           placeholder="Input total" step="0.01"
+                                           min="0">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Payment Method</label>
+                                    <select name="paymentMethod" class="form-control">
+                                        <option>Select Payment Method</option>
+                                        <option value="bankTranfer">Bank transfer</option>
+                                        <option value="cash">Cash</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" name="addOrderDetail" class="btn btn-primary">Add Order Detail
+                            </button>
+                            <button type="button" name="revisionOrderDetail" class="btn btn-secondary">Revision Order
+                                Detail
+                            </button>
+                            <button type="button" name="remoteOrderDetail" class="btn btn-danger">Remote Order Detail
+                            </button>
+                        </form>
+
+                        <br>
+                        <hr>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Add New Order
+                                    </button>
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
+                                        export
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
+                                        all
+                                    </button>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Payment Status</th>
+                                        <th>Total</th>
+                                        <th>Payment Method</th>
+                                        <th>Order Status</th>
+                                        <th>Shipping Fee</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>#BM9708</td>
+                                        <td>August 05 2018 10:29 PM</td>
+                                        <td>Paid</td>
+                                        <td>200.000 VND</td>
+                                        <td>Bank transfer</td>
+
+                                        <td>Shipped</td>
+                                        <td>30.000 VND</td>
+                                        <td>
+                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>#BM9707</td>
+                                        <td>August 04 2018 08:18 AM</td>
+                                        <td>Awaiting Authorization</td>
+                                        <td>400.000 VND</td>
+                                        <td>Cash</td>
+                                        <td>Processing</td>
+                                        <td>30.000 VND</td>
+                                        <td>
+                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>#BM9704</td>
+                                        <td>May 22 2018 07:22 PM</td>
+                                        <td> Payment Failed</td>
+                                        <td>1.000.000 VND</td>
+                                        <td>Bank transfer</td>
+                                        <td>Cancelled</td>
+                                        <td>30.000 VND</td>
+                                        <td>
+                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>#BM9708</td>
+                                        <td>August 05 2018 10:29 PM</td>
+                                        <td> Paid</td>
+                                        <td>200.000 VND</td>
+                                        <td>Bank transfer</td>
+                                        <td>Shipped</td>
+                                        <td>30.000 VND</td>
+                                        <td>
+                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td> #BM9706</td>
+                                        <td>August 04 2018 10:29 PM</td>
+                                        <td> Paid</td>
+                                        <td>200.000 VND</td>
+                                        <td>Bank transfer</td>
+                                        <td>Delivered</td>
+                                        <td>30.000 VND</td>
+                                        <td>
+                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="orderDetail">
+                    <div>
+                        <h2 class="text-red">Order Details</h2>
+                        <form class="form-product">
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="orderID">Order ID</label>
+                                    <input type="text" name="orderID" class="form-control" id="orderID"
+                                           placeholder="Input Order ID">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="product-id">Product ID</label>
+                                    <input type="number" name="product-id" class="form-control" id="productID"
+                                           placeholder="Input Product ID"
+                                           min="1">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="quantity">Quantity</label>
+                                    <input type="number" name="quantity" class="form-control" id="quantity"
+                                           placeholder="Input Quantity"
+                                           step="0.01" min="0">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="price">Price</label>
+                                    <input type="number" name="price" class="form-control" id="price"
+                                           placeholder="Input Price" step="0.01"
+                                           min="0">
+                                </div>
+                            </div>
+                            <button name="addOrder" type="submit" class="btn btn-primary">Add Order</button>
+                            <button name="revisionOrder" type="button" class="btn btn-secondary">Revision Order</button>
+                            <button name="remoteOrder" type="button" class="btn btn-danger">Remote Order</button>
+                        </form>
+
+                        <br>
+                        <hr>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload Files
+                                    </button>
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print Data
+                                    </button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Copy</button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Export
+                                        Excel
+                                    </button>
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Export PDF
+                                    </button>
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Remote
+                                        All
+                                    </button>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Product ID</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>#12537</td>
+                                        <td>#BM9708</td>
+                                        <td>40</td>
+                                        <td>120.000 VND</td>
+                                        <td>
+                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <!--    Product manager-->
-    <div id="product">
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <div>
-                <h1 class="text-center">QUẢN LÍ SẢN PHẨM</h1>
-                <div class="container mt-5">
-                    <form>
-                        <!-- Tên Sản Phẩm -->
-                        <div class="form-group">
-                            <label for="productName">Tên Sản Phẩm</label>
-                            <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm">
-                        </div>
 
-                        <!-- Số Lượng -->
-                        <div class="form-group">
-                            <label for="productQuantity">Số Lượng</label>
-                            <input type="number" class="form-control" id="productQuantity"
-                                   placeholder="Nhập số lượng sản phẩm"
-                                   min="1">
-                        </div>
-
-                        <!-- Giá -->
-                        <div class="form-group">
-                            <label for="productPrice">Giá</label>
-                            <input type="number" class="form-control" id="productPrice" placeholder="Nhập giá sản phẩm"
-                                   step="0.01"
-                                   min="0">
-                        </div>
-
-                        <!-- Trọng Lượng -->
-                        <div class="form-group">
-                            <label for="productWeight">Trọng Lượng</label>
-                            <input type="number" class="form-control" id="productWeight"
-                                   placeholder="Nhập trọng lượng sản phẩm"
-                                   step="0.01" min="0">
-                        </div>
-
-                        <!-- Ảnh -->
-                        <div class="form-group">
-                            <label for="productPhoto">Ảnh</label>
-                            <input type="file" class="form-control-file" id="productPhoto">
-                        </div>
-
-                        <!-- Mô Tả -->
-                        <div class="form-group">
-                            <label for="productDescription">Mô Tả</label>
-                            <textarea class="form-control" id="productDescription" rows="3"
-                                      placeholder="Nhập mô tả sản phẩm"></textarea>
-                        </div>
-
-                        <!-- Loại Hàng -->
-                        <div class="form-group">
-                            <label>Loại Hàng</label>
-                            <select class="form-control">
-                                <option>Chọn loại hàng</option>
-                                <option>Loại 1</option>
-                                <option>Loại 2</option>
-                                <option>Loại 3</option>
-                            </select>
-                        </div>
-
-                        <!-- Các nút hành động -->
-                        <button type="submit" class="btn btn-primary">Thêm Sản Phẩm</button>
-                        <button type="button" class="btn btn-secondary">Sửa Sản Phẩm</button>
-                        <button type="button" class="btn btn-danger">Xóa Sản Phẩm</button>
-                    </form>
-                </div>
-
-                <br>
-                <hr>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
-                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
-                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
-                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
-                            </button>
-                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
-                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
-                            </button>
-                        </div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>Mã sản phẩm</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Ảnh</th>
-                                <th>Số lượng</th>
-                                <th>Tình trạng</th>
-                                <th>Giá tiền</th>
-                                <th>Danh mục</th>
-                                <th>Chức năng</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>71309005</td>
-                                <td>Bàn ăn Theresa</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Theresa"></td>
-                                <td>40</td>
-                                <td>Còn hàng</td>
-                                <td>5,600,000 đ</td>
-                                <td>Bàn ăn</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>61304003</td>
-                                <td>Bàn ăn Reno mặt đá</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Reno mặt đá"></td>
-                                <td>70</td>
-                                <td>Còn hàng</td>
-                                <td>24,200,000 đ</td>
-                                <td>Bàn ăn</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>63204003</td>
-                                <td>Bàn ăn Vitali mặt đá</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Vitali mặt đá"></td>
-                                <td>40</td>
-                                <td>Còn hàng</td>
-                                <td>33,235,000 đ</td>
-                                <td>Bàn ăn</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>72638003</td>
-                                <td>Ghế ăn gỗ Theresa</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn gỗ Theresa"></td>
-                                <td>50</td>
-                                <td>Còn hàng</td>
-                                <td>950,000 đ</td>
-                                <td>Ghế gỗ</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>33237003</td>
-                                <td>Ghế ăn bọc da nâu</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn bọc da nâu"></td>
-                                <td>50</td>
-                                <td>Còn hàng</td>
-                                <td>1,690,000 đ</td>
-                                <td>Ghế gỗ</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>23429002</td>
-                                <td>Bàn làm việc Deborah</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Deborah"></td>
-                                <td>25</td>
-                                <td>Còn hàng</td>
-                                <td>12,700,000 đ</td>
-                                <td>Bàn làm việc</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>11139003</td>
-                                <td>Bàn làm việc Just</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Just"></td>
-                                <td>20</td>
-                                <td>Còn hàng</td>
-                                <td>2,900,000 đ</td>
-                                <td>Bàn làm việc</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>65420002</td>
-                                <td>Bàn làm việc Spin</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Spin"></td>
-                                <td>22</td>
-                                <td>Còn hàng</td>
-                                <td>6,200,000 đ</td>
-                                <td>Bàn làm việc</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
         </div>
-    </div>
-    <!-- order -->
-    <div id="order">
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <div>
-                <h1 class="text-center">QUẢN LÍ ĐƠN HÀNG</h1>
-                <div class="container mt-5">
-                    <form>
-                        <div class="form-group">
-                            <label for="id-user">ID Người dùng</label>
-                            <input type="text" class="form-control" id="id-user" placeholder="Nhập mã khách hàng">
-                        </div>
-                        <div class="form-group">
-                            <label for="order-address">Địa chỉ giao hàng</label>
-                            <input type="text" class="form-control" id="order-address" placeholder="Nhập địa chỉ giao hàng">
-                        </div>
-                        <div class="form-group">
-                            <label for="productCategory">Phương thức thanh toán</label>
-                            <select class="form-control" id="productCategory">
-                                <option>Chọn phương thức thanh toán</option>
-                                <option>Online</option>
-                                <option>Khi nhận hàng</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Trạng thái đơn hàng</label>
-                            <select class="form-control" >
-                                <option>chọn trạng thái</option>
-                                <option>Chờ xác nhận</option>
-                                <option>Chưa giao hàng</option>
-                                <option>Đang giao hàng</option>
-                                <option>Đã giao hàng</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Thêm đơn hàng</button>
-                        <button type="button" class="btn btn-secondary">Sửa đơn hàng</button>
-                        <button type="button" class="btn btn-danger">Xóa đơn hàng</button>
-                    </form>
-                </div>
+    </aside>
+    <!-- /.control-sidebar -->
 
-                <br>
-                <hr>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
-                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
-                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
-                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
-                            </button>
-                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
-                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
-                            </button>
-                        </div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>ID người dùng</th>
-                                <th>ID phiếu gg</th>
-                                <th>Ngày đặt hàng</th>
-                                <th>Địa chỉ giao hàng</th>
-                                <th>PT thanh toán</th>
-                                <th>TT đặt hàng</th>
-                                <th>TT thanh toán</th>
-                                <th>Phí ship</th>
-                                <th>Tổng tiền</th>
-                                <th>Hành động</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>DSVDFDF435V</td>
-                                <td>2024-05-03</td>
-                                <td>Hồ Chí Minh</td>
-                                <td>Online</td>
-                                <td>Đang giao hàng</td>
-                                <td>Chưa thanh toán</td>
-                                <td>20000</td>
-                                <td>1500000</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+            Anything you want
         </div>
-    </div>
-    <!--    coupon-->
-    <div id="coupon">
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <div>
-                <h1 class="text-center">QUẢN LÍ GIẢM GIÁ</h1>
-                <div class="container mt-5">
-                    <form>
-                        <div class="form-group">
-                            <label for="code">Mã giảm giá</label>
-                            <input type="text" class="form-control" id="code" placeholder="Nhập mã giảm giá">
-                        </div>
-                        <div class="form-group">
-                            <label for="coupon-amount">Số tiền giảm</label>
-                            <input type="number" class="form-control" id="coupon-amount" placeholder="Nhập số tiền giảm"
-                                   min="1">
-                        </div>
-                        <div class="form-group">
-                            <label for="start-date">Ngày bắt đầu</label>
-                            <input type="date" class="form-control" id="start-date" placeholder="Nhập ngày bắt đầu">
-                        </div>
-                        <div class="form-group">
-                            <label for="end-date">Ngày kết thúc</label>
-                            <input type="date" class="form-control" id="end-date" placeholder="Nhập ngày kết thúc">
-                        </div>
-                        <div class="form-group">
-                            <label for="coupon-description">Mô Tả</label>
-                            <textarea class="form-control" id="coupon-description" rows="3"
-                                      placeholder="Nhập mô tả phiếu giảm giá"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Thêm mã giảm giá</button>
-                        <button type="button" class="btn btn-secondary">Sửa mã giảm giá</button>
-                        <button type="button" class="btn btn-danger">Xóa mã giảm giá</button>
-                    </form>
-                </div>
-
-                <br>
-                <hr>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
-                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
-                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
-                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
-                            </button>
-                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
-                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
-                            </button>
-                        </div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Mã code</th>
-                                <th>Số tiền giảm</th>
-                                <th>Ngày bắt đầu</th>
-                                <th>Ngày kết thúc</th>
-                                <th>Mô tả</th>
-                                <th>Người tạo</th>
-                                <th>Hành động</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>FDBDFB45FG</td>
-                                <td>20000</td>
-                                <td>2024-05-03</td>
-                                <td>2024-05-07</td>
-                                <td>Đây là phiếu giảm giá 1</td>
-                                <td>Trung</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--    User-->
-    <div id="user">
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <div>
-                <h1 class="text-center">QUẢN LÍ NGƯỜI DÙNG</h1>
-                <div class="container mt-5">
-                    <form>
-                        <div class="form-group">
-                            <label for="user-id">ID Người dùng</label>
-                            <input type="text" class="form-control" id="user-id" placeholder="ID tài khoản">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Tên đăng nhập</label>
-                            <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập">
-                        </div>
-                        <div class="form-group">
-                            <label for="fullname">Họ tên</label>
-                            <input type="text" class="form-control" id="fullname" placeholder="Tên người dùng">
-                        </div>
-                        <div class="form-group">
-                            <label>Vai trò</label> <br>
-                            <input type="radio" name="user-role" value="User"> User
-                            <input type="radio" name="user-role" value="admin"> Admin
-                        </div>
-                        <!-- Các nút hành động -->
-                        <button type="submit" class="btn btn-primary">Cập nhật tài khoản</button>
-                        <button type="button" class="btn btn-secondary">Xóa tài khoản</button>
-                    </form>
-                </div>
-
-                <br>
-                <hr>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
-                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
-                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
-                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
-                            </button>
-                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
-                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
-                            </button>
-                        </div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên đăng nhập</th>
-                                <th>Email</th>
-                                <th>Số điện thoại</th>
-                                <th>Giới tính</th>
-                                <th>Vai trò</th>
-                                <th>Ngày sinh</th>
-                                <th>Hành động</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>NguyenBaTrung</td>
-                                <td>Email</td>
-                                <td>0333783506</td>
-                                <td>Nam</td>
-                                <td>admin-system</td>
-                                <td>2004-08-27</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--    thống kê đơn hàng-->
-    <div id="order-detail">
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <div>
-                <h1 class="text-center">Thống kê đơn hàng</h1>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên</button>
-                            <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu</button>
-                            <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép</button>
-                            <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất Excel
-                            </button>
-                            <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF</button>
-                            <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất cả
-                            </button>
-                        </div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>ID đơn hàng</th>
-                                <th>ID Sản phẩm</th>
-                                <th>Số luượng</th>
-                                <th>Giá</th>
-                                <th>Hành động</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>100000</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>61304003</td>
-                                <td>Bàn ăn Reno mặt đá</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Reno mặt đá"></td>
-                                <td>70</td>
-                                <td>Còn hàng</td>
-                                <td>24,200,000 đ</td>
-                                <td>Bàn ăn</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>63204003</td>
-                                <td>Bàn ăn Vitali mặt đá</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn ăn Vitali mặt đá"></td>
-                                <td>40</td>
-                                <td>Còn hàng</td>
-                                <td>33,235,000 đ</td>
-                                <td>Bàn ăn</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>72638003</td>
-                                <td>Ghế ăn gỗ Theresa</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn gỗ Theresa"></td>
-                                <td>50</td>
-                                <td>Còn hàng</td>
-                                <td>950,000 đ</td>
-                                <td>Ghế gỗ</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>33237003</td>
-                                <td>Ghế ăn bọc da nâu</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Ghế ăn bọc da nâu"></td>
-                                <td>50</td>
-                                <td>Còn hàng</td>
-                                <td>1,690,000 đ</td>
-                                <td>Ghế gỗ</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>23429002</td>
-                                <td>Bàn làm việc Deborah</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Deborah"></td>
-                                <td>25</td>
-                                <td>Còn hàng</td>
-                                <td>12,700,000 đ</td>
-                                <td>Bàn làm việc</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>11139003</td>
-                                <td>Bàn làm việc Just</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Just"></td>
-                                <td>20</td>
-                                <td>Còn hàng</td>
-                                <td>2,900,000 đ</td>
-                                <td>Bàn làm việc</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>65420002</td>
-                                <td>Bàn làm việc Spin</td>
-                                <td><img src="https://via.placeholder.com/50" alt="Bàn làm việc Spin"></td>
-                                <td>22</td>
-                                <td>Còn hàng</td>
-                                <td>6,200,000 đ</td>
-                                <td>Bàn làm việc</td>
-                                <td>
-                                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
 </div>
 
 <script>
     document.querySelectorAll('.sidebar a').forEach(link => {
         link.addEventListener('click', function () {
-            document.querySelectorAll('.main-content > div').forEach(section => {
-                section.style.display = 'none';
-            });
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.style.display = 'block';
-            }
-            document.querySelectorAll('.sidebar a').forEach(link => {
-                link.classList.remove('active');
-            });
+            document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
             this.classList.add('active');
+            document.querySelectorAll('.main-content > div').forEach(div => div.style.display = 'none');
+            document.querySelector(this.getAttribute('href')).style.display = 'block';
         });
     });
+    // Set default active link and content
+    window.onload = function () {
+        document.querySelector('.sidebar a[href="#dashboard"]').click();
+    };
 
-    // Hiển thị bảng điều khiển mặc định
-    document.getElementById('dashboard').style.display = 'block';
-
-    // Biểu đồ doanh thu
-    var ctx = document.getElementById('revenueChart').getContext('2d');
-    var revenueChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
-            datasets: [{
-                label: 'Doanh thu',
-                data: [12000, 15000, 14000, 20000, 17000, 21000],
-                backgroundColor: 'rgba(0, 123, 255, 0.2)',
-                borderColor: 'rgba(0, 123, 255, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    // Biểu đồ khách hàng
-    var ctx2 = document.getElementById('customerChart').getContext('2d');
-    var customerChart = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
-            datasets: [{
-                label: 'Khách hàng',
-                data: [30, 50, 40, 70, 60, 90],
-                backgroundColor: 'rgba(40, 167, 69, 0.2)',
-                borderColor: 'rgba(40, 167, 69, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
 </script>
 
+<!-- ./wrapper -->
+<!-- REQUIRED SCRIPTS -->
+
+<!--link script-->
+<script th:src="@{/admin/js/product.js}"></script>
+<script th:src="@{/admin/js/category.js}"></script>
+
+<!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->
 <script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
 </body>
+
 </html>
