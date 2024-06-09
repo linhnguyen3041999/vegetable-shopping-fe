@@ -1,10 +1,10 @@
-package com.ww.vetetableshoppingfe;
+package com.vegetableshoppingfe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VetetableShoppingFeApplicationTests {
+class VegetableShoppingFeApplicationTests {
 
 	@Test
 	void contextLoads() {
