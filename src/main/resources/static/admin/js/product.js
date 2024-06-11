@@ -179,5 +179,3 @@ async function getCategoryToInputTableForm() {
  *  + load name category lên table
  *  + table chỉ hiển thị 10 đến 15 sản phẩm
  */
-
-
