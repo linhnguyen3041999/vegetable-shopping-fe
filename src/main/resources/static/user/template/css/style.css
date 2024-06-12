@@ -614,23 +614,39 @@ ol {
 	font-size: 18px;
 	color: #ffffff;
 }
-
-.hero__categories ul {
-	border: 1px solid #ebebeb;
-	padding-left: 40px;
-	padding-top: 10px;
-	padding-bottom: 12px;
-}
-
 .hero__categories ul li {
 	list-style: none;
+	margin: 0; /* Thêm margin: 0 để loại bỏ khoảng trống mặc định */
+	padding: 10px 20px; /* Điều chỉnh padding để vừa khung */
+	border-bottom: 1px solid #ebebeb; /* Thêm đường kẻ ngăn cách */
+	box-sizing: border-box; /* Tính cả border và padding vào kích thước */
+}
+
+.hero__categories ul {
+	max-height: 465px; /* Giới hạn chiều cao của danh sách */
+	overflow-y: scroll; /* Thêm thanh cuộn dọc nếu danh sách vượt quá chiều cao */
+	border: 1px solid #ebebeb;
+	padding: 10px 0; /* Thay đổi padding để làm gọn nội dung */
+}
+
+.hero__categories ul li:hover {
+	background-color: #7FAD39; /* Màu nền khi hover */
+	color: #ffffff; /* Màu chữ khi hover */
+}
+.hero__categories ul li a:hover {
+	color: #ffffff; /* Màu chữ khi hover */
+}
+
+.hero__categories ul li:last-child {
+	border-bottom: none; /* Xóa border của mục cuối cùng */
 }
 
 .hero__categories ul li a {
 	font-size: 16px;
 	color: #1c1c1c;
-	line-height: 39px;
+	line-height: 30px; /* Giảm line-height để các mục gần nhau hơn */
 	display: block;
+	transition: background-color 0.3s, color 0.3s; /* Thêm hiệu ứng chuyển màu */
 }
 
 .hero__search {
@@ -752,6 +768,8 @@ ol {
 .hero__text p {
 	margin-bottom: 35px;
 }
+
+
 
 /*---------------------
   Categories
@@ -2735,8 +2753,9 @@ ol {
 .footer__copyright__text {
 	font-size: 14px;
 	color: #1c1c1c;
-	float: left;
+
 	line-height: 25px;
+	text-align: center;
 }
 
 .footer__copyright__payment {
@@ -3199,7 +3218,6 @@ ol {
 		text-align: center;
 	}
 	.footer__copyright__text {
-		float: none;
 		margin-bottom: 25px;
 	}
 	.footer__copyright__payment {
@@ -3466,3 +3484,6 @@ ol {
 		font-size: 24px;
 	}
 }
+
+/*Scrollable menu dropdown*/
+
