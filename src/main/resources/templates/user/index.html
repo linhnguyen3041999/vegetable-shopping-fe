@@ -129,6 +129,15 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
+                        <li class="user-menu">
+                            <a href="#"><i class="fa fa-user"></i></a>
+                            <div class="user-menu-content">
+                                <a href="#">Đăng nhập</a>
+                                <a href="#">Đăng ký</a>
+                                <a href="#">Quên mật khẩu</a>
+                                <a href="#">Cập nhật tài khoản</a>
+                            </div>
+                        </li>
                         <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span>$150.00</span></div>
@@ -152,21 +161,8 @@
                         <i class="fa fa-bars"></i>
                         <span>Categories</span>
                     </div>
-                    <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
+                    <ul id="category-list">
+<!--                        window.getAllCategories();-->
                     </ul>
                 </div>
             </div>

@@ -3486,4 +3486,33 @@ ol {
 }
 
 /*Scrollable menu dropdown*/
+.user-menu {
+	position: relative;
+	display: inline-block;
+}
 
+.user-menu-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	text-align: left; /* Đảm bảo các mục được căn trái */
+}
+
+.user-menu-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.user-menu-content a:hover {
+	background-color: #7FAD39;
+	color: white;
+}
+
+.user-menu:hover .user-menu-content {
+	display: block;
+}
