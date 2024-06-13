@@ -27,6 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script th:src="@{/admin/js/user.js}"></script>
+
     <style>
         .form-control {
             border-radius: 0;
@@ -590,29 +592,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <th>Gender</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 4.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td> 4</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 5.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td>5</td>
-                                    <td>C</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                <tbody id="account-table-body">
+
                                 </tbody>
                             </table>
                         </div>
