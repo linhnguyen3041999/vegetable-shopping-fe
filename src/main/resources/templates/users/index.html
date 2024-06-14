@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="zxx">
 
 <head>
@@ -10,17 +11,23 @@
     <title>Ogani | Template</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
+          rel="stylesheet">
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../../static/user/template/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/style.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/elegant-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/nice-select.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/jquery-ui.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/slicknav.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/user/template/css/style.css}" type="text/css">
+    <!--axios-->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
+            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--    css     -->
+    <link rel="stylesheet" th:href="@{/user/css/index.css}">
 </head>
 
 <body>
@@ -38,9 +45,9 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <div class="header__cart__price">item: <span class="cart-sum-price-span"></span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -155,9 +162,9 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">item: <span class="cart-sum-price-span"></span></div>
                     </div>
                 </div>
             </div>
@@ -284,127 +291,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row featured__filter">
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
+            <div id="product-list" class="row featured__filter">
+
             </div>
         </div>
     </section>
@@ -763,16 +651,18 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="../../static/user/template/js/jquery-3.3.1.min.js"></script>
-    <script src="../../static/user/template/js/bootstrap.min.js"></script>
-    <script src="../../static/user/template/js/jquery.nice-select.min.js"></script>
-    <script src="../../static/user/template/js/jquery-ui.min.js"></script>
-    <script src="../../static/user/template/js/jquery.slicknav.js"></script>
-    <script src="../../static/user/template/js/mixitup.min.js"></script>
-    <script src="../../static/user/template/js/owl.carousel.min.js"></script>
-    <script src="../../static/user/template/js/main.js"></script>
-
-
+    <script th:src="@{/user/template/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/user/template/js/bootstrap.min.js}"></script>
+    <script th:src="@{/user/template/js/jquery.nice-select.min.js}"></script>
+    <script th:src="@{/user/template/js/jquery-ui.min.js}"></script>
+    <script th:src="@{/user/template/js/jquery.slicknav.js}"></script>
+    <script th:src="@{/user/template/js/mixitup.min.js}"></script>
+    <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/user/template/js/main.js}"></script>
+    <!--CALL API-->
+    <script th:src="@{/user/js/index.js}"></script>
+    <script th:src="@{/user/js/cartItem.js}"></script>
+    <script th:src="@{/user/js/cookie.js}"></script>
 
 </body>
 

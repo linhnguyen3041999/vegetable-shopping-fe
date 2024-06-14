@@ -22,18 +22,18 @@ async function getAllProduct() {
                     </div>
                 </div>
                 <div class="text-center p-4">
-                    <a class="d-block h5 mb-2 product-name" href="/product/product-detail">${product.productName}</a>
+                    <a class="d-block h5 mb-2 product-name" href="/product/product-detail">${product.name}</a>
                     <span class="me-1 product-price">${product.price * 0.9}</span>
                     <s class="text-body text-decoration-line-through">${product.price}</s>
                 </div>
                 <div class="d-flex border-top  font-weight-bold">
                     <small class="w-50 text-center border-end py-2">
                         <a class="text-body" href="/product/product-detail"><i
-                                class="fa fa-eye text-primary me-2"></i>View detail</a>
+                                class="fa fa-eye text-primary mr-2"></i><span>View detail</span></a>
                     </small>
                     <small class="w-50 text-center py-2">
-                        <a class="text-body" href="/product/product-detail"><i
-                                class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                        <button id="add-to-cart-${product.productId}" style="background-color: white" class="text-body border-0" href=""><i
+                                class="fa fa-shopping-bag text-primary mr-2"></i><span>Add to cart</span></button>
                     </small>
                 </div>
             </div>
@@ -42,11 +42,31 @@ async function getAllProduct() {
         });
         // Hiển thị kết quả lên trang HTML
         document.getElementById('product-list').innerHTML = result;
+
+        products.forEach(product => {
+            // Add
+            let addToCart = document.getElementById(`add-to-cart-${product.productId}`);
+            addToCart.addEventListener('click', async () => {
+                try {
+                    await axios.post(`http://localhost:8080/api/v1/cart/${product.productId}`);
+                    alert('Added this product to cart');
+                    getAmount();
+                    getCount();
+                    addCookie();
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Add product to cart failed');
+                }
+            });
+
+        });
     } catch (error) {
         console.error('Error fetching data:', error);
         document.getElementById('product-list').innerHTML = '<p>Error fetching data</p>';
     }
 }
 
+
 // Gọi hàm khi trang được tải
-getAllProduct();
+window.getAllProduct();
+window.getAllItem();
