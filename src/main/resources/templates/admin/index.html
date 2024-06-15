@@ -1,16 +1,10 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vegetable-Store | Admin</title>
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
@@ -21,31 +15,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
     <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
-
     <!--axios-->
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
             integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <style>
-        .form-control {
-            border-radius: 0;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            border: none;
-        }
-
-        .form-product {
-            padding: 20px;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-            border-radius: 10px;
-            background-color: white;
-        }
-    </style>
+    <!-- css index -->
+    <link rel="stylesheet" th:href="@{/admin/css/index.css}">
 </head>
-
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -60,7 +38,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="#" class="nav-link">Contact</a>
             </li>
         </ul>
-
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
@@ -85,7 +62,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </form>
                 </div>
             </li>
-
             <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -193,7 +169,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  style="opacity: .8">
             <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
-
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
@@ -205,7 +180,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="#" class="d-block">Alexander Pierce</a>
                 </div>
             </div>
-
             <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
@@ -218,7 +192,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
             </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2 slidebar">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -392,6 +365,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                            placeholder="Enter the category name">
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="category-name">Category Image</label>
+                                    <input type="file" class="form-control" id="category-image">
+                                </div>
+                            </div>
                             <button id="add-category" type="button" class="btn btn-primary">Add Category</button>
                             <button id="update-category" type="button" class="btn btn-secondary">Update Category
                             </button>
@@ -424,6 +403,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <tr>
                                         <th>Category Code</th>
                                         <th>Category Name</th>
+                                        <th>Category Image</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>

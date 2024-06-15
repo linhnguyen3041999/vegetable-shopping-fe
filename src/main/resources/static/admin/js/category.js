@@ -5,10 +5,12 @@ async function getAllCategories() {
         let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
         let result = '';
         categories.forEach(category => {
+            console.log(category.categoryImage);
             result += `
                         <tr>
                             <td>${category.categoryId}</td>
                             <td>${category.categoryName}</td>
+                            <td><img src="https://drive.google.com/thumbnail?id=${category.categoryImage}"></td>
                             <td>
                                 <button id="category-table-edit-${category.categoryId}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i></button>
@@ -49,72 +51,72 @@ async function getAllCategories() {
     }
 }
 
-document.getElementById('reset-category').addEventListener('click', () => {
-    resetFormCategory();
-})
-
-function resetFormCategory() {
-    document.getElementById('category-id').value = null;
-    document.getElementById('category-name').value = null;
-}
-
-document.getElementById('add-category').addEventListener('click',
-    function (event) {
-        event.preventDefault();
-        addCategory();
-    })
-
-async function addCategory() {
-    try {
-        let category = {
-            categoryName: document.getElementById('category-name').value
-        }
-        axios.post('http://localhost:8080/api/v1/categories', category);
-        alert('Add successfully');
-        resetFormCategory();
-        getAllCategories();
-    } catch (error) {
-        alert('Add failed');
-    }
-}
-
-document.getElementById('delete-category').addEventListener('click',
-    function (event) {
-        event.preventDefault();
-        deleteCategory();
-    })
-
-async function deleteCategory() {
-    try {
-        let categoryId = document.getElementById('category-id').value;
-        axios.delete(`http://localhost:8080/api/v1/categories/${categoryId}`)
-        alert('Delete category successfully');
-        resetFormCategory();
-        getAllCategories();
-    } catch (error) {
-        alert('Delete category failed');
-    }
-}
-
-document.getElementById('update-category').addEventListener('click',
-    function (event) {
-        event.preventDefault();
-        updateCategory();
-    })
-
-async function updateCategory() {
-    try {
-        let category = {
-            categoryId: document.getElementById('category-id').value,
-            categoryName: document.getElementById('category-name').value
-        }
-        await axios.put(`http://localhost:8080/api/v1/categories/${category.categoryId}`, category);
-        alert('Update category successfully');
-        resetFormCategory();
-        getAllCategories();
-    } catch (error) {
-        alert('Update category failed');
-    }
-}
+// document.getElementById('reset-category').addEventListener('click', () => {
+//     resetFormCategory();
+// })
+//
+// function resetFormCategory() {
+//     document.getElementById('category-id').value = null;
+//     document.getElementById('category-name').value = null;
+// }
+//
+// document.getElementById('add-category').addEventListener('click',
+//     function (event) {
+//         event.preventDefault();
+//         addCategory();
+//     })
+//
+// async function addCategory() {
+//     try {
+//         let category = {
+//             categoryName: document.getElementById('category-name').value
+//         }
+//         axios.post('http://localhost:8080/api/v1/categories', category);
+//         alert('Add successfully');
+//         resetFormCategory();
+//         getAllCategories();
+//     } catch (error) {
+//         alert('Add failed');
+//     }
+// }
+//
+// document.getElementById('delete-category').addEventListener('click',
+//     function (event) {
+//         event.preventDefault();
+//         deleteCategory();
+//     })
+//
+// async function deleteCategory() {
+//     try {
+//         let categoryId = document.getElementById('category-id').value;
+//         axios.delete(`http://localhost:8080/api/v1/categories/${categoryId}`)
+//         alert('Delete category successfully');
+//         resetFormCategory();
+//         getAllCategories();
+//     } catch (error) {
+//         alert('Delete category failed');
+//     }
+// }
+//
+// document.getElementById('update-category').addEventListener('click',
+//     function (event) {
+//         event.preventDefault();
+//         updateCategory();
+//     })
+//
+// async function updateCategory() {
+//     try {
+//         let category = {
+//             categoryId: document.getElementById('category-id').value,
+//             categoryName: document.getElementById('category-name').value
+//         }
+//         await axios.put(`http://localhost:8080/api/v1/categories/${category.categoryId}`, category);
+//         alert('Update category successfully');
+//         resetFormCategory();
+//         getAllCategories();
+//     } catch (error) {
+//         alert('Update category failed');
+//     }
+// }
 
 
