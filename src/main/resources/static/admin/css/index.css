@@ -11,7 +11,15 @@ form {
     background-color: white;
 }
 
+/*Category*/
+
 #category-table img {
     width: 50px;
     height: 50px;
+}
+
+#category-image-show {
+    width: 80px;
+    height: 80px;
+    position: absolute !important;
 }
