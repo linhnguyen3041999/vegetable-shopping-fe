@@ -1,15 +1,15 @@
-package com.ww.vetetableshoppingfe.controller;
+package com.vegetableshoppingfe.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/vegetable-shopping")
+public class UserController {
 
-    @GetMapping("/index")
-    public String getAdmin() {
-        return "admin/index";
+    @GetMapping
+    public String getHome() {
+        return "users/index";
     }
 }

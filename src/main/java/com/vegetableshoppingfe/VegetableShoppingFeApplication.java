@@ -1,13 +1,13 @@
-package com.ww.vetetableshoppingfe;
+package com.vegetableshoppingfe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VetetableShoppingFeApplication {
+public class VegetableShoppingFeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VetetableShoppingFeApplication.class, args);
+		SpringApplication.run(VegetableShoppingFeApplication.class, args);
 	}
 
 }
