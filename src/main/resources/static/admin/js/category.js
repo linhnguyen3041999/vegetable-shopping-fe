@@ -89,7 +89,7 @@ async function addCategory() {
     }
 }
 
-
+// show image
 document.getElementById('category-image').addEventListener('change', function (event) {
     const input = event.target;
     const file = input.files[0];
@@ -123,7 +123,7 @@ async function deleteCategory() {
 
 document.getElementById('update-category').addEventListener('click',
     function (event) {
-        // event.preventDefault();
+        event.preventDefault();
         updateCategory();
     })
 

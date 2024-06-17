@@ -466,9 +466,16 @@
                                            step="0.01" min="0">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="product-photo">Photo</label>
-                                <input type="file" class="form-control-file" id="product-photo">
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="product-image">Photo</label>
+                                    <input type="file" class="form-control-file" id="product-image">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="product-image-show">Image</label>
+                                    <br>
+                                    <img id="product-image-show" src="" alt="img">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="product-description">Description</label>
@@ -991,7 +998,7 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!--link script-->
-<!--<script th:src="@{/admin/js/product.js}"></script>-->
+<script th:src="@{/admin/js/product.js}"></script>
 <script th:src="@{/admin/js/category.js}"></script>
 
 <!-- jQuery -->
