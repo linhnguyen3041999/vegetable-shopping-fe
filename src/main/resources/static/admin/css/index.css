@@ -19,13 +19,8 @@ form {
     height: 50px;
 }
 
+#category-image-show,
 #product-image-show {
-    width: 80px;
-    height: 80px;
-    position: absolute !important;
-}
-
-#category-image-show {
     display: none;
     width: 142px;
     height: 142px;

@@ -35,11 +35,20 @@ async function getAllProductAdmin() {
             productDelete.addEventListener('click', async () => {
                 try {
                     await axios.delete(`http://localhost:8080/api/v1/products/${product.productId}`);
-                    alert('Delete Product Success');
+                    swal({
+                        title: 'Product',
+                        text: 'Delete product successfully',
+                        icon: 'success',
+                        button: 'Oke'
+                    });
                     getAllProductAdmin();
                 } catch (error) {
-                    console.error('Error:', error);
-                    alert('Delete Product Failed');
+                    swal({
+                        title: 'Product',
+                        text: 'Delete product failed',
+                        icon: 'error',
+                        button: 'Oke'
+                    });
                 }
             });
             // Edit
@@ -54,16 +63,26 @@ async function getAllProductAdmin() {
                     document.getElementById('product-weight').value = response.weight;
                     document.getElementById('product-description').value = response.description;
                     document.getElementById('product-category-id').value = response.category.categoryId;
+                    document.getElementById('product-image-show').style.display = 'block';
+                    document.getElementById('product-label-image').style.display = 'none';
                     document.getElementById('product-image-show').src = `https://drive.google.com/thumbnail?id=${response.photo}`;
                 } catch (error) {
-                    console.error('Error:', error);
-                    alert('edit not found');
+                    swal({
+                        title: 'Product',
+                        text: 'Load product to form failed',
+                        icon: 'error',
+                        button: 'Oke'
+                    });
                 }
             })
         });
     } catch (error) {
-        console.error('Error: ', error);
-        console.log(error)
+        swal({
+            title: 'Product',
+            text: 'Uploading data to table failed',
+            icon: 'error',
+            button: 'Oke'
+        });
     }
 }
 
@@ -104,12 +123,22 @@ function addProduct() {
         }
     })
         .then(response => {
-            alert('Add product successfully');
+            swal({
+                title: 'Product',
+                text: 'Add product successfully',
+                icon: 'success',
+                button: 'Oke'
+            });
             resetFormProduct();
             getAllProductAdmin();
         })
         .catch(error => {
-            alert('Add product failed: ' + error.message);
+            swal({
+                title: 'Product',
+                text: 'Add product failed',
+                icon: 'error',
+                button: 'Oke'
+            });
         });
 }
 
@@ -138,11 +167,21 @@ async function updateProduct() {
                 'Content-Type': 'multipart/form-data'
             }
         });
-        alert('Update Product Success');
+        swal({
+            title: 'Product',
+            text: 'Update product successfully',
+            icon: 'success',
+            button: 'Oke'
+        });
         resetFormProduct();
         getAllProductAdmin();
     } catch (error) {
-        alert('Update Product Failure');
+        swal({
+            title: 'Product',
+            text: 'Update product failed',
+            icon: 'error',
+            button: 'Oke'
+        });
     }
 }
 
@@ -156,11 +195,21 @@ async function deleteProduct() {
     try {
         let productId = +document.getElementById('product-id').value;
         await axios.delete(`http://localhost:8080/api/v1/products/${productId}`)
-        alert('Product deleted successfully');
+        swal({
+            title: 'Product',
+            text: 'Delete product successfully',
+            icon: 'success',
+            button: 'Oke'
+        });
         resetFormProduct();
         getAllProductAdmin();
     } catch (error) {
-        alert('Delete failed');
+        swal({
+            title: 'Product',
+            text: 'Delete product failed',
+            icon: 'error',
+            button: 'Oke'
+        });
     }
 }
 
@@ -180,6 +229,8 @@ function resetFormProduct() {
     document.getElementById('product-category-id').value = null;
     document.getElementById('product-image').value = null;
     document.getElementById('product-image-show').src = null;
+    document.getElementById('product-label-image').style.display = 'block';
+    document.getElementById('product-image-show').style.display = 'none';
 }
 
 window.getCategoryToInputTableForm();
@@ -198,6 +249,27 @@ async function getCategoryToInputTableForm() {
         console.log(error.message);
     }
 }
+
+//show image
+document.addEventListener('DOMContentLoaded', function () {
+    const imageInput = document.getElementById('product-image');
+    const imagePreview = document.getElementById('product-image-show');
+    const labelPreview = document.getElementById('product-label-image');
+
+    imageInput.addEventListener('change', function (evt) {
+        const input = evt.target;
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                labelPreview.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
 
 /**
  * bổ sung thêm:

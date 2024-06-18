@@ -476,15 +476,26 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
-                                    <label for="product-image">Photo</label>
-                                    <input type="file" class="form-control-file" id="product-image">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="product-image-show">Image</label>
-                                    <br>
-                                    <img id="product-image-show" src="" alt="img">
+                                    <label>Product Image</label> <br>
+                                    <label for="product-image">
+                                        <i id="product-label-image" class="fa-solid fa-plus"></i>
+                                        <img id="product-image-show" src="" alt="img">
+                                    </label>
+                                    <input type="file" name="product-image" class="form-control" id="product-image"
+                                           style="display: none">
                                 </div>
                             </div>
+<!--                            <div class="row mb-3">-->
+<!--                                <div class="form-group col-md-6">-->
+<!--                                    <label for="product-image">Photo</label>-->
+<!--                                    <input type="file" class="form-control-file" id="product-image">-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-md-6">-->
+<!--                                    <label for="product-image-show">Image</label>-->
+<!--                                    <br>-->
+<!--                                    <img id="product-image-show" src="" alt="img">-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <div class="form-group">
                                 <label for="product-description">Description</label>
                                 <textarea class="form-control" id="product-description" rows="5"
@@ -1006,7 +1017,7 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!--link script-->
-<!--<script th:src="@{/admin/js/product.js}"></script>-->
+<script th:src="@{/admin/js/product.js}"></script>
 <script th:src="@{/admin/js/category.js}"></script>
 
 <!-- jQuery -->
