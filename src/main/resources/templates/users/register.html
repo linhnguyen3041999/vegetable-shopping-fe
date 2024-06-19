@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../../static/user/template/css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="../../static/user/template/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="../../static/user/template/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../../static/user/template/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../../static/user/template/css/slicknav.min    .css" type="text/css">
     <link rel="stylesheet" href="../../static/user/template/css/style.css" type="text/css">
 
     <link rel="stylesheet" href="../../static/user/css/register.css">
@@ -60,18 +60,18 @@
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="./shop-grid.html">Shop</a></li>
+            <li class="active"><a href="../user/index.html">Home</a></li>
+            <li><a href="../user/shop-grid.html">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="shopping-cart.html">Shoping Cart</a></li>
+                    <li><a href="../user/shop-details.html">Shop Details</a></li>
+                    <li><a href="../user/shopping-cart.html">Shoping Cart</a></li>
                     <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
+                    <li><a href="../user/blog-details.html">Blog Details</a></li>
                 </ul>
             </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="../user/blog.html">Blog</a></li>
+            <li><a href="../user/contact.html">Contact</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -131,24 +131,24 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="../../static/user/template/img/logo.png" alt=""></a>
+                    <a href="../user/index.html"><img src="../../static/user/template/img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="./index.html">Home</a></li>
-                        <li class="active"><a href="./shop-grid.html">Shop</a></li>
+                        <li><a href="../user/index.html">Home</a></li>
+                        <li class="active"><a href="../user/shop-grid.html">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="shopping-cart.html">Shoping Cart</a></li>
+                                <li><a href="../user/shop-details.html">Shop Details</a></li>
+                                <li><a href="../user/shopping-cart.html">Shoping Cart</a></li>
                                 <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
+                                <li><a href="../user/blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="../user/blog.html">Blog</a></li>
+                        <li><a href="../user/contact.html">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -221,14 +221,14 @@
 </section>
 <!-- Hero Section End -->
 <!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" data-setbg="../../static/user/template/img/breadcrumb.jpg">
+<section class="breadcrumb-section set-bg" data-setbg="">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
                     <h2>Shopping Cart</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.html">Home</a>
+                        <a href="../user/index.html">Home</a>
                         <span>Shopping Cart</span>
                     </div>
                 </div>
@@ -237,8 +237,7 @@
     </div>
 </section>
 <!-- Breadcrumb Section End -->
-<section class="vh-100 bg-image"
-         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+<section class="vh-100 bg-image">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -247,11 +246,10 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-                            <form>
-
+                            <form action="/vegetable-shopping-fe" th:action="@{/register}" th:object="${user}" method="post">
                                 <div data-mdb-input-init class="form-outline mb-4">
                                     <label class="form-label" for="form3Example1cg">Username</label>
-                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"/>
+                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline mb-4">
@@ -295,7 +293,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__about__logo">
-                        <a href="./index.html"><img src="../../static/user/template/img/logo.png" alt=""></a>
+                        <a href="../user/index.html"><img src="../../static/user/template/img/logo.png" alt=""></a>
                     </div>
                     <ul>
                         <li>Address: 60-49 Road 11378 New York</li>
