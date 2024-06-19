@@ -123,12 +123,6 @@ async function addProduct() {
                 'Content-Type': 'multipart/form-data'
             }
         });
-        await swal({
-            title: 'Product',
-            text: 'Add product successfully',
-            icon: 'success',
-            button: 'Oke'
-        });
         await getAllProductAdmin();
         try {
             if (lastProductId !== null) {
@@ -137,8 +131,8 @@ async function addProduct() {
                 await addProductPhoto('product-image4', lastProductId);
             }
             await swal({
-                title: 'Product photos',
-                text: 'Add product photo successfully',
+                title: 'Product',
+                text: 'Add product successfully',
                 icon: 'success',
                 button: 'Oke'
             });
