@@ -28,7 +28,6 @@ async function getAllProductAdmin() {
                         </tr>
                     `;
             lastProductId = product.productId;
-            console.log(lastProductId)
         });
         document.getElementById('product-table').innerHTML = result;
 
@@ -291,7 +290,6 @@ async function getCategoryToInputTableForm() {
         })
         document.getElementById('product-category-id').innerHTML = result;
     } catch (error) {
-        console.log(error.message);
     }
 }
 
