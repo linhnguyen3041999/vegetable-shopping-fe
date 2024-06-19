@@ -1,11 +1,12 @@
 // Load data up table
 window.getAllProductAdmin();
 
+let lastProductId = null;
+
 async function getAllProductAdmin() {
     try {
         let {data: products} = await axios.get('http://localhost:8080/api/v1/products');
         let result = '';
-        console.log(products)
         products.forEach(product => {
             result += `
                         <tr>
@@ -26,6 +27,8 @@ async function getAllProductAdmin() {
                             </td>
                         </tr>
                     `;
+            lastProductId = product.productId;
+            console.log(lastProductId)
         });
         document.getElementById('product-table').innerHTML = result;
 
@@ -66,6 +69,13 @@ async function getAllProductAdmin() {
                     document.getElementById('product-image-show').style.display = 'block';
                     document.getElementById('product-label-image').style.display = 'none';
                     document.getElementById('product-image-show').src = `https://drive.google.com/thumbnail?id=${response.photo}`;
+                    //img thubmnails
+                    document.getElementById('product-image-show2').style.display = 'none';
+                    document.getElementById('product-label-image2').style.display = 'none';
+                    document.getElementById('product-image-show3').style.display = 'none';
+                    document.getElementById('product-label-image3').style.display = 'none';
+                    document.getElementById('product-image-show4').style.display = 'none';
+                    document.getElementById('product-label-image4').style.display = 'none';
                 } catch (error) {
                     swal({
                         title: 'Product',
@@ -87,18 +97,7 @@ async function getAllProductAdmin() {
 }
 
 // show image
-document.getElementById('product-image').addEventListener('change', function (event) {
-    const input = event.target;
-    const file = input.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const imgElement = document.getElementById('product-image-show');
-            imgElement.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
-})
+//
 
 // Add Product
 document.getElementById('add-product').addEventListener('click',
@@ -107,7 +106,8 @@ document.getElementById('add-product').addEventListener('click',
         addProduct();
     })
 
-function addProduct() {
+
+async function addProduct() {
     let formData = new FormData();
     formData.append('productName', document.getElementById('product-name').value);
     formData.append('quantity', document.getElementById('product-quantity').value);
@@ -117,29 +117,73 @@ function addProduct() {
     formData.append('categoryId', document.getElementById('product-category-id').value);
     formData.append('file', document.getElementById('product-image').files[0]);
 
-    axios.post('http://localhost:8080/api/v1/products', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    })
-        .then(response => {
-            swal({
-                title: 'Product',
-                text: 'Add product successfully',
+    try {
+        let productResponse = await axios.post('http://localhost:8080/api/v1/products', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        await swal({
+            title: 'Product',
+            text: 'Add product successfully',
+            icon: 'success',
+            button: 'Oke'
+        });
+        await getAllProductAdmin();
+        try {
+            if (lastProductId !== null) {
+                await addProductPhoto('product-image2', lastProductId);
+                await addProductPhoto('product-image3', lastProductId);
+                await addProductPhoto('product-image4', lastProductId);
+            }
+            await swal({
+                title: 'Product photos',
+                text: 'Add product photo successfully',
                 icon: 'success',
                 button: 'Oke'
             });
-            resetFormProduct();
-            getAllProductAdmin();
-        })
-        .catch(error => {
-            swal({
-                title: 'Product',
-                text: 'Add product failed',
+        } catch (error) {
+            await swal({
+                title: 'Product Photo',
+                text: 'Add product photo failed',
                 icon: 'error',
                 button: 'Oke'
             });
+        }
+        resetFormProduct();
+    } catch (error) {
+        await swal({
+            title: 'Product',
+            text: 'Add product failed',
+            icon: 'error',
+            button: 'Oke'
         });
+    }
+}
+
+function formDataThumbnail(imageElementId, productId) {
+    let formData = new FormData();
+    const file = document.getElementById(imageElementId).files[0];
+    if (file) {
+        formData.append('file', file);
+    }
+    formData.append('productId', productId);
+    return formData;
+}
+
+async function addProductPhoto(imageElementId, productId) {
+    let formData = formDataThumbnail(imageElementId, productId);
+    if (formData.get('file')) {
+        try {
+            const response = await axios.post('http://localhost:8080/api/v1/product-photos', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+        } catch (error) {
+        }
+    } else {
+    }
 }
 
 document.getElementById('update-product').addEventListener('click',
@@ -231,6 +275,13 @@ function resetFormProduct() {
     document.getElementById('product-image-show').src = null;
     document.getElementById('product-label-image').style.display = 'block';
     document.getElementById('product-image-show').style.display = 'none';
+    //img thumbnails
+    document.getElementById('product-label-image2').style.display = 'block';
+    document.getElementById('product-image-show2').style.display = 'none';
+    document.getElementById('product-label-image3').style.display = 'block';
+    document.getElementById('product-image-show3').style.display = 'none';
+    document.getElementById('product-label-image4').style.display = 'block';
+    document.getElementById('product-image-show4').style.display = 'none';
 }
 
 window.getCategoryToInputTableForm();
@@ -252,25 +303,31 @@ async function getCategoryToInputTableForm() {
 
 //show image
 document.addEventListener('DOMContentLoaded', function () {
-    const imageInput = document.getElementById('product-image');
-    const imagePreview = document.getElementById('product-image-show');
-    const labelPreview = document.getElementById('product-label-image');
+    function setupImagePreview(imageInputId, imagePreviewId, labelPreviewId) {
+        const imageInput = document.getElementById(imageInputId);
+        const imagePreview = document.getElementById(imagePreviewId);
+        const labelPreview = document.getElementById(labelPreviewId);
 
-    imageInput.addEventListener('change', function (evt) {
-        const input = evt.target;
-        const file = input.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-                labelPreview.style.display = 'none';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+        imageInput.addEventListener('change', function (evt) {
+            const input = evt.target;
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    labelPreview.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    setupImagePreview('product-image', 'product-image-show', 'product-label-image');
+    setupImagePreview('product-image2', 'product-image-show2', 'product-label-image2');
+    setupImagePreview('product-image3', 'product-image-show3', 'product-label-image3');
+    setupImagePreview('product-image4', 'product-image-show4', 'product-label-image4');
 });
-
 /**
  * bổ sung thêm:
  * function:

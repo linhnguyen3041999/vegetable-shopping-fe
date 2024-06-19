@@ -22,12 +22,67 @@ form {
 #category-image-show,
 #product-image-show {
     display: none;
-    width: 142px;
-    height: 142px;
+    width: 145px;
+    height: 145px;
 }
 
-.fa-plus {
+#product-label-image,
+#category-label-image {
     border: 1px solid #000000;
     padding: 55px;
     font-size: 35px;
 }
+
+/*thumb image*/
+
+.product-label-image-thumbs {
+    border: 1px solid #000000;
+    padding: 25px;
+    font-size: 20px;
+}
+
+#product-label-image2 {
+    position: absolute;
+    top: 107px;
+    left: 162px;
+}
+
+#product-label-image3 {
+    position: absolute;
+    top: 107px;
+    left: 236px;
+}
+
+#product-label-image4 {
+    position: absolute;
+    top: 107px;
+    left: 309px;;
+}
+
+#product-image-show2 {
+    display: none;
+    position: absolute;
+    top: 107px;
+    left: 160px;
+    width: 72px;
+    height: 73px;
+}
+
+#product-image-show3 {
+    display: none;
+    position: absolute;
+    top: 107px;
+    left: 234px;
+    width: 72px;
+    height: 73px;
+}
+
+#product-image-show4 {
+    display: none;
+    position: absolute;
+    top: 107px;
+    left: 308px;
+    width: 72px;
+    height: 73px;
+}
+
