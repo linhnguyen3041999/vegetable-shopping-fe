@@ -1,0 +1,26 @@
+#imagePreview {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #dddddd;
+    margin-top: 10px;
+    display: none;
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+.table-blog{
+    text-align: center;
+}
+.status-blog{
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.fixed-width-title, .fixed-width-content {
+    max-width: 150px; /* Adjust this value as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
