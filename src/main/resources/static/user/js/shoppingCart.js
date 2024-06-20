@@ -1,80 +1,98 @@
 async function getAllItem() {
     try {
-        //let {data: cartItems} = await axios.get('http://localhost:8080/api/v1/cart');
         let result = '';
-        await addCookie();
-        const cookieValue = await getCookie();
-        cookieValue.forEach(cartItem => {
+        let itemList = [];
+        if(localStorage.getItem("items")){
+            itemList = JSON.parse(localStorage.getItem("items"));
+        }
+        const cartItems = itemList;
+        cartItems.forEach((cartItem, index) => {
                 result += `
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="/user/template/img/product/${cartItem.product.photo}" alt="">
+                                        <img src="https://drive.google.com/thumbnail?id=${cartItem.product.photo}" alt="ImgProduct">
                                         <h5>${cartItem.product.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        ${cartItem.product.price}
+                                        $${cartItem.product.price}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <span id="minus-${cartItem.cartItemId}" class="qtybtn">-</span>
+                                                <span id="minus-${index}" class="qtybtn">-</span>
                                                 <input type="text" value="${cartItem.quantity}">
-                                                <span id="plus-${cartItem.cartItemId}" class="qtybtn">+</span>
+                                                <span id="plus-${index}" class="qtybtn">+</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        ${cartItem.price}
+                                        $${cartItem.price}
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span id="icon_close_${cartItem.cartItemId}" class="icon_close"></span>
+                                        <span id="icon_close_${index}" class="icon_close"></span>
                                     </td>
                                 </tr>                        
                     `;
+
             });
 
         document.getElementById('tbody-cart-items').innerHTML = result;
 
-        cookieValue.forEach(cartItem => {
+        cartItems.forEach((cartItem, index) => {
             // Delete
-            let productDelete = document.getElementById(`icon_close_${cartItem.cartItemId}`);
+            let productDelete = document.getElementById(`icon_close_${index}`);
             productDelete.addEventListener('click', async () => {
                 try {
-                    let userConfirmed = confirm("Are you sure you want to delete?");
-                    if (userConfirmed) {
-                        await axios.delete(`http://localhost:8080/api/v1/cart/${cartItem.cartItemId}`);
-                        getAllItem();
-                        getAmount();
-                        getCount();
-                        await addCookie();
-                    }
+                    swal({
+                        title: "You want to delete this item ?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                itemList.splice(index, 1);
+                                localStorage.setItem("items", JSON.stringify(itemList));
+                                getAllItem();
+                                getAmount();
+                                getCount();
+                            }
+                        });
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
             //Minus
-            let productMinus = document.getElementById(`minus-${cartItem.cartItemId}`);
+            let productMinus = document.getElementById(`minus-${index}`);
             productMinus.addEventListener('click', async () => {
                 try {
-                        await axios.put(`http://localhost:8080/api/v1/cart/${cartItem.cartItemId}/minus`);
-                        getAllItem();
-                        getAmount();
-                        getCount();
-                        await addCookie();
+                    if (itemList[index].quantity > 1 ) {
+                        const quantityChange = itemList[index].quantity - 1;
+                        itemList[index].quantity = quantityChange;
+                        itemList[index].price = itemList[index].quantity * cartItem.product.price;
+                    }
+                    localStorage.setItem("items", JSON.stringify(itemList));
+                    getAllItem();
+                    getAmount();
+                    getCount();
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
 
             //Plus
-            let productPlus = document.getElementById(`plus-${cartItem.cartItemId}`);
+            let productPlus = document.getElementById(`plus-${index}`);
             productPlus.addEventListener('click', async () => {
                 try {
-                    await axios.put(`http://localhost:8080/api/v1/cart/${cartItem.cartItemId}/plus`);
+                    if (itemList[index].quantity < 100) {
+                        const quantityChange = itemList[index].quantity + 1;
+                        itemList[index].quantity = quantityChange;
+                        itemList[index].price = itemList[index].quantity * cartItem.product.price;
+                    }
+                    localStorage.setItem("items", JSON.stringify(itemList));
                     getAllItem();
                     getAmount();
                     getCount();
-                    await addCookie();
                 } catch (error) {
                     console.error('Error:', error);
                 }
@@ -85,4 +103,5 @@ async function getAllItem() {
     }
 }
 window.getAllItem();
-window.getCookie();
+window.getAmount();
+window.getCount();
