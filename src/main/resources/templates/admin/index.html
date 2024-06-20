@@ -1,51 +1,36 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
-
+    <title>Vegetable-Store | Admin</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" th:href="@{/admin/plugins/fontawesome-free/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
     <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
-
     <!--axios-->
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
             integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- css index -->
+    <link rel="stylesheet" th:href="@{/admin/css/index.css}">
+    <!--sweet alert-->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
 
-    <style>
-        .form-control {
-            border-radius: 0;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            border: none;
-        }
-
-        .form-product {
-            padding: 20px;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-            border-radius: 10px;
-            background-color: white;
-        }
-    </style>
 </head>
-
-<body class="hold-transition sidebar-mini" onload="showDashBoard()">
+<body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -60,7 +45,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="#" class="nav-link">Contact</a>
             </li>
         </ul>
-
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
@@ -85,7 +69,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </form>
                 </div>
             </li>
-
             <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -191,9 +174,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="index3.html" class="brand-link">
             <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Vegetable_Store</span>
         </a>
-
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
@@ -205,7 +187,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="#" class="d-block">Alexander Pierce</a>
                 </div>
             </div>
-
             <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
@@ -218,7 +199,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
             </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2 slidebar">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -380,7 +360,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div id="category">
                     <div>
                         <h2 class="text-red">Category management</h2>
-                        <form class="form-product">
+                        <form class="form-product" method="post" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="category-id">Category Id</label>
@@ -388,8 +368,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="category-name">Category Name</label>
-                                    <input type="text" class="form-control" id="category-name"
+                                    <input type="text" name="category-name" class="form-control" id="category-name"
                                            placeholder="Enter the category name">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label>Category Image</label> <br>
+                                    <label for="category-image">
+                                        <i id="category-label-image" class="fa-solid fa-plus"></i>
+                                        <img id="category-image-show" src="" alt="img">
+                                    </label>
+                                    <input type="file" name="category-image" class="form-control" id="category-image"
+                                           style="display: none">
                                 </div>
                             </div>
                             <button id="add-category" type="button" class="btn btn-primary">Add Category</button>
@@ -424,6 +415,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <tr>
                                         <th>Category Code</th>
                                         <th>Category Name</th>
+                                        <th>Category Image</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -482,9 +474,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                            step="0.01" min="0">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="product-photo">Photo</label>
-                                <input type="file" class="form-control-file" id="product-photo">
+                            <div class="row mb-3">
+                                <div class="form-group col-md-12">
+                                    <label>Product Image</label> <br>
+                                    <label for="product-image">
+                                        <i id="product-label-image" class="fa-solid fa-plus"></i>
+                                        <img id="product-image-show" src="" alt="img">
+                                    </label>
+                                    <input type="file" name="product-image" class="form-control" id="product-image"
+                                           style="display: none">
+                                    <!--image phụ-->
+                                    <div class="group-image-thumbs">
+                                        <label for="product-image2">
+                                            <i id="product-label-image2"
+                                               class="fa-solid fa-plus product-label-image-thumbs"></i>
+                                            <img class="product-image-thumb" id="product-image-show2" src="" alt="img">
+                                        </label>
+                                        <input type="file" name="product-image2" class="form-control"
+                                               id="product-image2"
+                                               style="display: none">
+                                        <label for="product-image3">
+                                            <i id="product-label-image3"
+                                               class="fa-solid fa-plus product-label-image-thumbs"></i>
+                                            <img class="product-image-thumb" id="product-image-show3" src="" alt="img">
+                                        </label>
+                                        <input type="file" name="product-image3" class="form-control"
+                                               id="product-image3"
+                                               style="display: none">
+                                        <label for="product-image4">
+                                            <i id="product-label-image4"
+                                               class="fa-solid fa-plus product-label-image-thumbs"></i>
+                                            <img class="product-image-thumb" id="product-image-show4" src="" alt="img">
+                                        </label>
+                                        <input type="file" name="product-image4" class="form-control"
+                                               id="product-image4"
+                                               style="display: none">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="product-description">Description</label>
@@ -1016,6 +1042,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!--sweet alert-->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js}"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
