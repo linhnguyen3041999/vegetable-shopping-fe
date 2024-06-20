@@ -2,27 +2,14 @@ package com.vegetableshoppingfe.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/vegetable-shopping")
 public class UserController {
 
-    @GetMapping("/home")
+    @GetMapping
     public String getHome() {
-        return "user/index";
-    }
-
-    @GetMapping("/product/product-detail")
-    public String getProductDetail() {
-        return "user/shop-details";
-    }
-
-    @GetMapping("/shopping-cart")
-    public String getShoppingCart() {
-        return "user/shopping-cart";
-    }
-
-    @GetMapping("/shopping-cart/checkout")
-    public String getCheckout() {
-        return "/user/checkout-form";
+        return "users/index";
     }
 }

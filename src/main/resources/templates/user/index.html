@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>Test</title>
 
     <!-- Google Font -->
     <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
@@ -49,6 +49,7 @@
     </div>
     <div class="humberger__menu__cart">
         <ul>
+            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
         </ul>
         <div class="header__cart__price">item: <span>$150.00</span></div>
@@ -101,6 +102,42 @@
 
 <!-- Header Section Begin -->
 <header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                            <li>Free Shipping for all Order of $99</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        </div>
+                        <div class="header__top__right__language">
+                            <img th:src="@{/user/template/img/language.png}" alt="language">
+                            <div>English</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="#">Spanis</a></li>
+                                <li><a href="#">English</a></li>
+                            </ul>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a href="#"><i class="fa fa-user"></i> Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -115,8 +152,8 @@
                         <li><a href="./shop-grid.html">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="shopping-cart.html">Shopping Cart</a></li>
+                                <li><a th:href="@{/vegetable-shopping/product/product-details}">Shop Details</a></li>
+                                <li><a th:href="@{/vegetable-shopping/shopping-cart}">Shopping Cart</a></li>
                                 <li><a href="./checkout-form.html">Check Out</a></li>
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
@@ -129,16 +166,8 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
-                        <li class="user-menu">
-                            <a href="#"><i class="fa fa-user"></i></a>
-                            <div class="user-menu-content">
-                                <a href="#">Đăng nhập</a>
-                                <a href="#">Đăng ký</a>
-                                <a href="#">Quên mật khẩu</a>
-                                <a href="#">Cập nhật tài khoản</a>
-                            </div>
-                        </li>
-                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                        <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span>$150.00</span></div>
                 </div>
@@ -159,14 +188,15 @@
                 <div class="hero__categories">
                     <div class="hero__categories__all">
                         <i class="fa fa-bars"></i>
-                        <span>Categories</span>
+                        <span>All departments</span>
                     </div>
-                    <ul id="category-list">
-<!--                        window.getAllCategories();-->
+                    <ul>
+                        <th:block th:each="category : ${categories}">
+                            <li><a href="#" th:text="${category.name}"></a></li>
+                        </th:block>
                     </ul>
                 </div>
             </div>
-
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
@@ -600,6 +630,12 @@
                         <input type="text" placeholder="Enter your mail">
                         <button type="submit" class="site-btn">Subscribe</button>
                     </form>
+                    <div class="footer__widget__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -609,27 +645,19 @@
                     <div class="footer__copyright__text">
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                            All rights reserved
+                            All rights reserved | This template is made with <i class="fa fa-heart"
+                                                                                aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
+                    <div class="footer__copyright__payment"><img th:src="@{/user/template/img/payment-item.png}" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </footer>
-
 <!-- Footer Section End -->
-
-<!-- Js Plugins -->
-<!--<script src="../../static/user/template/js/jquery-3.3.1.min.js"></script>-->
-<!--<script src="../../static/user/template/js/bootstrap.min.js"></script>-->
-<!--<script src="../../static/user/template/js/jquery.nice-select.min.js"></script>-->
-<!--<script src="../../static/user/template/js/jquery-ui.min.js"></script>-->
-<!--<script src="../../static/user/template/js/jquery.slicknav.js"></script>-->
-<!--<script src="../../static/user/template/js/mixitup.min.js"></script>-->
-<!--<script src="../../static/user/template/js/owl.carousel.min.js"></script>-->
-<!--<script src="../../static/user/template/js/main.js"></script>-->
 
 <!--js Plugins-->
 <script th:src="@{/user/template/js/jquery-3.3.1.min.js}"></script>
@@ -640,6 +668,17 @@
 <script th:src="@{/user/template/js/mixitup.min.js}"></script>
 <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
 <script th:src="@{/user/template/js/main.js}"></script>
+<!-- Js Plugins -->
+<!--<script src="../../static/user/template/js/jquery-3.3.1.min.js"></script>-->
+<!--<script src="../../static/user/template/js/bootstrap.min.js"></script>-->
+<!--<script src="../../static/user/template/js/jquery.nice-select.min.js"></script>-->
+<!--<script src="../../static/user/template/js/jquery-ui.min.js"></script>-->
+<!--<script src="../../static/user/template/js/jquery.slicknav.js"></script>-->
+<!--<script src="../../static/user/template/js/mixitup.min.js"></script>-->
+<!--<script src="../../static/user/template/js/owl.carousel.min.js"></script>-->
+<!--<script src="../../static/user/template/js/main.js"></script>-->
+
+
 </body>
 
 </html>
