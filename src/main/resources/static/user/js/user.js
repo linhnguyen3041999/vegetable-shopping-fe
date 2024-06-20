@@ -1,13 +1,12 @@
 function my_submit() {
-    //catch error
     error = "";
-    userName = document.getElementById("form3Example1cg").value;
-    email = document.getElementById("form3Example3cg").value;
-    password = document.getElementById("form3Example4cg").value;
-    confirmPassword = document.getElementById("form3Example4cdg").value;
+    userName = document.getElementById("user-username").value;
+    email = document.getElementById("user-email").value;
+    password = document.getElementById("user-password").value;
+    confirmPassword = document.getElementById("user-ConfirmPassword").value;
 
-    validatePassword(password);
-    comparePasswords(password, confirmPassword);
+
+
 }
 
 function comparePasswords(password, confirmPassword) {
@@ -22,6 +21,28 @@ function comparePasswords(password, confirmPassword) {
         result.message = "Mật khẩu không khớp. Vui lòng kiểm tra lại.";
     }
     return result;
+}
+
+function validateUsername(userName){
+    const minLength = 50;
+    if(userName === "" && userName.null){
+        return "Please fill your username";
+    }else if(userName.lenghth > minLength){
+        return "Your username is too long"
+    }else{
+        return userName;
+    }
+}
+
+function validateEmail(email){
+    const minLength = 50;
+    if(email === "" && email.null){
+        return "Please fill your email";
+    }else if(email.lenghth > minLength){
+        return "Your email is too long"
+    }else{
+        return email;
+    }
 }
 
 function validatePassword(password) {
