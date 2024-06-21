@@ -1,8 +1,16 @@
 document.getElementById('registrationForm').addEventListener('submit', my_submit);
 
-function my_submit(event) {
-    // event.preventDefault();
+function register() {
+    axios.post("http://localhost:8081/user/register", {
+        username: document.getElementById('user-username').value,
+        password: document.getElementById("user-password").value
+    }).then(() => {
+        alert("Dang ky thanh cong")
+    })
+}
 
+
+function my_submit(event) {
     let formData = {
         userName: document.getElementById("user-username").value,
         email: document.getElementById("user-email").value,
@@ -32,6 +40,7 @@ function my_submit(event) {
         alert("username invalid");
     }
 }
+
 // Check if username validation returned an error
 //     let usernameError = validateUsername(formData.userName);
 //     if (usernameError !== formData.userName) {
@@ -87,97 +96,97 @@ function my_submit(event) {
 //     }
 
 
-    function sendDataToServer(formData) {
-        axios.post('http://localhost:8080/api/v1/register', formData)
-            .then(response => {
-                swal({
-                    title: 'Registration',
-                    text: 'Registration successful',
-                    icon: 'success',
-                    button: 'Oke'
-                });
-                // Additional steps after successful registration
-            })
-            .catch(error => {
-                swal({
-                    title: 'Registration',
-                    text: 'Registration failed',
-                    icon: 'error',
-                    button: 'Oke'
-                });
+function sendDataToServer(formData) {
+    axios.post('http://localhost:8081/vegetable-shopping/register', formData)
+        .then(response => {
+            swal({
+                title: 'Registration',
+                text: 'Registration successful',
+                icon: 'success',
+                button: 'Oke'
             });
+            // Additional steps after successful registration
+        })
+        .catch(error => {
+            swal({
+                title: 'Registration',
+                text: 'Registration failed',
+                icon: 'error',
+                button: 'Oke'
+            });
+        });
+}
+
+function validateUsername(userName) {
+    const minLength = 50;
+    if (userName === "" && userName.null) {
+        return "Please fill your username";
+    } else if (userName.lenghth > minLength) {
+        return "Your username is too long"
+    } else {
+        return userName;
     }
+}
 
-    function validateUsername(userName) {
-        const minLength = 50;
-        if (userName === "" && userName.null) {
-            return "Please fill your username";
-        } else if (userName.lenghth > minLength) {
-            return "Your username is too long"
-        } else {
-            return userName;
-        }
+function validateEmail(email) {
+    const minLength = 50;
+    if (email === "" && email.null) {
+        return "Please fill your email";
+    } else if (email.lenghth > minLength) {
+        return "Your email is too long"
+    } else {
+        return email;
     }
+}
 
-    function validateEmail(email) {
-        const minLength = 50;
-        if (email === "" && email.null) {
-            return "Please fill your email";
-        } else if (email.lenghth > minLength) {
-            return "Your email is too long"
-        } else {
-            return email;
-        }
-    }
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
+function validatePassword(password) {
+    const minLength = 8;
+    const specialChars = /[!@#$%^&*(),.?":{}|<>]/;
+    const hasNumber = /\d/;
+    const hasLetter = /[a-zA-Z]/;
+    let result = {
+        isValid: true,
+        message: "password is valid"
+    };
 
-    function validatePassword(password) {
-        const minLength = 8;
-        const specialChars = /[!@#$%^&*(),.?":{}|<>]/;
-        const hasNumber = /\d/;
-        const hasLetter = /[a-zA-Z]/;
-        let result = {
-            isValid: true,
-            message: "password is valid"
-        };
-
-        if (password.length < minLength) {
-            result.isValid = false;
-            result.message = `Password must be at least ${minLength} characters long`;
-            return result;
-        }
-        if (!hasLetter.test(password)) {
-            result.isValid = false;
-            result.message = "Password must contain at least one letter";
-            return result;
-        }
-        if (!hasNumber.test(password)) {
-            result.isValid = false;
-            result.message = "Password must contain at least one number";
-            return result;
-        }
-        if (!specialChars.test(password)) {
-            result.isValid = false;
-            result.message = "Password must contain at least one special character";
-            return result;
-        }
+    if (password.length < minLength) {
+        result.isValid = false;
+        result.message = `Password must be at least ${minLength} characters long`;
         return result;
     }
-
-    function comparePasswords(password, confirmPassword) {
-        let result = {
-            isMatch: false,
-            message: ""
-        };
-        if (password === confirmPassword) {
-            result.isMatch = true;
-            result.message = "Passwords match";
-        } else {
-            result.message = "Passwords do not match. Please check again";
-        }
+    if (!hasLetter.test(password)) {
+        result.isValid = false;
+        result.message = "Password must contain at least one letter";
         return result;
     }
+    if (!hasNumber.test(password)) {
+        result.isValid = false;
+        result.message = "Password must contain at least one number";
+        return result;
+    }
+    if (!specialChars.test(password)) {
+        result.isValid = false;
+        result.message = "Password must contain at least one special character";
+        return result;
+    }
+    return result;
+}
+
+function comparePasswords(password, confirmPassword) {
+    let result = {
+        isMatch: false,
+        message: ""
+    };
+    if (password === confirmPassword) {
+        result.isMatch = true;
+        result.message = "Passwords match";
+    } else {
+        result.message = "Passwords do not match. Please check again";
+    }
+    return result;
+}
