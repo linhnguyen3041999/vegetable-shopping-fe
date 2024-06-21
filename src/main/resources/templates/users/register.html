@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ogani | Login</title>
+    <!--SweetAlert2 CSS and JS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js"></script>
     <!-- Google Font -->
     <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
           rel="stylesheet">
@@ -26,17 +29,20 @@
             integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        .form-control-lg{
+        .form-control-lg {
             font-size: 16px;
         }
-        .offset-xl-1{
+
+        .offset-xl-1 {
             margin: 0;
         }
     </style>
 
     <link rel="stylesheet" th:href="@{/user/css/login.css}">
     <!--    font aweasome -->
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 <!-- Page Preloder -->
@@ -235,36 +241,32 @@
 <section class="vh-100">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img th:src="@{/user/template/img/hero/banner.jpg}"
-                     class="img-fluid" alt="Sample image" height="300px">
-            </div>
+            <!--            <div class="col-md-9 col-lg-6 col-xl-5">-->
+            <!--                <img th:src="@{/user/template/img/hero/banner.jpg}"-->
+            <!--                     class="img-fluid" alt="Sample image" height="300px">-->
+            <!--            </div>-->
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <form id="registrationForm" method="POST" >
                     <h2 class="text-center mb-5" style="font-weight: bold">REGISTER</h2>
                     <!-- Username input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input id="user-username" type="text" class="form-control form-control-lg"
-                               placeholder="Username"/>
+                    <div class="form-outline mb-4">
+                        <input id="user-username" type="text" class="form-control form-control-lg" placeholder="Username"/>
                     </div>
                     <!-- Email input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input id="user-email" type="text" class="form-control form-control-lg"
-                               placeholder="Email"/>
+                    <div class="form-outline mb-4">
+                        <input id="user-email" type="text" class="form-control form-control-lg" placeholder="Email"/>
                     </div>
                     <!-- Password input -->
-                    <div data-mdb-input-init class="form-outline mb-3">
-                        <input id="user-password" type="password" class="form-control form-control-lg"
-                               placeholder="Password"/>
+                    <div class="form-outline mb-3">
+                        <input id="user-password" type="password" class="form-control form-control-lg" placeholder="Password"/>
                     </div>
                     <!-- Confirm Password input -->
-                    <div data-mdb-input-init class="form-outline mb-3">
-                        <input id="user-ConfirmPassword" type="password" class="form-control form-control-lg"
-                               placeholder="Confirm Password"/>
+                    <div class="form-outline mb-3">
+                        <input id="user-ConfirmPassword" type="password" class="form-control form-control-lg" placeholder="Confirm Password"/>
                     </div>
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button id="login-normal" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem; width: 100%; background-color: #7fad39; border: 0">Confirm
+                        <button id="login-normal" type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem; width: 100%; background-color: #7fad39; border: 0">
+                            Confirm
                         </button>
                         <div class="divider d-flex align-items-center my-2"></div>
                     </div>
@@ -357,5 +359,7 @@
 <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
 <script th:src="@{/user/template/js/main.js}"></script>
 <script th:src="@{/user/js/login.js}"></script>
+<script th:src="@{/static/js/user.js}"></script>
+
 </body>
 </html>
