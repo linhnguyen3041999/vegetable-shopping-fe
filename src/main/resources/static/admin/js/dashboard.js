@@ -46,7 +46,6 @@ window.chartJs = chartJs;
 async function chartJs() {
     try {
         let {data: yearReport} = await axios.get('http://localhost:8080/api/v1/carts/findYearOrder');
-        console.log(yearReport);
         let result = '';
         yearReport.forEach(year => {
             result += `
@@ -127,4 +126,25 @@ async function getTopProducts() {
     document.getElementById('top-products').innerHTML = result;
 }
 
-
+window.getTopUsersBuyMost();
+async function getTopUsersBuyMost() {
+    try {
+        let{data : users} = await axios.get('http://localhost:8080/api/v1/reports/reportTopUsersBuyLotOf');
+        let resutl = '';
+        users.forEach(user => {
+            resutl += `
+                    <tr>
+                        <td>${user.username}</td>
+                        <td>${user.fullname}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phoneNumber}</td>
+                        <td>${user.totalAmount}</td>
+                        <td>${user.orderCount}</td>
+                    </tr>
+            `;
+        });
+        document.getElementById('top-users-buy-lot-of').innerHTML = resutl;
+    } catch (e) {
+        console.log(e.message);
+    }
+}
