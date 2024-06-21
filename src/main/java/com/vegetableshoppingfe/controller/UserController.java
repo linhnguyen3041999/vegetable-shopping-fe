@@ -8,8 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/vegetable-shopping")
 public class UserController {
 
-    @GetMapping
+    @GetMapping("/home")
     public String getHome() {
         return "users/index";
     }
+
+    @GetMapping("/blog")
+    public String getBlog(){
+        return "users/blog";
+    }
+
 }

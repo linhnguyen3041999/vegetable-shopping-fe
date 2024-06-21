@@ -86,3 +86,11 @@ form {
     height: 73px;
 }
 
+#imagePreview {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd; /* Optional: Adds a border to the image */
+    padding: 5px; /* Optional: Adds some padding around the image */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
