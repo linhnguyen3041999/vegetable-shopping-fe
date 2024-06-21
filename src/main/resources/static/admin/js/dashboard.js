@@ -12,7 +12,20 @@ async function countUsers() {
         let {data: countUsers} = await axios.get('http://localhost:8080/api/v1/users/countUsers');
         document.getElementById('count-users').innerText = countUsers;
     } catch (e) {
+        console.log(e.message())
+    }
+}
 
+// count products
+
+window.countProducts();
+
+async function countProducts() {
+    try {
+        let {data: countProducts} = await axios.get('http://localhost:8080/api/v1/products/countProducts');
+        document.getElementById('count-products').innerText = countProducts;
+    } catch (e) {
+        console.log(e.message);
     }
 }
 
