@@ -18,4 +18,34 @@ public class UserController {
         return "users/blog";
     }
 
+    @GetMapping("/contact")
+    public String getContact(){
+        return "users/contact";
+    }
+
+    @GetMapping("/shop-details")
+    public String getShopDetails(){
+        return "users/shop-details";
+    }
+
+    @GetMapping("/shoping-cart")
+    public String getShoppingCart(){
+        return "users/shoping-cart";
+    }
+
+    @GetMapping("/checkout-form")
+    public String getCheckoutForm(){
+        return "users/checkout";
+    }
+
+    @GetMapping("/blog-details")
+    public String getBlogDetails(){
+        return "users/blog-details";
+    }
+
+    @GetMapping("shop-grid")
+    public String getShop(){
+        return "users/shop-grid";
+    }
+    
 }
