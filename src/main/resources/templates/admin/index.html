@@ -19,15 +19,14 @@
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
     <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
-    <!--axios-->
-    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
-            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- css index -->
     <link rel="stylesheet" th:href="@{/admin/css/index.css}">
     <!--sweet alert-->
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
-
+    <!--axios-->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
+            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -297,10 +296,10 @@
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>150</h3>
-
-                                    <p>New Orders</p>
+                                <div class="inner text-white">
+                                    <div class="row mx-1"><h3 id="count-order-in-7day"></h3><i
+                                            class="fa-solid fa-gift text-lg mx-1"></i></div>
+                                    <p>New orders last week</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
@@ -312,10 +311,10 @@
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                    <p>Bounce Rate</p>
+                                <div class="inner text-white">
+                                    <div class="row mx-1"><h3 id="count-products"></h3><i
+                                            class="fa-brands fa-product-hunt"></i></div>
+                                    <p>New products</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
@@ -326,11 +325,11 @@
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-warning">
+                            <div class="small-box text-white bg-warning">
                                 <div class="inner">
-                                    <h3>44</h3>
-
-                                    <p>User Registrations</p>
+                                    <div class="row mx-1"><h3 id="count-users"></h3><i
+                                            class="fa-solid fa-user-plus text-lg mx-1"></i></div>
+                                    <p>User Register</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
@@ -355,6 +354,69 @@
                         </div>
                         <!-- ./col -->
                     </div>
+                    <div class="row my-5">
+                        <div class="col-md-7 my-2 px-5">
+                            <div class="row my-5">
+                                <div class="col-10 text-center">
+                                    <h3 class="text-red">Monthly revenue statistics</h3>
+                                </div>
+                                <div class="form-group col-2">
+                                    <select name="report-year" id="report-year" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <canvas id="report-revenue-by-month"></canvas>
+                        </div>
+                        <div class="col-md-5 my-2 pl-1 mt-3">
+                            <div style="margin-top: 40px" class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title font-weight-bold text-green">Top best selling
+                                        products</h3>
+                                </div>
+                                <div class="card-body p-0">
+                                    <table class="table table-sm text-center">
+                                        <thead>
+                                        <tr>
+                                            <th class="w-25">SST</th>
+                                            <th class="w-50">Name</th>
+                                            <th class="w-25">Quantity Sold</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="top-products">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title text-success font-weight-bold text-lg">Top 10 users buy the most</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-hover text-nowrap text-center">
+                                        <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Fullname</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Total Amout</th>
+                                            <th>Quantity Order</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="top-users-buy-lot-of" class="text-center">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
                 </div>
 
                 <div id="category">
@@ -368,7 +430,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="category-name">Category Name</label>
-                                    <input type="text" name="category-name" class="form-control" id="category-name"
+                                    <input type="text" name="category-name" class="form-control"
+                                           id="category-name"
                                            placeholder="Enter the category name">
                                 </div>
                             </div>
@@ -379,15 +442,19 @@
                                         <i id="category-label-image" class="fa-solid fa-plus"></i>
                                         <img id="category-image-show" src="" alt="img">
                                     </label>
-                                    <input type="file" name="category-image" class="form-control" id="category-image"
+                                    <input type="file" name="category-image" class="form-control"
+                                           id="category-image"
                                            style="display: none">
                                 </div>
                             </div>
-                            <button id="add-category" type="button" class="btn btn-primary">Add Category</button>
+                            <button id="add-category" type="button" class="btn btn-primary">Add Category
+                            </button>
                             <button id="update-category" type="button" class="btn btn-secondary">Update Category
                             </button>
-                            <button id="delete-category" type="button" class="btn btn-danger">Delete Category</button>
-                            <button id="reset-category" type="button" class="btn btn-secondary">Reset Form</button>
+                            <button id="delete-category" type="button" class="btn btn-danger">Delete Category
+                            </button>
+                            <button id="reset-category" type="button" class="btn btn-secondary">Reset Form
+                            </button>
                         </form>
 
                         <br>
@@ -396,15 +463,19 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload
+                                        file
                                     </button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print
+                                        data
                                     </button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy
+                                    </button>
                                     <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
                                         export
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF
+                                        export
                                     </button>
                                     <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
                                         all
@@ -481,14 +552,16 @@
                                         <i id="product-label-image" class="fa-solid fa-plus"></i>
                                         <img id="product-image-show" src="" alt="img">
                                     </label>
-                                    <input type="file" name="product-image" class="form-control" id="product-image"
+                                    <input type="file" name="product-image" class="form-control"
+                                           id="product-image"
                                            style="display: none">
                                     <!--image phụ-->
                                     <div class="group-image-thumbs">
                                         <label for="product-image2">
                                             <i id="product-label-image2"
                                                class="fa-solid fa-plus product-label-image-thumbs"></i>
-                                            <img class="product-image-thumb" id="product-image-show2" src="" alt="img">
+                                            <img class="product-image-thumb" id="product-image-show2" src=""
+                                                 alt="img">
                                         </label>
                                         <input type="file" name="product-image2" class="form-control"
                                                id="product-image2"
@@ -496,7 +569,8 @@
                                         <label for="product-image3">
                                             <i id="product-label-image3"
                                                class="fa-solid fa-plus product-label-image-thumbs"></i>
-                                            <img class="product-image-thumb" id="product-image-show3" src="" alt="img">
+                                            <img class="product-image-thumb" id="product-image-show3" src=""
+                                                 alt="img">
                                         </label>
                                         <input type="file" name="product-image3" class="form-control"
                                                id="product-image3"
@@ -504,7 +578,8 @@
                                         <label for="product-image4">
                                             <i id="product-label-image4"
                                                class="fa-solid fa-plus product-label-image-thumbs"></i>
-                                            <img class="product-image-thumb" id="product-image-show4" src="" alt="img">
+                                            <img class="product-image-thumb" id="product-image-show4" src=""
+                                                 alt="img">
                                         </label>
                                         <input type="file" name="product-image4" class="form-control"
                                                id="product-image4"
@@ -518,9 +593,12 @@
                                           placeholder="Enter the description"></textarea>
                             </div>
                             <button id="add-product" type="button" class="btn btn-primary">Add Product</button>
-                            <button id="update-product" type="button" class="btn btn-secondary">Update Product</button>
-                            <button id="delete-product" type="button" class="btn btn-danger">Delete Product</button>
-                            <button id="reset-product" type="button" class="btn btn-secondary">Reset Form</button>
+                            <button id="update-product" type="button" class="btn btn-secondary">Update Product
+                            </button>
+                            <button id="delete-product" type="button" class="btn btn-danger">Delete Product
+                            </button>
+                            <button id="reset-product" type="button" class="btn btn-secondary">Reset Form
+                            </button>
                         </form>
 
                         <br>
@@ -529,18 +607,24 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp lên
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i> Tải tệp
+                                        lên
                                     </button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ liệu
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i> In dữ
+                                        liệu
                                     </button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao chép
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao
+                                        chép
                                     </button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>
+                                        Xuất
                                         Excel
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Xuất PDF
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>
+                                        Xuất PDF
                                     </button>
-                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Xóa tất
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>
+                                        Xóa tất
                                         cả
                                     </button>
                                 </div>
@@ -593,15 +677,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
-                                <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file</button>
+                                <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file
+                                </button>
                                 <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
                                 </button>
-                                <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
-                                <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
+                                <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy
                                 </button>
-                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
+                                    export
                                 </button>
-                                <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
+                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF
+                                    export
+                                </button>
+                                <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
+                                    all
                                 </button>
                             </div>
                             <table id="example2" class="table table-bordered table-hover">
@@ -680,15 +769,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
-                                <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file</button>
+                                <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload file
+                                </button>
                                 <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
                                 </button>
-                                <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
-                                <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel export
+                                <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy
                                 </button>
-                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
+                                    export
                                 </button>
-                                <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete all
+                                <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF
+                                    export
+                                </button>
+                                <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
+                                    all
                                 </button>
                             </div>
                             <table id="example2" class="table table-bordered table-hover">
@@ -783,10 +877,12 @@
                             </div>
                             <button type="submit" name="addOrderDetail" class="btn btn-primary">Add Order Detail
                             </button>
-                            <button type="button" name="revisionOrderDetail" class="btn btn-secondary">Revision Order
+                            <button type="button" name="revisionOrderDetail" class="btn btn-secondary">Revision
+                                Order
                                 Detail
                             </button>
-                            <button type="button" name="remoteOrderDetail" class="btn btn-danger">Remote Order Detail
+                            <button type="button" name="remoteOrderDetail" class="btn btn-danger">Remote Order
+                                Detail
                             </button>
                         </form>
 
@@ -796,15 +892,19 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Add New Order
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Add New
+                                        Order
                                     </button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print data
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print
+                                        data
                                     </button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy</button>
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Coppy
+                                    </button>
                                     <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>Excel
                                         export
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF export
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>PDF
+                                        export
                                     </button>
                                     <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>Delete
                                         all
@@ -934,8 +1034,11 @@
                                 </div>
                             </div>
                             <button name="addOrder" type="submit" class="btn btn-primary">Add Order</button>
-                            <button name="revisionOrder" type="button" class="btn btn-secondary">Revision Order</button>
-                            <button name="remoteOrder" type="button" class="btn btn-danger">Remote Order</button>
+                            <button name="revisionOrder" type="button" class="btn btn-secondary">Revision
+                                Order
+                            </button>
+                            <button name="remoteOrder" type="button" class="btn btn-danger">Remote Order
+                            </button>
                         </form>
 
                         <br>
@@ -944,17 +1047,23 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload Files
+                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload
+                                        Files
                                     </button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print Data
+                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print
+                                        Data
                                     </button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Copy</button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Export
+                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Copy
+                                    </button>
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>
+                                        Export
                                         Excel
                                     </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i> Export PDF
+                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>
+                                        Export PDF
                                     </button>
-                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i> Remote
+                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>
+                                        Remote
                                         All
                                     </button>
                                 </div>
@@ -1009,9 +1118,11 @@
             Anything you want
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+        reserved.
     </footer>
 </div>
+
 
 <script>
     document.querySelectorAll('.sidebar a').forEach(link => {
@@ -1033,19 +1144,25 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!--link script-->
-<script th:src="@{/admin/js/product.js}"></script>
+<script th:src="@{/admin/js/dashboard.js}"></script>
 <script th:src="@{/admin/js/category.js}"></script>
+<script th:src="@{/admin/js/product.js}"></script>
 
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->
 <script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<!-- AdminLTE App -->
+<!-- AdminLTE App-->
 <script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
 <!--sweet alert-->
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js}"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--Chart cnd-->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js}"
+        integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 
 </html>
