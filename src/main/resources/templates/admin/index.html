@@ -13,7 +13,6 @@
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
@@ -26,9 +25,10 @@
     <!-- css index -->
     <link rel="stylesheet" th:href="@{/admin/css/index.css}">
     <!--sweet alert-->
-    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
-    <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-
+    <!--SweetAlert2 CSS and JS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js"></script>
+    <script th:src="@{//cdn.ckeditor.com/4.22.1/standard/ckeditor.js}"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -997,7 +997,7 @@
 
                 <div id="textEditorBlog">
                     <div>
-                        <h2 class="text-red">Text Editor Blog</h2>
+                        <h2 class="text-red">Texullt Editor Blog</h2>
                         <form class="form-product" method="post" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <div class="form-group col-md-8">
@@ -1009,10 +1009,10 @@
                                     <label>Status</label>
                                     <div id="activeBlog">
                                         <label>
-                                            <input type="radio" name="status" value="active" checked> Original
+                                            <input type="radio" name="status" value="1" checked> Original
                                         </label>
                                         <label>
-                                            <input type="radio" name="status" value="inactive"> Draft
+                                            <input type="radio" name="status" value="0"> Draft
                                         </label>
                                     </div>
                                 </div>
@@ -1025,8 +1025,7 @@
                                 <div class="form-group col-md-2">
                                     <label>Selected Categories</label>
                                     <select id="selectedBlog">
-                                        <option value="1">Vegetable</option>
-                                        <option value="2">Headthy</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -1036,14 +1035,12 @@
                                     <textarea id="contentBlog" rows="4" cols="50"></textarea>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label>Mockup demo image</label>
-                                    <img id="imagePreview" src="#" alt="Image Preview">
+                                    <label>Mockup Image</label>
+                                    <img id="imagePreview" style=" display: block" alt="">
                                 </div>
                             </div>
-                            <button name="createBlog"  class="btn btn-primary" onclick="addBlog()">Save Blog</button>
-                            <button id="resetForm"  class="btn btn-secondary">Remote from</button>
-                            <button name="updateBlog"  class="btn btn-danger">Update Blog</button>
-                            <p hidden="hidden" id="idBlogHidden"></p>
+                            <button type="button" id="add-blog-editor" class="btn btn-primary">Save Blog</button>
+                            <button type="button"  id="resetForm"  class="btn btn-secondary" >Remote from</button>
                         </form>
                     </div>
                     <br>
