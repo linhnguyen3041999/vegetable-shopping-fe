@@ -95,4 +95,5 @@ async function getAllCategoriesHorizontal(){
 // Gọi hàm khi trang được tải
 getAllProduct();
 window.getAllCategoriesVertical();
+
 window.getAllCategoriesHorizontal();
