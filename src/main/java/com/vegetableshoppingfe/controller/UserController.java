@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/vegetable-shopping")
 public class UserController {
 
-    @GetMapping
+    @GetMapping("/home")
     public String getHome() {
         return "users/index";
     }

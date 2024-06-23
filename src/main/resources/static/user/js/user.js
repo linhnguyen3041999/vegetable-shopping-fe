@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Gắn sự kiện cho nút Save Blog
     document.getElementById('login-normal').addEventListener('click', my_submit);
 });
 
 function my_submit() {
-
     let formData = {
         username: document.getElementById("user-username").value,
         email: document.getElementById("user-email").value,
@@ -72,7 +70,6 @@ function my_submit() {
 
 function sendDataToServer(formData) {
     axios.post('http://localhost:8080/api/v1/users', formData)
-
         .then(response => {
             Swal.fire({
                 title: 'Registration',
@@ -80,7 +77,6 @@ function sendDataToServer(formData) {
                 icon: 'success',
                 confirmButtonText: 'Oke'
             });
-            // Các bước bổ sung sau khi đăng ký thành công
         })
         .catch(error => {
             Swal.fire({
@@ -89,19 +85,6 @@ function sendDataToServer(formData) {
                 icon: 'error',
                 confirmButtonText: 'Oke'
             });
-        });
-}
-
-function pullDataFromServer() {
-    axios.post('http://localhost:8080/api/v1/users').then(response => {
-        let dataFromServer = response.data;
-
-        formData.name = dataFromServer.name;
-        formData.email = dataFromServer.email;
-        formData.age = dataFromServer.age;
-    })
-        .catch(error => {
-            console.error('Error fetching data from server:', error);
         });
 }
 
