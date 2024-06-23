@@ -12,8 +12,13 @@
     <!-- Google Font -->
     <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
           rel="stylesheet">
-    <!--    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">-->
 
+    <!--sweet alert-->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
+
+    <link rel="stylesheet" th:href="@{/user/css/boxitem.css}">
+
+          rel="stylesheet">
     <!--    Css Style-->
     <link rel="stylesheet" th:href="@{/user/template/css/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/font-awesome.min.css}" type="text/css">
@@ -536,9 +541,13 @@
     <script th:src="@{/user/template/js/mixitup.min.js}"></script>
     <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
     <script th:src="@{/user/template/js/main.js}"></script>
-
-
-
+    <!-- JS IN MY CONFIG -->
+    <script th:src="@{/user/js/index.js}"></script>
+    <script th:src="@{/user/js/cartItem.js}"></script>
+    <!--sweet alert-->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js}"
+            integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
