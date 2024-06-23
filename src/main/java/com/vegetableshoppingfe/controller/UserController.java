@@ -53,9 +53,5 @@ public class UserController {
         return "users/shop-details";
     }
 
-    @GetMapping("/shopping-cart/checkout")
-    public String getCheckout() {
-        return "users/checkout-form";
-    }
 
 }
