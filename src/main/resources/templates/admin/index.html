@@ -13,7 +13,6 @@
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
@@ -22,6 +21,10 @@
     <!-- css index -->
     <link rel="stylesheet" th:href="@{/admin/css/index.css}">
     <!--sweet alert-->
+    <!--SweetAlert2 CSS and JS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js"></script>
+    <script th:src="@{//cdn.ckeditor.com/4.22.1/standard/ckeditor.js}"></script>
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
     <!--axios-->
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
@@ -626,8 +629,7 @@
                                     <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i> Sao
                                         chép
                                     </button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>
-                                        Xuất
+                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i> Xuất
                                         Excel
                                     </button>
                                     <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>
@@ -1202,16 +1204,15 @@
 </aside>
 <!-- /.control-sidebar -->
 
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-inline">
-            Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-        reserved.
-    </footer>
+<!-- Main Footer -->
+<footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+        Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+</footer>
 </div>
 
 <!-- ./wrapper -->

@@ -53,5 +53,4 @@ public class UserController {
         return "users/shop-details";
     }
 
-
 }
