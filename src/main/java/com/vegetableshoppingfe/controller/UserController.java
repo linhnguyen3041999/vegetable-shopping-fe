@@ -14,6 +14,9 @@ public class UserController {
         return "users/index";
     }
 
+    @GetMapping("/register")
+    public String getRegister(){ return "users/register";}
+
     @GetMapping("/product/product-detail")
     public String getProductDetail() {
         return "users/shop-details";
