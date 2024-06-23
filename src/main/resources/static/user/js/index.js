@@ -58,7 +58,7 @@ async function getAllCategoriesVertical(){
             result +=`
         <div class="col-lg-3">
                     <div class="categories__item set-bg">
-                        <img th:src="@{/user/template/img/categories/cat-1.jpg}">
+                        <img src="https://drive.google.com/thumbnail?id=${category.categoryImage}">
                         <h5><a href="#">${category.categoryName}</a></h5>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ async function getAllCategoriesHorizontal(){
         let result = '';
         categories.forEach(category => {
             result +=`
-        <li><a href="#"><strong>${category.categoryName}</strong></a></li>
+        <li><a href="#">${category.categoryName}</a></li>
       `;
         });
         // Hiển thị kết quả lên trang HTML
