@@ -3,7 +3,7 @@ async function login() {
     const password = document.getElementById('user-password').value;
     await axios.post('http://localhost:8080/api/v1/login', {username, password})
         .then(response => {
-            swal({
+            swal.fire({
                 title: "Login successful!",
                 text: "You login successful!",
                 icon: "success",
