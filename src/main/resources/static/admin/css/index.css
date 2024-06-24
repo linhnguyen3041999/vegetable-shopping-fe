@@ -86,3 +86,50 @@ form {
     height: 73px;
 }
 
+#imagePreview {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    padding: 5px; /* Optional: Adds some padding around the image */
+}
+
+/* Đảm bảo các hình ảnh trong cột "Mockup" của bảng có kích thước tối ưu */
+#table-blog-result td.mockup-cell img {
+    max-width: 80px; /* Đặt chiều rộng tối đa */
+    height: auto; /* Chiều cao tự động để giữ tỷ lệ */
+    display: block; /* Đảm bảo hiển thị đúng với kích thước đã đặt */
+    margin: 0 auto; /* Canh giữa hình ảnh trong ô */
+}
+
+/* Giới hạn độ rộng tối đa của các cột "Title" và "Content" */
+/* Đảm bảo các cột "Title" và "Content" không dãn ra */
+.fixed-width-title td{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fixed-width-content td{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fixed-width-title{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fixed-width-content{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-blog{
+    text-align: center;
+}
+
+

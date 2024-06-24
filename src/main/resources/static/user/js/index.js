@@ -76,6 +76,30 @@ async function getAllProduct() {
     }
 }
 
+// getListCategory
+async function getAllCategories(){
+    try {
+        // Gọi API để lấy dữ liệu the loai
+        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
+        console.log(categories); // Kiểm tra dữ liệu trong console
+        // Biến để lưu trữ kết quả HTML
+        let result = '';
+        categories.forEach(category => {
+            result +=`
+        <li><a href="#">${category.categoryName}</a></li>
+      `;
+        });
+        // Hiển thị kết quả lên trang HTML
+        document.getElementById('category-list').innerHTML = result;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('category-list').innerHTML = '<p>Error fetching data</p>';
+    }
+}
+
+
+// Gọi hàm khi trang được tải
+window.getAllCategories();
 
 // Gọi hàm khi trang được tải
 window.getAllProduct();
