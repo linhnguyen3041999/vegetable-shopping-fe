@@ -24,7 +24,11 @@ async function login() {
 
         })
         .catch(error => {
-            alert('Login fail: ' + error.message);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Invalid username or password!",
+            });
         });
 }
 document.getElementById('login-normal').addEventListener('click',
