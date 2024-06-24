@@ -32,7 +32,6 @@ public class UserController {
         return "/users/checkout-form";
     }
 
-
     @GetMapping("/blog")
     public String getBlog(){
         return "users/blog";

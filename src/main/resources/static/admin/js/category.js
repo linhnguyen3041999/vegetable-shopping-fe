@@ -27,7 +27,7 @@ async function getAllCategories() {
             categoryDelete.addEventListener('click', async () => {
                 try {
                     await axios.delete(`http://localhost:8080/api/v1/categories/${category.categoryId}`);
-                    swal({
+                    Swal.fire({
                         title: 'Delete Category',
                         text: 'Delete successfully',
                         icon: 'success',
@@ -35,7 +35,7 @@ async function getAllCategories() {
                     });
                     getAllCategories();
                 } catch (error) {
-                    swal({
+                    Swal.fire({
                         title: 'Category',
                         text: 'Delete category failed',
                         icon: 'warning',
@@ -54,7 +54,7 @@ async function getAllCategories() {
                     document.getElementById('category-label-image').style.display = 'none'
                     document.getElementById('category-image-show').src = `https://drive.google.com/thumbnail?id=${category.categoryImage}`
                 } catch (error) {
-                    swal({
+                    Swal.fire({
                         title: 'Category',
                         text: 'Load category to form failed',
                         icon: 'warning',
@@ -64,7 +64,7 @@ async function getAllCategories() {
             })
         });
     } catch (error) {
-        swal({
+        Swal.fire({
             title: 'Category',
             text: 'Uploading data to table failed',
             icon: 'error',
@@ -103,7 +103,7 @@ async function addCategory() {
                 'Content-Type': 'multipart/form-data'
             }
         });
-        swal({
+        Swal.fire({
             title: 'Category',
             text: 'Add category successfully',
             icon: 'success',
@@ -112,7 +112,7 @@ async function addCategory() {
         resetFormCategory();
         getAllCategories();
     } catch (error) {
-        swal({
+        Swal.fire({
             title: 'Category',
             text: 'Add category failed',
             icon: 'error',
@@ -151,7 +151,7 @@ async function deleteCategory() {
     try {
         let categoryId = document.getElementById('category-id').value;
         await axios.delete(`http://localhost:8080/api/v1/categories/${categoryId}`)
-        swal({
+        Swal.fire({
             title: 'Category',
             text: 'Delete category successfully',
             icon: 'success',
@@ -160,7 +160,7 @@ async function deleteCategory() {
         resetFormCategory();
         getAllCategories();
     } catch (error) {
-        swal({
+        Swal.fire({
             title: 'Category',
             text: 'Delete category failed',
             icon: 'error',
@@ -190,7 +190,7 @@ async function updateCategory() {
                 'Content-Type': 'multipart/form-data'
             }
         });
-        swal({
+        Swal.fire({
             title: 'Category',
             text: 'Update category successfully',
             icon: 'success',
@@ -199,7 +199,7 @@ async function updateCategory() {
         resetFormCategory();
         getAllCategories();
     } catch (error) {
-        swal({
+        Swal.fire({
             title: 'Category',
             text: 'Update category failed',
             icon: 'error',
