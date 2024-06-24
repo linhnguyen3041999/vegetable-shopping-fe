@@ -67,7 +67,7 @@ async function getAllProduct() {
                 localStorage.setItem("items", JSON.stringify(itemList));
                 getAmount();
                 getCount();
-                swal("Added to cart!");
+                swal.fire("Added to cart!");
             });
         });
     } catch (error) {
@@ -79,5 +79,3 @@ async function getAllProduct() {
 
 // Gọi hàm khi trang được tải
 window.getAllProduct();
-window.getAmount();
-window.getCount();

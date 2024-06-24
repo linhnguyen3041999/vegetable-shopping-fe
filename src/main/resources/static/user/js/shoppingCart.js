@@ -43,7 +43,7 @@ async function getAllItem() {
             let productDelete = document.getElementById(`icon_close_${index}`);
             productDelete.addEventListener('click', async () => {
                 try {
-                    swal({
+                    swal.fire({
                         title: "You want to delete this item ?",
                         icon: "warning",
                         buttons: true,
@@ -100,6 +100,26 @@ async function getAllItem() {
         });
     } catch (error) {
         console.error('Error: ', error);
+    }
+
+}
+function checkout_check(){
+    if(sessionStorage.getItem("userData")){
+        window.location.href = '/vegetable-shopping/shopping-cart/checkout';
+    }else{
+        Swal.fire({
+            title: "You are not logged in!",
+            text: "To be able to pay, please log in first!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Login"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/vegetable-shopping/user/login';
+            }
+        });
     }
 }
 window.getAllItem();

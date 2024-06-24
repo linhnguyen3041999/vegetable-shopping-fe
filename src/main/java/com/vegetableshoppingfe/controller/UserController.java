@@ -29,4 +29,9 @@ public class UserController {
         return "/users/checkout-form";
     }
 
+    @GetMapping("/user/login")
+    public String login() {
+        return "users/login";
+    }
+
 }

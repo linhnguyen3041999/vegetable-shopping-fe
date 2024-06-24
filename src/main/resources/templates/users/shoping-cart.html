@@ -27,8 +27,7 @@
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
             integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!--sweet alert-->
-    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
+
 </head>
 
 <body>
@@ -295,7 +294,7 @@
                         <ul>
                             <li>Total <span class="cart-sum-price-span"></span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <button onclick="checkout_check()" class="primary-btn w-100 border-0">PROCEED TO CHECKOUT</button>
                     </div>
                 </div>
             </div>
@@ -384,9 +383,7 @@
     <script th:src="@{/user/js/shoppingCart.js}"></script>
     <script th:src="@{/user/js/cartItem.js}"></script>
     <!--sweet alert-->
-    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js}"
-            integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </body>
 
 </html>
