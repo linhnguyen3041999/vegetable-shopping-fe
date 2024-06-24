@@ -173,6 +173,12 @@ async function addOrUpdateBlog() {
         }
     } catch (error) {
         console.error('Error:', error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `Failed to ${currentBlogId ? 'update' : 'add'} blog: ${error.message}`,
+            showConfirmButton: true
+        });
     }
 }
 
