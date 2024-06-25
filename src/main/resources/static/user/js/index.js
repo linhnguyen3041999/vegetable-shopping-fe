@@ -76,6 +76,56 @@ async function getAllProduct() {
     }
 }
 
+// getListCategory
+async function getAllCategoriesVertical(){
+    try {
+        // Gọi API để lấy dữ liệu the loai
+        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
+        console.log(categories); // Kiểm tra dữ liệu trong console
+        // Biến để lưu trữ kết quả HTML
+        let result = '';
+        categories.forEach(category => {
+            result +=`
+        <div class="col-lg-3">
+                    <div class="categories__item set-bg">
+                        <img src="https://drive.google.com/thumbnail?id=${category.categoryImage}">
+                        <h5><a href="#">${category.categoryName}</a></h5>
+                    </div>
+                </div>
+      `;
+        });
+        // Hiển thị kết quả lên trang HTML
+        document.getElementById('categories__slider owl-carousel').innerHTML = result;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('categories__slider owl-carousel').innerHTML = '<p>Error fetching data</p>';
+    }
+}
+
+async function getAllCategoriesHorizontal(){
+    try {
+        // Gọi API để lấy dữ liệu the loai
+        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
+        console.log(categories); // Kiểm tra dữ liệu trong console
+        // Biến để lưu trữ kết quả HTML
+        let result = '';
+        categories.forEach(category => {
+            result +=`
+        <li><a href="#">${category.categoryName}</a></li>
+      `;
+        });
+        // Hiển thị kết quả lên trang HTML
+        document.getElementById('category-list').innerHTML = result;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('category-list').innerHTML = '<p>Error fetching data</p>';
+    }
+}
 
 // Gọi hàm khi trang được tải
 window.getAllProduct();
+window.getAllCategoriesVertical();
+
+window.getAllCategoriesHorizontal();
+window.getAmount();
+window.getCount();

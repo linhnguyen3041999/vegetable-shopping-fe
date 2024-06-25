@@ -37,7 +37,7 @@ async function getAllProductAdmin() {
             productDelete.addEventListener('click', async () => {
                 try {
                     await axios.delete(`http://localhost:8080/api/v1/products/${product.productId}`);
-                    swal({
+                    Swal.fire({
                         title: 'Product',
                         text: 'Delete product successfully',
                         icon: 'success',
@@ -45,7 +45,7 @@ async function getAllProductAdmin() {
                     });
                     getAllProductAdmin();
                 } catch (error) {
-                    swal({
+                    Swal.fire({
                         title: 'Product',
                         text: 'Delete product failed',
                         icon: 'error',
@@ -76,7 +76,7 @@ async function getAllProductAdmin() {
                     document.getElementById('product-image-show4').style.display = 'none';
                     document.getElementById('product-label-image4').style.display = 'none';
                 } catch (error) {
-                    swal({
+                    Swal.fire({
                         title: 'Product',
                         text: 'Load product to form failed',
                         icon: 'error',
@@ -86,7 +86,7 @@ async function getAllProductAdmin() {
             })
         });
     } catch (error) {
-        swal({
+        Swal.fire({
             title: 'Product',
             text: 'Uploading data to table failed',
             icon: 'error',
@@ -129,14 +129,14 @@ async function addProduct() {
                 await addProductPhoto('product-image3', lastProductId);
                 await addProductPhoto('product-image4', lastProductId);
             }
-            await swal({
+            Swal.fire({
                 title: 'Product',
                 text: 'Add product successfully',
                 icon: 'success',
                 button: 'Oke'
             });
         } catch (error) {
-            await swal({
+            Swal.fire({
                 title: 'Product Photo',
                 text: 'Add product photo failed',
                 icon: 'error',
@@ -145,7 +145,7 @@ async function addProduct() {
         }
         resetFormProduct();
     } catch (error) {
-        await swal({
+        Swal.fire({
             title: 'Product',
             text: 'Add product failed',
             icon: 'error',
@@ -204,7 +204,7 @@ async function updateProduct() {
                 'Content-Type': 'multipart/form-data'
             }
         });
-        swal({
+        Swal.fire({
             title: 'Product',
             text: 'Update product successfully',
             icon: 'success',
@@ -213,7 +213,7 @@ async function updateProduct() {
         resetFormProduct();
         getAllProductAdmin();
     } catch (error) {
-        swal({
+        Swal.fire({
             title: 'Product',
             text: 'Update product failed',
             icon: 'error',
@@ -232,7 +232,7 @@ async function deleteProduct() {
     try {
         let productId = +document.getElementById('product-id').value;
         await axios.delete(`http://localhost:8080/api/v1/products/${productId}`)
-        swal({
+        Swal.fire({
             title: 'Product',
             text: 'Delete product successfully',
             icon: 'success',
@@ -241,7 +241,7 @@ async function deleteProduct() {
         resetFormProduct();
         getAllProductAdmin();
     } catch (error) {
-        swal({
+        Swal.fire({
             title: 'Product',
             text: 'Delete product failed',
             icon: 'error',
