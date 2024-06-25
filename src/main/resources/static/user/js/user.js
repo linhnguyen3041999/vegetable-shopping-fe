@@ -64,7 +64,6 @@ function my_submit() {
         });
         return;
     }
-
     sendDataToServer(formData);
 }
 

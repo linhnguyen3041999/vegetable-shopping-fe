@@ -37,3 +37,18 @@
 .card-registration .select-arrow {
     top: 13px;
 }
+
+.col-md-6 {
+    padding-right: 15px; /* Điều chỉnh padding nếu cần thiết */
+    padding-left: 15px; /* Điều chỉnh padding nếu cần thiết */
+}
+
+.form-outline {
+    margin-bottom: 1.5rem; /* Điều chỉnh khoảng cách giữa các trường nhập liệu nếu cần thiết */
+}
+/* Đảm bảo các cột hiển thị đều nhau */
+.form-outline .row > div {
+    padding: 0 5px; /* Điều chỉnh khoảng cách giữa các cột */
+}
+
+

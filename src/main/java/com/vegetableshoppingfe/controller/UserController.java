@@ -15,7 +15,19 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String getRegister(){ return "users/register";}
+    public String getRegister() {
+        return "users/register";
+    }
+
+    @GetMapping("/update-password")
+    public String getUpdatePassword() {
+        return "users/update-password";
+    }
+
+    @GetMapping("/update-info")
+    public String getUpdateInfo() {
+        return "users/update-info";
+    }
 
     @GetMapping("/product/product-detail")
     public String getProductDetail() {
@@ -33,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/blog")
-    public String getBlog(){
+    public String getBlog() {
         return "users/blog";
     }
 
