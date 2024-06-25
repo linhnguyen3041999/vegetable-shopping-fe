@@ -50,4 +50,10 @@ public class UserController {
     @GetMapping("/product/product-detail")
     public String getProductDetail() {
         return "users/shop-details";
+    }
+
+    @GetMapping("/user/login")
+    public String getLogin() {
+        return "users/login";
+    }
 }
