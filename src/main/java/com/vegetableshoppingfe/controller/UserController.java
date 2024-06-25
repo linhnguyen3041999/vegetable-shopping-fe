@@ -37,7 +37,6 @@ public class UserController {
     public String getCheckoutForm(){
         return "users/checkout";
     }
-
     @GetMapping("/blog-details")
     public String getBlogDetails(){
         return "users/blog-details";
@@ -51,6 +50,4 @@ public class UserController {
     @GetMapping("/product/product-detail")
     public String getProductDetail() {
         return "users/shop-details";
-    }
-
 }

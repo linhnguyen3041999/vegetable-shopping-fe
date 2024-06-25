@@ -259,14 +259,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#orderDetail" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Order Detai
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="#textEditorBlog" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
@@ -840,62 +832,23 @@
                         <form class="form-product">
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
-                                    <label for="orderID">Order ID</label>
-                                    <input type="text" name="orderID" class="form-control" id="orderID"
-                                           placeholder="Enter the Order ID">
+                                    <label for="order-id">Order ID</label>
+                                    <input type="text" name="orderID" class="form-control" id="order-id"
+                                           placeholder="Order ID" disabled>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Order Status</label>
-                                    <select name="orderStatus" class="form-control">
-                                        <option>Select Product Status</option>
-                                        <option value="shipped">Shipped</option>
-                                        <option value="processing">Processing</option>
-                                        <option value="delivered">Delivered</option>
-                                        <option value="cancelled">Cancelled</option>
+                                    <label for="order-status">Order Status</label>
+                                    <select id="order-status" name="orderStatus" class="form-control">
+                                        <option value="">Select Product Status</option>
+                                        <option value="WAIT_FOR_CONFIRMATION">WAIT_FOR_CONFIRMATION</option>
+                                        <option value="ON_DELIVERY">ON_DELIVERY</option>
+                                        <option value="DELIVERED">DELIVERED</option>
+                                        <option value="RETURNS">RETURNS</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-md-6">
-                                    <label for="date">Date</label>
-                                    <input type="datetime-local" name="date" class="form-control" id="date">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Payment Status</label>
-                                    <select name="paymentStatus" class="form-control">
-                                        <option>Select Payment Status</option>
-                                        <option value="paid">Paid</option>
-                                        <option value="paymentFailed">Payment Failed</option>
-                                        <option value="unpaid">Unpaid</option>
-                                        <option value="awaitingAuthorization">Awaiting Authorization</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-md-6">
-                                    <label for="total">Total</label>
-                                    <input type="number" name="total" class="form-control" id="total"
-                                           placeholder="Input total" step="0.01"
-                                           min="0">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Payment Method</label>
-                                    <select name="paymentMethod" class="form-control">
-                                        <option>Select Payment Method</option>
-                                        <option value="bankTranfer">Bank transfer</option>
-                                        <option value="cash">Cash</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" name="addOrderDetail" class="btn btn-primary">Add Order Detail
-                            </button>
-                            <button type="button" name="revisionOrderDetail" class="btn btn-secondary">Revision
-                                Order
-                                Detail
-                            </button>
-                            <button type="button" name="remoteOrderDetail" class="btn btn-danger">Remote Order
-                                Detail
-                            </button>
+                            <button type="button" name="revisionOrderDetail" id="order-update" class="btn btn-warning">Update</button>
+                            <button type="button" name="revisionOrderDetail" id="order-reset-form" class="btn btn-info">Reset Form</button>
                         </form>
 
                         <br>
@@ -925,181 +878,19 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Order ID</th>
+                                        <th>ID</th>
                                         <th>Date</th>
-                                        <th>Payment Status</th>
-                                        <th>Total</th>
                                         <th>Payment Method</th>
+                                        <th>Payment Status</th>
                                         <th>Order Status</th>
+                                        <th>Address Shipping</th>
                                         <th>Shipping Fee</th>
+                                        <th>Total Amount</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>#BM9708</td>
-                                        <td>August 05 2018 10:29 PM</td>
-                                        <td>Paid</td>
-                                        <td>200.000 VND</td>
-                                        <td>Bank transfer</td>
+                                    <tbody id="order-table">
 
-                                        <td>Shipped</td>
-                                        <td>30.000 VND</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#BM9707</td>
-                                        <td>August 04 2018 08:18 AM</td>
-                                        <td>Awaiting Authorization</td>
-                                        <td>400.000 VND</td>
-                                        <td>Cash</td>
-                                        <td>Processing</td>
-                                        <td>30.000 VND</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#BM9704</td>
-                                        <td>May 22 2018 07:22 PM</td>
-                                        <td> Payment Failed</td>
-                                        <td>1.000.000 VND</td>
-                                        <td>Bank transfer</td>
-                                        <td>Cancelled</td>
-                                        <td>30.000 VND</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#BM9708</td>
-                                        <td>August 05 2018 10:29 PM</td>
-                                        <td> Paid</td>
-                                        <td>200.000 VND</td>
-                                        <td>Bank transfer</td>
-                                        <td>Shipped</td>
-                                        <td>30.000 VND</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> #BM9706</td>
-                                        <td>August 04 2018 10:29 PM</td>
-                                        <td> Paid</td>
-                                        <td>200.000 VND</td>
-                                        <td>Bank transfer</td>
-                                        <td>Delivered</td>
-                                        <td>30.000 VND</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="orderDetail">
-                    <div>
-                        <h2 class="text-red">Order Details</h2>
-                        <form class="form-product">
-                            <div class="row mb-3">
-                                <div class="form-group col-md-6">
-                                    <label for="orderID">Order ID</label>
-                                    <input type="text" name="orderID" class="form-control" id="orderID"
-                                           placeholder="Input Order ID">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="product-id">Product ID</label>
-                                    <input type="number" name="product-id" class="form-control" id="productID"
-                                           placeholder="Input Product ID"
-                                           min="1">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-md-6">
-                                    <label for="quantity">Quantity</label>
-                                    <input type="number" name="quantity" class="form-control" id="quantity"
-                                           placeholder="Input Quantity"
-                                           step="0.01" min="0">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="price">Price</label>
-                                    <input type="number" name="price" class="form-control" id="price"
-                                           placeholder="Input Price" step="0.01"
-                                           min="0">
-                                </div>
-                            </div>
-                            <button name="addOrder" type="submit" class="btn btn-primary">Add Order</button>
-                            <button name="revisionOrder" type="button" class="btn btn-secondary">Revision
-                                Order
-                            </button>
-                            <button name="remoteOrder" type="button" class="btn btn-danger">Remote Order
-                            </button>
-                        </form>
-
-                        <br>
-                        <hr>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <button class="btn btn-info me-4"><i class="far fa-file me-2"></i>Upload
-                                        Files
-                                    </button>
-                                    <button class="btn btn-primary me-4"><i class="fas fa-print me-2"></i>Print
-                                        Data
-                                    </button>
-                                    <button class="btn btn-warning me-4"><i class="fas fa-copy me-2"></i>Copy
-                                    </button>
-                                    <button class="btn btn-success me-4"><i class="far fa-file-excel me-2"></i>
-                                        Export
-                                        Excel
-                                    </button>
-                                    <button class="btn btn-danger me-4"><i class="far fa-file-pdf me-2"></i>
-                                        Export PDF
-                                    </button>
-                                    <button class="btn btn-secondary me-4"><i class="fas fa-trash-alt me-2"></i>
-                                        Remote
-                                        All
-                                    </button>
-                                </div>
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Product ID</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>#12537</td>
-                                        <td>#BM9708</td>
-                                        <td>40</td>
-                                        <td>120.000 VND</td>
-                                        <td>
-                                            <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1223,6 +1014,7 @@
 <script th:src="@{/admin/js/category.js}"></script>
 <script th:src="@{/admin/js/blog.js}"></script>
 <script th:src="@{/admin/js/product.js}"></script>
+<script th:src="@{/admin/js/cart.js}"></script>
 
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
@@ -1234,6 +1026,8 @@
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js}"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+
 <!--Chart cnd-->
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js}"
         integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
