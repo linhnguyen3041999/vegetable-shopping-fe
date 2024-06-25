@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Login</title>
+    <title>Update information</title>
     <!--SweetAlert2 CSS and JS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js"></script>
@@ -240,10 +240,9 @@
 <section class="vh-100">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
-
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form id="registrationForm" method="POST">
-                    <h2 class="text-center mb-5" style="font-weight: bold">Update your information</h2>
+            <div class="col-md-8 col-lg-6 col-xl-4 ">
+                <form id="update-form" method="POST" data-form-type="update">
+                    <h2 class="text-center mb-5" style="font-weight: bold">UPDATE INFORMATION</h2>
                     <div class="form-outline mb-4">
                         <input id="user-full-name" type="text" class="form-control form-control-lg" placeholder="Full name"/>
                     </div>
@@ -264,35 +263,18 @@
                         <input id="user-day-of-birth" type="date" class="form-control form-control-lg" placeholder="Date of Birth"/>
                     </div>
                     <div class="form-outline mb-4">
-<!--                        <div>-->
-<!--                            <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">-->
-<!--                                <option value="" selected>Chọn tỉnh thành</option>-->
-<!--                            </select>-->
-
-<!--                            <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">-->
-<!--                                <option value="" selected>Chọn quận huyện</option>-->
-<!--                            </select>-->
-
-<!--                            <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">-->
-<!--                                <option value="" selected>Chọn phường xã</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-                    </div>
-
-                    <div class="form-outline mb-4">
                         <input id="user-address" type="text" class="form-control form-control-lg" placeholder="Address"/>
                     </div>
-
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button id="login-normal" type="button" class="btn btn-primary btn-lg"
+                        <button id="submit-update" type="button" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem; width: 100%; background-color: #7fad39; border: 0">
                             Confirm
                         </button>
                     </div>
                 </form>
             </div>
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img src="https://mcb.live/assets/images/Learn.png"
+            <div class="col-md-9 col-lg-6 col-xl-5 d-flex justify-content-center">
+                <img src="https://i.pinimg.com/564x/85/c7/05/85c705c88133a3cc753be9c72c3d5e0a.jpg"
                      class="img-fluid" alt="Sample image" style="width: 75%;" >
             </div>
         </div>
@@ -382,7 +364,7 @@
 <script th:src="@{/user/template/js/mixitup.min.js}"></script>
 <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
 <script th:src="@{/user/template/js/main.js}"></script>
-<script th:src="@{/user/js/user.js}"></script>
+<script th:src="@{/user/js/register.js}"></script>
 <script th:src="@{/user/js/updateInfo.js}"></script>
 
 </body>

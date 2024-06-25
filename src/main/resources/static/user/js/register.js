@@ -1,8 +1,66 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('login-normal').addEventListener('click', my_submit);
+    document.getElementById('submit-registration').addEventListener('click', function () {
+        handleSubmit("registration-from");
+    });
+    document.getElementById('submit-update').addEventListener('click', function () {
+        handleSubmit("update-from");
+    });
 });
 
-function my_submit() {
+function handleSubmit(formId) {
+    let form = document.getElementById(formId);
+    let formType = form.getAttribute('data-form-type');
+    let formData = {
+        username: form.querySelector("#" + formId.split('-')[0] + "-username").value,
+        email: form.querySelector("#" + formId.split('-')[0] + "-email").value,
+        password: form.querySelector("#" + formId.split('-')[0] + "-password").value,
+        confirmPassword: form.querySelector("#" + formId.split('-')[0] + "-confirm-password").value
+    };
+
+    if (formType === 'update') {
+        formData.fullname = form.querySelector("#update-fullname").value;
+        formData.phone = form.querySelector("#update-phone").value;
+        formData.gender = form.querySelector("input[name='gender']:checked").value;
+        formData.dob = form.querySelector("#update-dob").value;
+        formData.address = form.querySelector("#update-address").value;
+    }
+
+
+    let usernameError = validateUsername(formData.username);
+    if (usernameError !== formData.username) {
+        showAlert('Error', usernameError);
+        return;
+    }
+
+    let emailError = validateEmail(formData.email);
+    if (emailError !== formData.email) {
+        showAlert('Error', emailError);
+        return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+        showAlert('Error', 'Invalid email format');
+        return;
+    }
+
+    if (formType === 'registration' || (formType === 'update' && formData.password)) {
+        let passwordValidation = validatePassword(formData.password);
+        if (!passwordValidation.isValid) {
+            showAlert('Error', passwordValidation.message);
+            return;
+        }
+
+        let compareResult = comparePasswords(formData.password, formData.confirmPassword);
+        if (!compareResult.isMatch) {
+            showAlert('Error', compareResult.message);
+            return;
+        }
+    }
+
+    sendDataToServer(formData, formType);
+}
+
+function registerForm() {
     let formData = {
         username: document.getElementById("user-username").value,
         email: document.getElementById("user-email").value,

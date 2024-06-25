@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Login</title>
+    <title>Register</title>
     <!--SweetAlert2 CSS and JS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js"></script>
@@ -38,7 +38,7 @@
         }
     </style>
 
-    <link rel="stylesheet" th:href="@{/user/css/login.css}">
+    <link rel="stylesheet" th:href="@{/user/css/register.css}">
     <!--    font aweasome -->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -241,12 +241,12 @@
 <section class="vh-100">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img src="https://tabishisingh06.github.io/NSUT_LandingPage/logowrite.png"
+            <div class="col-md-9 col-lg-6 col-xl-5 d-flex justify-content-center">
+                <img src="https://i.pinimg.com/564x/df/21/a7/df21a7d3cb7417896b490d3a00631fb5.jpg"
                      class="img-fluid" alt="Sample image" style="width: 75%;">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form id="registrationForm" method="POST">
+                <form id="registrationForm" method="POST" data-form-type="registration">
                     <h2 class="text-center mb-5" style="font-weight: bold">REGISTER</h2>
                     <!-- Username input -->
                     <div class="form-outline mb-4">
@@ -268,7 +268,7 @@
                                placeholder="Confirm Password"/>
                     </div>
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button id="login-normal" type="button" class="btn btn-primary btn-lg"
+                        <button id="submit-registration" type="button" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem; width: 100%; background-color: #7fad39; border: 0">
                             Confirm
                         </button>
@@ -362,7 +362,7 @@
 <script th:src="@{/user/template/js/mixitup.min.js}"></script>
 <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
 <script th:src="@{/user/template/js/main.js}"></script>
-<script th:src="@{/user/js/user.js}"></script>
+<script th:src="@{/user/js/register.js}"></script>
 
 </body>
 </html>
