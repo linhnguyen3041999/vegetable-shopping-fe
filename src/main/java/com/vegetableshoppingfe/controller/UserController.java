@@ -25,4 +25,9 @@ public class UserController {
     public String getCheckout() {
         return "/user/checkout-form";
     }
+
+    @GetMapping("/shop-grid")
+    public String getShopGrid() {
+        return "users/shop-grid";
+    }
 }
