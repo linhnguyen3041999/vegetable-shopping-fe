@@ -29,10 +29,34 @@ public class UserController {
         return "users/update-info";
     }
 
+    @GetMapping("/contact")
+    public String getContact(){
+        return "users/contact";
+    }
+
+    @GetMapping("/shop-details")
+    public String getShopDetails(){
+        return "users/shop-details";
+    }
+
+    @GetMapping("/checkout-form")
+    public String getCheckoutForm(){
+        return "users/checkout";
+    }
+    @GetMapping("/blog-details")
+    public String getBlogDetails(){
+        return "users/blog-details";
+    }
+
+    @GetMapping("shop-grid")
+    public String getShop(){
+        return "users/shop-grid";
+    }
+
     @GetMapping("/product/product-detail")
     public String getProductDetail() {
         return "users/shop-details";
-    }
+}
 
     @GetMapping("/shopping-cart")
     public String getShoppingCart() {
