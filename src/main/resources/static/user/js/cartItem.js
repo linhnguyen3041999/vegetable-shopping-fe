@@ -6,6 +6,7 @@ async function getAmount(){
         elements.forEach((element) => {
             element.textContent = "$" +  sumPrice;
         });
+        return Number(sumPrice);
     }catch (error) {
         console.error('Error fetching data:', error);
     }
