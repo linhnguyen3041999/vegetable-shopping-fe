@@ -11,19 +11,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 let currentBlogId = null;
 let currentCategoryId = null;
-async function getAllCategory(){
-    let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
-    let result = '';
-    categories.forEach(category => {
-        result += `
+
+async function getAllCategory() {
+    try {
+        let { data: categories } = await axios.get('http://localhost:8080/api/v1/categories');
+        let result = '';
+        categories.forEach(category => {
+            result += `
                 <option value=${category.categoryId} >${category.categoryName}</option>
             `;
-    });
-    document.getElementById('selectedBlog').innerHTML = result;
+        });
+        document.getElementById('selectedBlog').innerHTML = result;
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+    }
 }
+
 async function getAllBlogs() {
     try {
-        let {data: blogs} = await axios.get('http://localhost:8080/api/v1/blogs');
+        let response = await axios.get('http://localhost:8080/api/v1/blogs');
+        let blogs = response.data.blogs;
         let result = '';
         blogs.forEach(blog => {
             let blogStatus = blog.blogActive ? 'Original' : 'Draft';
@@ -40,7 +47,6 @@ async function getAllBlogs() {
             `;
         });
         document.getElementById('table-blog-result').innerHTML = result;
-
         document.querySelectorAll('.edit-button').forEach(button => {
             button.addEventListener('click', function () {
                 const blogId = this.getAttribute('data-blog-id');
@@ -56,17 +62,14 @@ async function getAllBlogs() {
 async function fillFormWithBlogData(blogId) {
     currentBlogId = blogId;
     try {
-        let {data: blog} = await axios.get(`http://localhost:8080/api/v1/blogs/${blogId}`);
+        let { data: blog } = await axios.get(`http://localhost:8080/api/v1/blogs/${blogId}`);
         document.getElementById('titleBlog').value = blog.blogTitle;
         document.getElementById('contentBlog').value = blog.blogContent;
         CKEDITOR.instances['contentBlog'].setData(blog.blogContent);
-        document.querySelector(`input[name="status"][value="${blog.blogActive ? 1 : 0}"]`).checked = true;
+        document.querySelector(`input[name="statusActive"][value="${blog.blogActive ? 1 : 0}"]`).checked = true;
         document.getElementById('selectedBlog').value = blog.blogCategory.categoryId;
-        console.log(blog.blogImage);
         if (blog.blogImage) {
-            document.getElementById('imagePreview').src = `https://drive.google.com/thumbnail?id=${blog.blogImage}`;
-            hinhAnh = document.getElementById('imagePreview').src = `https://drive.google.com/thumbnail?id=${blog.blogImage}`;
-            console.log(hinhAnh)
+            document.getElementById('imagePreview').src =`https://drive.google.com/thumbnail?id=${blog.blogImage}`;
         } else {
             document.getElementById('imagePreview').src = '#';
         }
@@ -76,17 +79,20 @@ async function fillFormWithBlogData(blogId) {
 }
 
 async function resetFormNormal() {
-    let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
-    currentCategoryId = categories[0].categoryId;
-    console.log(currentCategoryId);
-    var titleBlog = document.getElementById('titleBlog').value = '';
-    document.querySelector('input[name="status"][value="1"]').checked = true;
-    document.getElementById('mockupID').value = '';
-    document.getElementById('contentBlog').value = '';
-    CKEDITOR.instances['contentBlog'].setData('');
-    document.getElementById('imagePreview').src = '';
-    currentBlogId = null;
-    document.getElementById('selectedBlog').value = currentCategoryId;
+    try {
+        let { data: categories } = await axios.get('http://localhost:8080/api/v1/categories');
+        currentCategoryId = categories[0].categoryId;
+        document.getElementById('titleBlog').value = '';
+        document.querySelector('input[name="statusActive"][value="1"]').checked = true;
+        document.getElementById('mockupID').value = '';
+        document.getElementById('contentBlog').value = '';
+        CKEDITOR.instances['contentBlog'].setData('');
+        document.getElementById('imagePreview').src = '';
+        currentBlogId = null;
+        document.getElementById('selectedBlog').value = currentCategoryId;
+    } catch (error) {
+        console.error('Error resetting form:', error);
+    }
 }
 
 function pageBreak() {
@@ -121,12 +127,13 @@ function showImageMockup() {
 async function addOrUpdateBlog() {
     let formData = new FormData();
     formData.append('blogTitle', document.getElementById('titleBlog').value);
-    formData.append('blogActive', document.querySelector('input[name="status"]:checked').value);
+    formData.append('blogActive', document.querySelector('input[name="statusActive"]:checked').value);
     formData.append('blogContent', CKEDITOR.instances['contentBlog'].getData());
     formData.append('file', document.getElementById('mockupID').files[0]);
     formData.append('categoryId', document.getElementById('selectedBlog').value);
     try {
         if (currentBlogId) {
+            console.log(currentBlogId);
             await axios.put(`http://localhost:8080/api/v1/blogs/${currentBlogId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -161,5 +168,3 @@ async function addOrUpdateBlog() {
         console.error('Error:', error.message);
     }
 }
-
-
