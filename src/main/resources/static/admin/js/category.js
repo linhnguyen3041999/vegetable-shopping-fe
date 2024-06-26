@@ -6,15 +6,13 @@ async function getAllCategories() {
         let result = '';
         categories.forEach(category => {
             result += `
-                        <tr>
-                            <td>${category.categoryId}</td>
-                            <td>${category.categoryName}</td>
-                            <td><img src="https://drive.google.com/thumbnail?id=${category.categoryImage}"></td>
-                            <td>
-                                <button id="category-table-edit-${category.categoryId}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i></button>
-                                <button id="category-table-delete-${category.categoryId}" class="btn btn-danger">
-                                <i class="fas fa-trash"></i></button>
+                        <tr class="odd">
+                            <td class="align-middle">${category.categoryId}</td>
+                            <td class="align-middle">${category.categoryName}</td>
+                            <td class="align-middle"><img src="https://drive.google.com/thumbnail?id=${category.categoryImage}"></td>
+                            <td class="align-middle" id="tooltip-container2">
+                                <a id="category-table-edit-${category.categoryId}" class="me-3 text-primary mx-1" data-bs-toggle="modal" data-bs-target="#categoryModal"><i class="fa-solid fa-pencil"></i></a>
+                                <a id="category-table-delete-${category.categoryId}" class="text-danger" ><i class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
                        `;

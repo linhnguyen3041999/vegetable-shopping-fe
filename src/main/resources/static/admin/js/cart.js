@@ -8,18 +8,17 @@ async function getAllCartToTable() {
             let paymentMethodDisplay = cart.paymentMethod ? 'Payment on delivery' : 'Oline payment';
             let paymentStatusDisplay = cart.paymentMethod ? 'Unpaid' : 'Paid';
             result += `
-                 <tr>
-                    <td>${cart.cartId}</td>
-                    <td>${cart.createdDate}</td>
-                    <td>${paymentMethodDisplay}</td>
-                    <td>${paymentStatusDisplay}</td>
-                    <td>${cart.cartStatus}</td>
-                    <td>${cart.addressShipping}</td>
-                    <td>${cart.shippingFee}</td>
-                    <td>${cart.totalAmount}</td>
-                    <td>
-                        <button id="order-table-edit-${cart.cartId}" class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                        <button id="order-table-show-${cart.cartId}" class="btn btn-danger"><i class="fa-regular fa-eye"></i></i></button>
+                 <tr class="odd">
+                    <td class="align-middle">${cart.cartId}</td>
+                    <td class="align-middle">${cart.createdDate}</td>
+                    <td class="align-middle">${paymentMethodDisplay}</td>
+                    <td class="align-middle">${paymentStatusDisplay}</td>
+                    <td class="align-middle">${cart.cartStatus}</td>
+                    <td class="align-middle">${cart.addressShipping}</td>
+                    <td class="align-middle">${cart.shippingFee}</td>
+                    <td class="align-middle">${cart.totalAmount}</td>
+                    <td class="align-middle" id="tooltip-container2">
+                        <a id="order-table-edit-${cart.cartId}" class="me-3 text-primary mx-1" data-bs-toggle="modal" data-bs-target="#orderModal"><i class="fa-solid fa-pencil"></i></a>
                     </td>
                 </tr>
             `;
@@ -30,9 +29,41 @@ async function getAllCartToTable() {
             let cartEdit = document.getElementById(`order-table-edit-${cart.cartId}`);
             cartEdit.addEventListener('click', async () => {
                 try {
-                    let {data: response} = await axios.get(`http://localhost:8080/api/v1/carts/${cart.cartId}`);
-                    document.getElementById('order-id').value = response.cartId;
-                    document.getElementById('order-status').value = response.cartStatus;
+                    let {data: order} = await axios.get(`http://localhost:8080/api/v1/carts/${cart.cartId}`)
+                    let {data: response} = await axios.get(`http://localhost:8080/api/v1/cartItems/${cart.cartId}`);
+                    let tableContent = `<table class="table table-bordered table-hover">`;
+                    tableContent += `
+                                                <thead>
+                                                     <tr>
+                                                         <th>STT</th>
+                                                         <th>Name</th>
+                                                         <th>Price</th>
+                                                         <th>Quantity</th>
+                                                         <th>Total Price</th>
+                                                     </tr>
+                                                </thead>
+                                            `;
+                    tableContent += `<tbody>`;
+                    response.forEach((item, index = 0) => {
+                        tableContent += `
+                                                    <tr>
+                                                        <td>${index + 1}</td>
+                                                        <td>${item.product.productName}</td>
+                                                        <td>${item.product.price}</td>
+                                                        <td>${item.quantity}</td>
+                                                        <td>${item.price}</td>
+                                                    </tr>
+                                                `;
+                    });
+                    tableContent += `</tbody></table>`;
+                    document.getElementById('order-id').value = order.cartId;
+                    document.getElementById('order-status').value = order.cartStatus;
+                    document.getElementById('order-date').value = order.createdDate;
+                    document.getElementById('shipping-fee').value = order.shippingFee;
+                    document.getElementById('order-total').value = order.totalAmount;
+                    document.getElementById('order-note').value = order.note;
+                    document.getElementById('address-shipping').value = order.addressShipping;
+                    document.getElementById('show-order-details').innerHTML = tableContent;
                 } catch (e) {
                     Swal.fire({
                         title: 'Cart',
@@ -40,48 +71,6 @@ async function getAllCartToTable() {
                         icon: 'warning',
                         button: 'Oke'
                     });
-                }
-            })
-
-            let cartShow = document.getElementById(`order-table-show-${cart.cartId}`);
-            cartShow.addEventListener('click', async () => {
-                try {
-                    let {data: response} = await axios.get(`http://localhost:8080/api/v1/cartItems/${cart.cartId}`);
-                    console.log(response)
-                    let tableContent = `<table class="table table-bordered table-hover">`;
-                    tableContent += `
-                                        <thead>
-                                             <tr>
-                                                 <th>STT</th>
-                                                 <th>Name</th>
-                                                 <th>Price</th>
-                                                 <th>Quantity</th>
-                                                 <th>Total Price</th>
-                                             </tr>
-                                        </thead>
-                                    `;
-                    tableContent += `<tbody>`;
-                    response.forEach((item, index = 0) => {
-                        tableContent += `
-                                            <tr>
-                                                <td>${index + 1}</td>
-                                                <td>${item.product.productName}</td>
-                                                <td>${item.product.price}</td>
-                                                <td>${item.quantity}</td>
-                                                <td>${item.price}</td>
-                                            </tr>
-                                        `;
-                    });
-                    tableContent += `</tbody></table>`;
-                    Swal.fire.fire({
-                        title: 'Order Details',
-                        html: tableContent,
-                        icon: 'info',
-                        width: '70%',
-                        button: 'OK'
-                    });
-                } catch (error) {
-                    console.log(e.message);
                 }
             })
         })
@@ -109,13 +98,12 @@ async function updateOrder() {
         await axios.put(`http://localhost:8080/api/v1/carts/${cartId}`, formData, {
             headers: {'Content-Type': 'application/json'}
         });
-        Swal.fire.fire({
+        Swal.fire({
             title: 'Order',
             text: 'Update order successfully',
             icon: 'success',
             button: "OK"
         })
-        resetFormOrder();
         getAllCartToTable();
     } catch (e) {
         Swal.fire({
@@ -127,9 +115,15 @@ async function updateOrder() {
     }
 }
 
-function resetFormOrder() {
-    document.getElementById('order-id').value = null;
-    document.getElementById('order-status').value = '';
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
+    return date.toLocaleDateString('en-GB', options).replace(/,/g, ' -');
 }
-
-document.getElementById('order-reset-form').addEventListener('click', resetFormOrder);

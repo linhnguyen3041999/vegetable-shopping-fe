@@ -138,7 +138,7 @@ async function getTopUsersBuyMost() {
                         <td>${user.fullname}</td>
                         <td>${user.email}</td>
                         <td>${user.phoneNumber}</td>
-                        <td>${user.totalAmount}</td>
+                        <td>$${user.totalAmount}</td>
                         <td>${user.orderCount}</td>
                     </tr>
             `;
