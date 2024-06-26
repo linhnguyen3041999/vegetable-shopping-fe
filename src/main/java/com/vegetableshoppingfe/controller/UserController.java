@@ -3,7 +3,9 @@ package com.vegetableshoppingfe.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/vegetable-shopping")
@@ -14,40 +16,48 @@ public class UserController {
     }
 
     @GetMapping("/blog")
-    public String getBlog(){
+    public String getBlog() {
         return "users/blog";
     }
 
     @GetMapping("/contact")
-    public String getContact(){
+    public String getContact() {
         return "users/contact";
     }
 
     @GetMapping("/shop-details")
-    public String getShopDetails(){
+    public String getShopDetails() {
         return "users/shop-details";
     }
 
     @GetMapping("/shoping-cart")
-    public String getShoppingCart(){
+    public String getShoppingCart() {
         return "users/shoping-cart";
     }
 
     @GetMapping("/checkout-form")
-    public String getCheckoutForm(){
+    public String getCheckoutForm() {
         return "users/checkout";
     }
-    @GetMapping("/blog-details")
-    public String getBlogDetails(){
-        return "users/blog-details";
-    }
+
+//    @GetMapping("/blog-details")
+//    public String getBlogDetails() {
+//        return "users/blog-details";
+//    }
 
     @GetMapping("shop-grid")
-    public String getShop(){
+    public String getShop() {
         return "users/shop-grid";
     }
 
     @GetMapping("/product/product-detail")
     public String getProductDetail() {
         return "users/shop-details";
+    }
+
+    @GetMapping("/blog-details")
+    public String showBlogDetails() {
+        return "users/blog-details";
+    }
+
 }

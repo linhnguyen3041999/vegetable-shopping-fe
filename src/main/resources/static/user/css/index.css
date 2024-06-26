@@ -16,3 +16,61 @@
 .product-image {
     min-height: 270px;
 }
+
+.blog__item__text p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*chuyeern trang*/
+.pagination-btn {
+    color: #333;  /* Màu chữ mặc định */
+    text-decoration: none;  /* Loại bỏ gạch chân */
+    padding: 5px 10px;  /* Padding cho nút */
+    margin-right: 5px;  /* Khoảng cách giữa các nút */
+    border: 1px solid #ccc;  /* Viền nút */
+    border-radius: 3px;  /* Bo góc nút */
+    background-color: #fff;  /* Màu nền mặc định */
+}
+
+.pagination-btn:hover {
+    background-color: #f0f0f0;  /* Màu nền khi hover */
+}
+
+.pagination-btn.active {
+    background-color: #7FAD39;  /* Màu nền khi active */
+    color: #fff;  /* Màu chữ khi active */
+    border-color: #7FAD39;  /* Màu viền khi active */
+}
+/*chuyeern trang*/
+
+/* Kiểu dáng mặc định cho liên kết */
+#blog-sidebar-item a {
+    color: #333; /* Màu chữ mặc định */
+    text-decoration: none; /* Loại bỏ gạch chân */
+    display: block;
+    padding: 10px;
+}
+
+/* Kiểu dáng khi hover vào liên kết */
+#blog-sidebar-item a:hover {
+    background-color: #f0f0f0; /* Màu nền khi hover */
+}
+
+/* Kiểu dáng khi liên kết đang được chọn */
+#blog-sidebar-item a.active {
+    background-color: #7FAD39; /* Màu nền khi active */
+    color: #fff; /* Màu chữ khi active */
+}
+
+#blog-sidebar-item {
+    max-height: 350px; /* Đặt chiều cao tối đa của danh sách */
+    overflow-y: auto; /* Thêm thanh cuộn dọc khi danh sách quá dài */
+}
+
+
+
+

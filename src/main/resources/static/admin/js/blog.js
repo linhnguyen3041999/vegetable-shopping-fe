@@ -25,26 +25,12 @@ async function getAllBlogs() {
     try {
         let {data: blogs} = await axios.get('http://localhost:8080/api/v1/blogs');
         let result = '';
-        const categoryMap = {
-            1: 'Vegetable',
-            2: 'Fruit',
-            3: 'Mono',
-            4: 'Mene',
-            5: 'Vegetable',
-            6: 'Fruit',
-            7: 'Mono',
-            8: 'Mene',
-            9: 'Vegetable',
-            10: 'Fruit'
-        };
         blogs.forEach(blog => {
             let blogStatus = blog.blogActive ? 'Original' : 'Draft';
-            let blogCategoryName = categoryMap[blog.blogCategory.categoryId] || 'Unknown';
             result += `
                 <tr class="table-blog" data-blog-id="${blog.blogId}">
                     <td>${blog.blogId}</td>
-                    <td>${blog.blogCreate_by}</td>
-                    <td>${blogCategoryName}</td>
+                    <td>${blog.blogCategory.categoryId}</td>
                     <td class="fixed-width-title">${blog.blogTitle}</td>
                     <td class="fixed-width-content">...</td>
                     <td class="mockup-cell"><img src="https://drive.google.com/thumbnail?id=${blog.blogImage}"></td>
