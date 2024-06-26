@@ -1,7 +1,7 @@
 async function login() {
     const username = document.getElementById('user-username').value;
     const password = document.getElementById('user-password').value;
-    await axios.post('http://localhost:8080/api/v1/login', {username, password})
+    await axios.post('http://localhost:8080/api/v1/auth/login', {username, password})
         .then(response => {
             swal.fire({
                 title: "Login successful!",
@@ -24,7 +24,11 @@ async function login() {
 
         })
         .catch(error => {
-            alert('Login fail: ' + error.message);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Invalid username or password!",
+            });
         });
 }
 document.getElementById('login-normal').addEventListener('click',
