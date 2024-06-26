@@ -11,6 +11,7 @@ document.getElementById("phone_number").value = userInfor.phoneNumber;
 
 async function setAmount(){
     let shopping_fee = 20000;
+    console.log(shopping_fee);
     document.getElementById('shipping-fee').textContent = '$' + shopping_fee;
     let totalAmount = await getAmount() - shopping_fee;
     document.getElementById('total-amount').textContent = '$' + `${totalAmount}`;
