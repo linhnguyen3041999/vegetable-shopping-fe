@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resetFormNormal();
     getAllCategory();
     document.getElementById('resetForm').addEventListener('click', resetFormNormal);
-    document.getElementById('add-blog-editor').addEventListener('click', addOrUpdateBlog);
+    document.getElementById('createBlog').addEventListener('click', addOrUpdateBlog);
 });
 
 let currentBlogId = null;
@@ -69,7 +69,7 @@ async function fillFormWithBlogData(blogId) {
         document.querySelector(`input[name="statusActive"][value="${blog.blogActive ? 1 : 0}"]`).checked = true;
         document.getElementById('selectedBlog').value = blog.blogCategory.categoryId;
         if (blog.blogImage) {
-            document.getElementById('imagePreview').src =`https://drive.google.com/thumbnail?id=${blog.blogImage}`;
+            hinhAnh = document.getElementById('imagePreview').src =`https://drive.google.com/thumbnail?id=${blog.blogImage}`;
         } else {
             document.getElementById('imagePreview').src = '#';
         }
@@ -125,6 +125,7 @@ function showImageMockup() {
 }
 
 async function addOrUpdateBlog() {
+    console.log('Save Blog button clicked');
     let formData = new FormData();
     formData.append('blogTitle', document.getElementById('titleBlog').value);
     formData.append('blogActive', document.querySelector('input[name="statusActive"]:checked').value);
@@ -134,7 +135,7 @@ async function addOrUpdateBlog() {
     try {
         if (currentBlogId) {
             console.log(currentBlogId);
-            await axios.put(`http://localhost:8080/api/v1/blogs/${currentBlogId}`, formData, {
+            await axios.put(`http://localhost:8080/api/v1/blogs/update/${currentBlogId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

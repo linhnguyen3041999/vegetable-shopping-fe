@@ -22,9 +22,9 @@
     <link rel="stylesheet" th:href="@{/admin/css/index.css}">
     <!--sweet alert-->
     <!--SweetAlert2 CSS and JS-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js"></script>
-    <script th:src="@{//cdn.ckeditor.com/4.22.1/full/ckeditor.js}"></script>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js}"></script>
+    <script th:src="@{//cdn.ckeditor.com/4.22.1/standard/ckeditor.js}"></script>
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
     <!--axios-->
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
@@ -928,8 +928,7 @@
                                 <div class="form-group col-md-2">
                                     <label>Selected Categories</label>
                                     <select id="selectedBlog">
-                                        <option value="1">Vegetable</option>
-                                        <option value="2">Headthy</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -944,8 +943,8 @@
 
                                 </div>
                             </div>
-                            <button name="createBlog"  class="btn btn-primary" onclick="addBlog()">Save Blog</button>
-                            <button id="resetForm"  class="btn btn-secondary">Remote Form</button>
+                            <button type="button" name="createBlog" id="createBlog"  class="btn btn-primary">Save Blog</button>
+                            <button type="button" id="resetForm"  class="btn btn-secondary">Remote Form</button>
                             <p hidden="hidden" id="idBlogHidden"></p>
                         </form>
                     </div>
