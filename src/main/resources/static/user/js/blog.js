@@ -48,6 +48,7 @@ async function getBlogs(categoryId = null, blogTitle = null, pageNo = 1) {
 
         let result = '';
         blogs.forEach(blog => {
+            const formattedDate = formatDate(blog.blogDate);
             result += `
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="blog__item">
@@ -55,6 +56,9 @@ async function getBlogs(categoryId = null, blogTitle = null, pageNo = 1) {
                             <img src="https://drive.google.com/thumbnail?id=${blog.blogImage}" alt="">
                         </div>
                         <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i> ${formattedDate} </li>
+                            </ul>
                             <h5><a href="#">${blog.blogTitle}</a></h5>
                             <p class="truncate">${blog.blogContent}</p>
                             <a href="#" class="blog__btn" data-blog-id="${blog.blogId}">READ MORE <span class="arrow_right" style="display: none">${blog.blogId}</span></a>
@@ -110,6 +114,17 @@ document.getElementById('search-input').addEventListener('input', function(event
 // Initialize categories and blogs on page load
 getAllCategoriesVertical();
 getBlogs();
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    // Đảm bảo rằng tháng và ngày có hai chữ số bằng cách thêm '0' khi cần thiết
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    return `${formattedDay}/${formattedMonth}/${year}`;
+}
 
 
 
