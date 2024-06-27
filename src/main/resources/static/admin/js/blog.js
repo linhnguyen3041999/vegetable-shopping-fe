@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 const blogsPerPage = 5; // Số lượng bài blog trên mỗi trang
 let currentBlogId = null;
 let currentCategoryId = null;
+let currentPage = 1; // Biến toàn cục lưu trữ trang hiện tại
 
 async function getAllCategory() {
     try {
@@ -29,6 +30,7 @@ async function getAllCategory() {
 }
 
 async function getAllBlogs(pageNo = 1) {
+    currentPage = pageNo; // Cập nhật trang hiện tại
     try {
         const { data: response } = await axios.get(`http://localhost:8080/api/v1/blogs?pageNo=${pageNo}&pageSize=${blogsPerPage}`);
         let blogs = response.blogs;
@@ -42,7 +44,7 @@ async function getAllBlogs(pageNo = 1) {
                     <td>${blog.blogCategory.categoryId}</td>
                     <td class="fixed-width-title">${blog.blogTitle}</td>
                     <td class="fixed-width-content">...</td>
-                    <td class="mockup-cell"><img src="https://drive.google.com/thumbnail?id=${blog.blogImage}"></td>
+                    <td class="mockup-cell"><img src="${blog.blogImage}"></td>
                     <td>${blogStatus}</td>
                     <td><button class="btn btn-warning edit-button" data-blog-id="${blog.blogId}"><i class="fas fa-edit"></i></button></td>
                 </tr>     
@@ -74,7 +76,8 @@ async function fillFormWithBlogData(blogId) {
         document.querySelector(`input[name="statusActive"][value="${blog.blogActive ? 1 : 0}"]`).checked = true;
         document.getElementById('selectedBlog').value = blog.blogCategory.categoryId;
         if (blog.blogImage) {
-            hinhAnh = document.getElementById('imagePreview').src =`https://drive.google.com/thumbnail?id=${blog.blogImage}`;
+            hinhAnh = document.getElementById('imagePreview').src = `${blog.blogImage}`;
+            console.log(hinhAnh);
         } else {
             document.getElementById('imagePreview').src = '#';
         }
@@ -152,7 +155,7 @@ async function addOrUpdateBlog() {
                 timer: 2000,
                 showConfirmButton: false
             });
-            await getAllBlogs();
+            await getAllBlogs(currentPage); // Sửa lại để tải lại trang hiện tại
             await resetFormNormal();
         } else {
             await axios.post('http://localhost:8080/api/v1/blogs', formData, {
@@ -167,7 +170,7 @@ async function addOrUpdateBlog() {
                 timer: 2000,
                 showConfirmButton: false
             });
-            await getAllBlogs();
+            await getAllBlogs(currentPage); // Sửa lại để tải lại trang hiện tại
             await resetFormNormal();
         }
     } catch (error) {
@@ -194,4 +197,38 @@ function renderPagination(totalPages, currentPage) {
     });
 }
 
-
+async function getAllBlogsTwo() {
+    try {
+        const { data: response } = await axios.get(`http://localhost:8080/api/v1/blogs?pageNo=${currentPage}&pageSize=${blogsPerPage}`);
+        let blogs = response.blogs;
+        let totalPages = response.totalPages;
+        let result = '';
+        blogs.forEach(blog => {
+            let blogStatus = blog.blogActive ? 'Original' : 'Draft';
+            result += `
+                <tr class="table-blog" data-blog-id="${blog.blogId}">
+                    <td>${blog.blogId}</td>
+                    <td>${blog.blogCategory.categoryId}</td>
+                    <td class="fixed-width-title">${blog.blogTitle}</td>
+                    <td class="fixed-width-content">...</td>
+                    <td class="mockup-cell"><img src="${blog.blogImage}"></td>
+                    <td>${blogStatus}</td>
+                    <td><button class="btn btn-warning edit-button" data-blog-id="${blog.blogId}"><i class="fas fa-edit"></i></button></td>
+                </tr>     
+            `;
+        });
+        document.getElementById('table-blog-result').innerHTML = result;
+        // Gọi hàm renderPagination sau khi hiển thị danh sách blog
+        renderPagination(totalPages, currentPage);
+        // Gắn sự kiện click vào nút edit trong danh sách blog
+        document.querySelectorAll('.edit-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const blogId = this.getAttribute('data-blog-id');
+                fillFormWithBlogData(blogId);
+            });
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('table-blog-result').innerHTML = '<p>Error fetching data</p>';
+    }
+}

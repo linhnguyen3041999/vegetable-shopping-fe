@@ -53,7 +53,7 @@ async function getBlogs(categoryId = null, blogTitle = null, pageNo = 1) {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="blog__item">
                         <div class="blog__item__pic">
-                            <img src="https://drive.google.com/thumbnail?id=${blog.blogImage}" alt="">
+                            <img src="${blog.blogImage}" alt="">
                         </div>
                         <div class="blog__item__text">
                             <ul>

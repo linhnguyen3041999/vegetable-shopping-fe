@@ -71,6 +71,34 @@
     overflow-y: auto; /* Thêm thanh cuộn dọc khi danh sách quá dài */
 }
 
+#blog__details__hero__text__time {
+    font-size: 20px;
+    color: #ffffff;
+    list-style: none;
+    display: inline-block;
+    margin-right: 45px;
+    position: relative;
+}
 
+#show-image-details img {
+    margin-bottom: 30px;
+}
+.show-image-details {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Điều chỉnh khoảng cách dưới ảnh theo ý muốn */
+}
+
+.show-image-details img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.show-blog-details {
+    width: 100%;
+}
 
 
