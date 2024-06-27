@@ -1,15 +1,16 @@
-window.getYearToComboBoxReport();
-
-async function getYearToComboBoxReport() {
-
-}
+let token = JSON.parse(sessionStorage.getItem('admin')).data;
+console.log(token);
 
 // count users
 window.countUsers();
 
 async function countUsers() {
     try {
-        let {data: countUsers} = await axios.get('http://localhost:8080/api/v1/users/countUsers');
+        let {data: countUsers} = await axios.get('http://localhost:8080/api/v1/users/countUsers', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         document.getElementById('count-users').innerText = countUsers;
     } catch (e) {
         console.log(e.message())
@@ -22,7 +23,11 @@ window.countProducts();
 
 async function countProducts() {
     try {
-        let {data: countProducts} = await axios.get('http://localhost:8080/api/v1/products/countProducts');
+        let {data: countProducts} = await axios.get('http://localhost:8080/api/v1/products/countProducts', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         document.getElementById('count-products').innerText = countProducts;
     } catch (e) {
         console.log(e.message);
@@ -34,7 +39,11 @@ window.countOrderInWeek();
 
 async function countOrderInWeek() {
     try {
-        let {data: countOrderInWeek} = await axios.get('http://localhost:8080/api/v1/carts/countOrderInWeek');
+        let {data: countOrderInWeek} = await axios.get('http://localhost:8080/api/v1/carts/countOrderInWeek', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         document.getElementById('count-order-in-7day').innerText = countOrderInWeek;
     } catch (e) {
         console.log(e.message);
@@ -45,7 +54,11 @@ async function countOrderInWeek() {
 window.chartJs = chartJs;
 async function chartJs() {
     try {
-        let {data: yearReport} = await axios.get('http://localhost:8080/api/v1/carts/findYearOrder');
+        let {data: yearReport} = await axios.get('http://localhost:8080/api/v1/carts/findYearOrder', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         let result = '';
         yearReport.forEach(year => {
             result += `
@@ -68,7 +81,11 @@ async function chartJs() {
 async function updateChart(year) {
     try {
         let reportRevenueByMonth = document.getElementById('report-revenue-by-month').getContext('2d');
-        let {data: reportMonth} = await axios.get(`http://localhost:8080/api/v1/reports/reportRevenueByMonth/${year}`);
+        let {data: reportMonth} = await axios.get(`http://localhost:8080/api/v1/reports/reportRevenueByMonth/${year}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         const labels = reportMonth.map(item => `M ${item.month}`);
         const data = reportMonth.map(item => item.revenue);
 
@@ -111,7 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
 window.getTopProducts();
 
 async function getTopProducts() {
-    let {data: product} = await axios.get('http://localhost:8080/api/v1/reports/reportTopProducts');
+    let {data: product} = await axios.get('http://localhost:8080/api/v1/reports/reportTopProducts', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     let count = 0;
     let result = '';
     product.forEach(product => {
@@ -129,7 +150,11 @@ async function getTopProducts() {
 window.getTopUsersBuyMost();
 async function getTopUsersBuyMost() {
     try {
-        let{data : users} = await axios.get('http://localhost:8080/api/v1/reports/reportTopUsersBuyLotOf');
+        let{data : users} = await axios.get('http://localhost:8080/api/v1/reports/reportTopUsersBuyLotOf', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         let resutl = '';
         users.forEach(user => {
             resutl += `

@@ -307,8 +307,10 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-info">
                                 <div class="inner text-white">
-                                    <div class="row mx-1"><h3 id="count-order-in-7day"></h3><i
-                                            class="fa-solid fa-gift text-lg mx-1"></i></div>
+                                    <div class="row mx-1 d-flex align-items-center">
+                                        <h3 id="count-order-in-7day"></h3>
+                                        <i class="fa-solid fa-gift text-lg mx-1"></i>
+                                    </div>
                                     <p>New orders last week</p>
                                 </div>
                                 <div class="icon">
@@ -320,8 +322,10 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-success">
                                 <div class="inner text-white">
-                                    <div class="row mx-1"><h3 id="count-products"></h3><i
-                                            class="fa-brands fa-product-hunt"></i></div>
+                                    <div class="row mx-1 d-flex align-items-center">
+                                        <h3 id="count-products"></h3>
+                                        <span><i class="fa-brands fa-product-hunt"></i></span>
+                                    </div>
                                     <p>New products</p>
                                 </div>
                                 <div class="icon">
@@ -333,8 +337,14 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box text-white bg-warning">
                                 <div class="inner">
-                                    <div class="row mx-1"><h3 id="count-users"></h3><i
-                                            class="fa-solid fa-user-plus text-lg mx-1"></i></div>
+                                    <div class="row mx-1 d-flex align-items-center">
+                                        <div class="col">
+                                            <h3 id="count-users"></h3>
+                                        </div>
+                                        <div class="col">
+                                            <i class="fa-solid fa-user-plus text-lg mx-1"></i>
+                                        </div>
+                                    </div>
                                     <p>User Register</p>
                                 </div>
                                 <div class="icon">
@@ -467,12 +477,14 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div>
-                                        <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal"
-                                                data-bs-target="#categoryModal">
+                                    <div class="d-flex align-items-center">
+                                        <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#categoryModal">
                                             <i class="fa-solid fa-plus"></i> Add Category
                                         </button>
+                                        <div class="flex-grow-1"></div>
+                                        <input type="text" name="find-by-name-or-id" id="find-by-name-or-id" class="form-control col-4" oninput="findCategoryByNameOrId()" placeholder="Find by Name or Id">
                                     </div>
+
                                     <div class="table mt-3">
                                         <div class="dataTables_wrapper dt-bootstrap4 no-footer">
                                             <div class="row">
@@ -489,6 +501,11 @@
                                                         <tbody id="category-table">
 
                                                         </tbody>
+                                                        <tr>
+                                                            <td colspan="4" id="category-pageable" class="text-center">
+
+                                                            </td>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -505,7 +522,7 @@
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="product-model-header">Category management</h5>
+                                    <h5 class="modal-title" id="product-model-header">Product management</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
@@ -641,8 +658,13 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody id="product-table">
-                                                        <!-- Data product show in here -->
+
                                                         </tbody>
+                                                        <tr>
+                                                            <td colspan="8" id="product-pageable" class="text-center">
+
+                                                            </td>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -754,7 +776,8 @@
                                 <div class="modal-footer">
                                     <button id="update-account" type="button" class="btn btn-warning">Update</button>
                                     <button id="reset-account" type="button" class="btn btn-primary">Reset</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -944,7 +967,7 @@
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="order-model-header">Category management</h5>
+                                    <h5 class="modal-title" id="order-model-header">Order management</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
@@ -1039,6 +1062,11 @@
                                                         <tbody id="order-table">
 
                                                         </tbody>
+                                                        <tr>
+                                                            <td colspan="9" id="order-pageable" class="text-center">
+
+                                                            </td>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>

@@ -1,8 +1,9 @@
 window.getAllCartToTable();
 
-async function getAllCartToTable() {
+async function getAllCartToTable(page = 0, size = 10) {
     try {
-        let {data: carts} = await axios.get('http://localhost:8080/api/v1/carts');
+        let {data: response} = await axios.get(`http://localhost:8080/api/v1/carts?page=${page}&size=${size}`);
+        let carts = response.content;
         let result = '';
         carts.forEach(cart => {
             let paymentMethodDisplay = cart.paymentMethod ? 'Payment on delivery' : 'Oline payment';
@@ -25,6 +26,23 @@ async function getAllCartToTable() {
         })
         document.getElementById('order-table').innerHTML = result;
 
+        let orderPage = '';
+        for (let i = 0; i < response.totalPages; i++) {
+            orderPage += `
+                <li class="page-item ${i === response.number ? 'active' : ''}">
+                    <a class="page-link" onclick="getAllCartToTable(${i}, ${size})">${i + 1}</a>
+                </li>
+            `;
+        }
+
+        document.getElementById('order-pageable').innerHTML = `
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    ${orderPage}
+                </ul>
+            </nav>
+        `;
+        
         carts.forEach(cart => {
             let cartEdit = document.getElementById(`order-table-edit-${cart.cartId}`);
             cartEdit.addEventListener('click', async () => {
