@@ -1,9 +1,8 @@
 let currentCategoryId = null;
 let searchTitle = null;
-const blogsPerPage = 4; // Số lượng bài blog trên mỗi trang
+const blogsPerPage = 4;
 let blogId = null;
 let blogsData = [];
-// Fetch all categories and populate the sidebar
 async function getAllCategoriesVertical() {
     try {
         const { data: categories } = await axios.get('http://localhost:8080/api/v1/categories');
@@ -38,7 +37,6 @@ async function getAllCategoriesVertical() {
     }
 }
 
-// Fetch all blogs or blogs based on categoryId or title
 async function getBlogs(categoryId = null, blogTitle = null, pageNo = 1) {
     try {
         let url = `http://localhost:8080/api/v1/blogs?pageNo=${pageNo}&pageSize=${blogsPerPage}&active=1`;

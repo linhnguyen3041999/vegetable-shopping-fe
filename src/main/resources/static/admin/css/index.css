@@ -132,4 +132,52 @@ form {
     text-align: center;
 }
 
+/* Đảm bảo các hình ảnh trong cột "Mockup" của bảng có kích thước tối ưu */
+#table-blog-result td.mockup-cell img {
+    max-width: 80px; /* Đặt chiều rộng tối đa */
+    height: auto; /* Chiều cao tự động để giữ tỷ lệ */
+    display: block; /* Đảm bảo hiển thị đúng với kích thước đã đặt */
+    margin: 0 auto; /* Canh giữa hình ảnh trong ô */
+}
+
+/* Giới hạn độ rộng tối đa của các cột "Title" và "Content" */
+.fixed-width-title,
+.fixed-width-content {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-blog {
+    text-align: center;
+}
+
+/* Phong cách cho các nút phân trang */
+.pagination-btn {
+    color: #333;  /* Màu chữ mặc định */
+    text-decoration: none;  /* Loại bỏ gạch chân */
+    padding: 5px 10px;  /* Padding cho nút */
+    margin-right: 5px;  /* Khoảng cách giữa các nút */
+    border: 1px solid #ccc;  /* Viền nút */
+    border-radius: 3px;  /* Bo góc nút */
+    background-color: #fff;  /* Màu nền mặc định */
+}
+
+.pagination-btn:hover {
+    background-color: #f0f0f0;  /* Màu nền khi hover */
+}
+
+.pagination-btn.active {
+    background-color: #7FAD39;  /* Màu nền khi active */
+    color: #fff;  /* Màu chữ khi active */
+    border-color: #7FAD39;  /* Màu viền khi active */
+}
+
+/* Di chuyển các nút phân trang sang bên phải và tách ra khỏi bảng */
+.product__pagination.blog__pagination {
+    text-align: right;  /* Canh phải */
+    margin-top: 20px;  /* Tạo khoảng cách phía trên */
+}
+
 

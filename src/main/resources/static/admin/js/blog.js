@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     CKEDITOR.replace('contentBlog');
-    getAllBlogs();
+    getAllBlogs(); // Gọi hàm getAllBlogs khi trang được tải lần đầu
     showImageMockup();
     pageBreak();
     resetFormNormal();
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('createBlog').addEventListener('click', addOrUpdateBlog);
 });
 
+const blogsPerPage = 5; // Số lượng bài blog trên mỗi trang
 let currentBlogId = null;
 let currentCategoryId = null;
 
@@ -27,10 +28,11 @@ async function getAllCategory() {
     }
 }
 
-async function getAllBlogs() {
+async function getAllBlogs(pageNo = 1) {
     try {
-        let response = await axios.get('http://localhost:8080/api/v1/blogs');
-        let blogs = response.data.blogs;
+        const { data: response } = await axios.get(`http://localhost:8080/api/v1/blogs?pageNo=${pageNo}&pageSize=${blogsPerPage}`);
+        let blogs = response.blogs;
+        let totalPages = response.totalPages;
         let result = '';
         blogs.forEach(blog => {
             let blogStatus = blog.blogActive ? 'Original' : 'Draft';
@@ -47,6 +49,9 @@ async function getAllBlogs() {
             `;
         });
         document.getElementById('table-blog-result').innerHTML = result;
+        // Gọi hàm renderPagination sau khi hiển thị danh sách blog
+        renderPagination(totalPages, pageNo);
+        // Gắn sự kiện click vào nút edit trong danh sách blog
         document.querySelectorAll('.edit-button').forEach(button => {
             button.addEventListener('click', function () {
                 const blogId = this.getAttribute('data-blog-id');
@@ -169,3 +174,24 @@ async function addOrUpdateBlog() {
         console.error('Error:', error.message);
     }
 }
+
+function renderPagination(totalPages, currentPage) {
+    let paginationHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `<a href="#" class="pagination-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>`;
+    }
+    document.getElementById('pagination').innerHTML = paginationHTML;
+    document.querySelectorAll('.pagination-btn').forEach(button => {
+        console.log(`Button ${button.getAttribute('data-page')} initialized`);
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const pageNo = parseInt(this.getAttribute('data-page'));
+            console.log(`Page ${pageNo} clicked`);
+            getAllBlogs(pageNo);  // Đã sửa từ `getBlogs` thành `getAllBlogs`
+            document.querySelectorAll('.pagination-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
+
+
