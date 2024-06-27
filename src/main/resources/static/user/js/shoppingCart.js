@@ -104,7 +104,7 @@ async function getAllItem() {
 
 }
 function checkout_check(){
-    if(sessionStorage.getItem("userData")){
+    if(sessionStorage.getItem("token")){
         window.location.href = '/vegetable-shopping/shopping-cart/checkout';
     }else{
         Swal.fire({

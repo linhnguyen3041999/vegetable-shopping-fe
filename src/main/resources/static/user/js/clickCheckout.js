@@ -1,7 +1,7 @@
 async function addOrder(){
+    const userToken = sessionStorage.getItem('token');
     let shipping_fee = document.getElementById('shipping-fee').textContent;
     let total_amount = document.getElementById('total-amount').textContent;
-    let user = JSON.parse(sessionStorage.getItem('userData'));
 
     let formData = new FormData();
     formData.append('addressShipping', document.getElementById('address_shipping').value);
@@ -11,53 +11,79 @@ async function addOrder(){
     formData.append('paymentStatus', getSelectedRadio() === 'true' ? 'false' : 'true');
     formData.append('shippingFee', parseFloat(shipping_fee.slice(1)));
     formData.append('totalAmount', parseFloat(total_amount.slice(1)));
-    formData.append('userId', user.userId);
+    formData.append('userId', Number(4));
 
-    const nameValue1 = formData.get('paymentMethod');
-    const nameValue2 = formData.get('paymentStatus');
-    console.log(nameValue1);
-    console.log(nameValue2);
     try {
         let order = await axios.post('http://localhost:8080/api/v1/carts', formData, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`
             }
         });
-
         let itemList = [];
         if(localStorage.getItem("items")){
             itemList = JSON.parse(localStorage.getItem("items"));
         }
         const cartItems = itemList;
+        let isOK = true;
+        let theErrorOfItem = '';
         for (const cartItem of cartItems) {
             let formDataItem = new FormData();
             formDataItem.append('quantity', cartItem.quantity);
             formDataItem.append('price', cartItem.price);
             formDataItem.append('productId', cartItem.product.productId);
             formDataItem.append('cartId', order.data.cartId);
-
             try {
-                await axios.post('http://localhost:8080/api/v1/cartItems', formDataItem , {
+                const cartItemResponse = await axios.post('http://localhost:8080/api/v1/cartItems', formDataItem , {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`
                     }
                 });
+                console.log(cartItemResponse.data);
+                if(cartItemResponse.data === ''){
+                    isOK = false;
+                    theErrorOfItem += 'The quantity of ' + cartItem.product.productName + "is greater than the inventory quantity " + "(" + cartItem.product.quantity + ').\n';
+                }
+
             } catch (error) {
-                console.error("Lỗi khi tạo sản phẩm trong giỏ hàng:", error);
+                console.error("Failed to create some cart items:", error);
             }
         }
+        //Check if all cart items were successfully created before clearing localStorage
+        if(isOK && theErrorOfItem === ''){
+            localStorage.removeItem("items");
+            Swal.fire({
+                title: 'Success',
+                text: 'You have paid for your order',
+                icon: 'success'
+            })
+            setTimeout(function () {
+                window.location.href = "/vegetable-shopping/home";
+            }, 1000);
+        }else{
+            await axios.delete(`http://localhost:8080/api/v1/carts/${order.data.cartId}`);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: theErrorOfItem,
+                showCancelButton: true,
+                confirmButtonText: "Go to cart",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/vegetable-shopping/shopping-cart';
+                }
+            });
+            console.error("Failed to create some cart items.");
+        }
 
-        Swal.fire({
-            title: 'Success',
-            text: 'You have paid for your order',
-            icon: 'success'
-        });
     }catch (error){
         Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "You were unable to pay, please try again",
         });
+        console.error(error);
     }
 
 }
