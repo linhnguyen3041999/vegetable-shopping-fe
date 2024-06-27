@@ -34,7 +34,7 @@ public class UserController {
         return "users/blog-details";
     }
 
-    @GetMapping("shop-grid")
+    @GetMapping("/shop-grid")
     public String getShop(){
         return "users/shop-grid";
     }
