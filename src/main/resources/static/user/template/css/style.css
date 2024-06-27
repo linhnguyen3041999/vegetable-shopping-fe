@@ -184,6 +184,19 @@ ol {
 	border: none;
 }
 
+.site-btn-1{
+	font-size: 13px !important;
+	color: #ffffff;
+	text-transform: uppercase;
+	width: 100px !important;
+	max-width: 100% !important;
+	background: #7fad39;
+	border: none;
+	font-weight: bold;
+	padding: 10px !important;
+}
+
+
 /* Preloder */
 
 #preloder {
@@ -2148,6 +2161,18 @@ ol {
 	border-radius: 4px;
 }
 
+.checkout__input textarea {
+	width: 100%;
+	border: 1px solid #ebebeb;
+	padding-left: 20px;
+	font-size: 16px;
+	color: #b2b2b2;
+	border-radius: 4px;
+	height: 150px;
+	padding-top: 10px;
+}
+
+
 .checkout__input input.checkout__input__add {
 	margin-bottom: 20px;
 }
@@ -2164,8 +2189,9 @@ ol {
 	position: relative;
 	font-size: 16px;
 	color: #1c1c1c;
-	padding-left: 40px;
+	padding-left: 20px;
 	cursor: pointer;
+	color: #b2b2b2;
 }
 
 .checkout__input__checkbox label input {
@@ -2187,15 +2213,15 @@ ol {
 	left: 0;
 	top: 4px;
 	height: 16px;
-	width: 14px;
+	width: 16px;
 	border: 1px solid #a6a6a6;
 	content: "";
-	border-radius: 4px;
+	border-radius: 16px;
 }
 
 .checkout__input__checkbox label .checkmark:after {
 	position: absolute;
-	left: 1px;
+	left: 2px;
 	top: 1px;
 	width: 10px;
 	height: 8px;
@@ -2257,6 +2283,15 @@ ol {
 	border-top: 1px solid #e1e1e1;
 	padding-bottom: 15px;
 	margin-bottom: 15px;
+	padding-top: 15px;
+}
+
+.checkout__order .checkout__order__coupon {
+	font-size: 18px;
+	color: #1c1c1c;
+	font-weight: 700;
+	border-top: 1px solid #e1e1e1;
+	padding-bottom: 15px;
 	padding-top: 15px;
 }
 

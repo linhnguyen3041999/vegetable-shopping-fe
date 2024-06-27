@@ -1,11 +1,15 @@
 async function getAmount(){
     try {
         let itemList = JSON.parse(localStorage.getItem("items"));
-        const sumPrice = itemList.reduce((accumulator, item) => accumulator + item.price, 0);
+        let sumPrice = 0;
+        if(itemList){
+            sumPrice = itemList.reduce((accumulator, item) => accumulator + item.price, 0);
+        }
         const elements = document.querySelectorAll('.cart-sum-price-span');
         elements.forEach((element) => {
             element.textContent = "$" +  sumPrice;
         });
+        return Number(sumPrice);
     }catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -14,7 +18,10 @@ async function getAmount(){
 async function getCount(){
     try {
         let itemList = JSON.parse(localStorage.getItem("items"));
-        const count = itemList.reduce((accumulator, item) => accumulator + item.quantity, 0);
+        let count = 0;
+        if(itemList){
+            count = itemList.reduce((accumulator, item) => accumulator + item.quantity, 0);
+        }
         const elements = document.querySelectorAll('.cart-count-item-span');
         elements.forEach((element) => {
             element.textContent = count;
