@@ -11,6 +11,7 @@ async function login() {
             }).then((value) => {
                 if (response.data) {
                     sessionStorage.setItem('token', response.data);
+                    sessionStorage.setItem('userName', response.headers.get('X-User-Name'));
                     setTimeout(function () {
                         window.location.href = "/vegetable-shopping/home";
                     }, 1000);

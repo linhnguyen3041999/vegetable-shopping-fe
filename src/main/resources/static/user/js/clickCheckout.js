@@ -1,7 +1,27 @@
+async function itemUser() {
+    try {
+        const username = sessionStorage.getItem('userName');
+        const userResponse = await axios.get(`http://localhost:8080/api/v1/users/${username}`);
+
+        // Update UI elements
+        document.getElementById('fullname').value = userResponse.data.fullname || 'N/A'; // Set default if fullName is missing
+        document.getElementById('phone_number').value = userResponse.data.phoneNumber || 'N/A';
+
+        // Return user ID as a string (assuming it's already a string)
+        return userResponse.data.userId; // Explicit conversion if necessary
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        // Handle errors gracefully, e.g., display an error message to the user
+    }
+}
+
+
 async function addOrder(){
     const userToken = sessionStorage.getItem('token');
     let shipping_fee = document.getElementById('shipping-fee').textContent;
     let total_amount = document.getElementById('total-amount').textContent;
+
+    const userId = await itemUser();
 
     let formData = new FormData();
     formData.append('addressShipping', document.getElementById('address_shipping').value);
@@ -11,7 +31,8 @@ async function addOrder(){
     formData.append('paymentStatus', getSelectedRadio() === 'true' ? 'false' : 'true');
     formData.append('shippingFee', parseFloat(shipping_fee.slice(1)));
     formData.append('totalAmount', parseFloat(total_amount.slice(1)));
-    formData.append('userId', Number(4));
+    formData.append('userId', userId);
+
 
     try {
         let order = await axios.post('http://localhost:8080/api/v1/carts', formData, {
@@ -101,3 +122,5 @@ document.getElementById('order_submit').addEventListener('click', function (evt)
         addOrder();
     }
 });
+
+window.itemUser();
