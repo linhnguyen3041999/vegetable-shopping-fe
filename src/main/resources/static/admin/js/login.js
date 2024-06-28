@@ -6,7 +6,7 @@ async function login() {
         .then(response => {
             let role = response.headers['x-role'];
             console.log(response)
-            if (role == 'ROLE_ADMIN' || role == 'ROLE_SYSTEM') {
+            if (role === 'ROLE_ADMIN' || role === 'ROLE_SYSTEM') {
                 sessionStorage.setItem('admin', JSON.stringify(response))
                 setTimeout(function () {
                     window.location.href = '/admin/index';
