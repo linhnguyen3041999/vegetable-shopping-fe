@@ -892,11 +892,17 @@
                     <div>
                         <h2 class="text-green">Blog Management</h2>
                         <form class="form-product" method="post" enctype="multipart/form-data">
-                            <div class="row mb-3">
+                            <div class="row mb-4">
                                 <div class="form-group col-md-8">
                                     <label for="titleBlog">Post Title</label>
                                     <input type="text" name="titleBlog" class="form-control" id="titleBlog"
                                            placeholder="Input title here">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="selectedBlog">Selected Categories</label>
+                                    <select id="selectedBlog" class="form-control">
+                                        <!--                                        getAllCategory-->
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Status</label>
@@ -909,28 +915,28 @@
                                         </label>
                                     </div>
                                 </div>
+<!--                                <label>Product Image</label> <br>-->
+<!--                                <label for="product-image">-->
+<!--                                    <i id="product-label-image" class="fa-solid fa-plus"></i>-->
+<!--                                    <img id="product-image-show" src="" alt="img">-->
+<!--                                </label>-->
+<!--                                <input type="file" name="product-image" class="form-control"-->
+<!--                                       id="product-image"-->
+<!--                                       style="display: none">-->
                                 <div class="form-group col-md-2">
                                     <label for="mockupID">Thumbnails</label>
                                     <input type="file" name="mockupID" class="form-control" id="mockupID"
-                                           placeholder="Choose File Thumbnails" accept="image/*">
+                                           placeholder="Choose File Thumbnails" accept="image/*" style="display: none">
+                                    <img id="imagePreview"  style="display: block;">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="selectedBlog">Selected Categories</label>
-                                    <select id="selectedBlog" class="form-control">
-<!--                                        getAllCategory-->
-                                    </select>
-                                </div>
+
                             </div>
                             <div class="row mb-3">
-                                <div class="form-group col-md-10">
+                                <div class="form-group col-md-12">
                                     <label for="contentBlog">Content</label>
                                     <textarea id="contentBlog" rows="4" cols="50"></textarea>
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label>Thumbnails demo</label>
-                                    <img id="imagePreview"  style="display: block;">
-<!--                                    showImageMockup-->
-                                </div>
+
                             </div>
                             <button type="button" name="createBlog" id="createBlog"  class="btn btn-green">Save Blog</button>
                             <button type="button" id="resetForm"  class="btn btn-cement">Remote Form</button>

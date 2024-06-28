@@ -101,5 +101,24 @@
     width: 100%;
 }
 
+.show-blog-details a{
+    color: #6f6f6f;
+}
+
+.show-blog-details a:hover{
+    color: darkgreen;
+}
+.show-blog-details ul {
+    list-style-type: none; /* Loại bỏ dấu chấm mặc định */
+}
+
+.show-blog-details ul li::before {
+    content: "\2022"; /* Mã Unicode của dấu chấm */
+    color: #333; /* Màu sắc của dấu chấm */
+    font-size: 16px; /* Kích thước của dấu chấm */
+    margin-right: 8px; /* Khoảng cách giữa dấu chấm và văn bản */
+}
+
+
 
 

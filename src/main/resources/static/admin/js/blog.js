@@ -196,37 +196,4 @@ function renderPagination(totalPages, currentPage) {
     });
 }
 
-async function getAllBlogsTwo() {
-    try {
-        const { data: response } = await axios.get(`http://localhost:8080/api/v1/blogs?pageNo=${currentPage}&pageSize=${blogsPerPage}`);
-        let blogs = response.blogs;
-        let totalPages = response.totalPages;
-        let result = '';
-        blogs.forEach(blog => {
-            let blogStatus = blog.blogActive ? 'Original' : 'Draft';
-            result += `
-                <tr class="table-blog" data-blog-id="${blog.blogId}">
-                    <td>${blog.blogId}</td>
-                    <td>${blog.blogCategory.categoryId}</td>
-                    <td class="fixed-width-title">${blog.blogTitle}</td>
-                    <td class="mockup-cell"><img src="${blog.blogImage}"></td>
-                    <td>${blogStatus}</td>
-                    <td><button class="btn btn-warning edit-button" data-blog-id="${blog.blogId}"><i class="fas fa-edit"></i></button></td>
-                </tr>     
-            `;
-        });
-        document.getElementById('table-blog-result').innerHTML = result;
-        // Gọi hàm renderPagination sau khi hiển thị danh sách blog
-        renderPagination(totalPages, currentPage);
-        // Gắn sự kiện click vào nút edit trong danh sách blog
-        document.querySelectorAll('.edit-button').forEach(button => {
-            button.addEventListener('click', function () {
-                const blogId = this.getAttribute('data-blog-id');
-                fillFormWithBlogData(blogId);
-            });
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('table-blog-result').innerHTML = '<p>Error fetching data</p>';
-    }
-}
+
