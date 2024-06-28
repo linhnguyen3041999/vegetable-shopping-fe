@@ -59,4 +59,9 @@ public class UserController {
         return "users/login";
     }
 
+    @GetMapping("/user/register")
+    public String resgister() {
+        return "users/register";
+    }
+
 }
