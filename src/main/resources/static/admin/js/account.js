@@ -58,6 +58,7 @@ async function getAllUser(page = 0, size = 10) {
                     });
                     document.getElementById('category-id').value = response.categoryId;
                     document.getElementById('category-name').value = response.categoryName;
+
                 } catch (error) {
                     Swal.fire({
                         title: 'Category',
