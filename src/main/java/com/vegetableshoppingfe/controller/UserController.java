@@ -62,4 +62,19 @@ public class UserController {
         return "users/login";
     }
 
+    @GetMapping("/user/register")
+    public String resgister() {
+        return "users/register";
+    }
+
+    @GetMapping("/user/update-account")
+    public String updateAccount() {
+        return "users/update-info";
+    }
+
+    @GetMapping("/user/change-password")
+    public String changePassword() {
+        return "users/change-password";
+    }
+
 }

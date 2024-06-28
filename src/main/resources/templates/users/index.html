@@ -71,8 +71,9 @@
                             <a href="#"><i class="fa fa-user"></i></a>
                             <div class="user-menu-content">
                                 <a th:href="@{/vegetable-shopping/user/login}">Login</a>
-                                <a href="#">Register</a>
-                                <a href="#">Change password</a>
+                                <a th:href="@{/vegetable-shopping/user/register}">Register</a>
+                                <a onclick="checkout_logged()" th:href="@{/vegetable-shopping/user/update-account}">Update account</a>
+                                <a th:href="@{/vegetable-shopping/user/change-passwrod}">Change password</a>
                             </div>
                         </li>
                         <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
@@ -533,6 +534,7 @@
     <!-- JS IN MY CONFIG -->
     <script th:src="@{/user/js/index.js}"></script>
     <script th:src="@{/user/js/cartItem.js}"></script>
+
     <!--sweet alert-->
     <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </body>

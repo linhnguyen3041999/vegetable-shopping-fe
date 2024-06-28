@@ -1,4 +1,3 @@
-// Load data up table
 window.getAllProductAdmin();
 
 let lastProductId = null;
@@ -31,6 +30,7 @@ async function getAllProductAdmin(page = 0, size = 10) {
             lastProductId = product.productId;
         });
         document.getElementById('product-table').innerHTML = result;
+
         let productPage = '';
         for (let i = 0; i < response.totalPages; i++) {
             productPage += `
@@ -313,17 +313,19 @@ async function getCategoryToInputTableForm() {
     try {
         let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories', {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcxOTU3MTUxMiwiZXhwIjoxNzIwMTc2MzEyfQ.CKtKA48ny_RyMFFuxTNSP_qkQgmeONI_AclLEMXyT_t2uf91l4f1WJ7FEMdVZhPQ`,
             }
         });
+        console.log(categories)
         let result = '<option>select category type</option>';
-        categories.forEach(category => {
+        categories.content.forEach(category => {
             result += `
                 <option value="${category.categoryId}">${category.categoryName}</option>
             `;
         })
         document.getElementById('product-category-id').innerHTML = result;
     } catch (error) {
+        console.log(error.message)
     }
 }
 
@@ -353,3 +355,53 @@ document.addEventListener('DOMContentLoaded', function () {
     setupImagePreview('product-image3', 'product-image-show3', 'product-label-image3');
     setupImagePreview('product-image4', 'product-image-show4', 'product-label-image4');
 });
+
+async function getProductsLikeProductName(page = 0, size = 10) {
+    try {
+        let productName = document.getElementById('find-product-like-name').value;
+        let {data : response} = await axios.get(`http://localhost:8080/api/v1/products/findProductsLikeProductName?productName=${productName}&page=${page}&size=${size}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let products = response.content;
+        let result = '';
+        products.forEach(product => {
+            result += `
+                        <tr class="odd">
+                            <td class="align-middle">${product.productId}</td>
+                            <td class="align-middle">${product.productName}</td>
+                            <td class="align-middle"><img src="${product.photo}"></td>
+                            <td class="align-middle">${product.quantity}</td>
+                            <td class="align-middle">${product.price}</td>
+                            <td class="align-middle">${product.weight}</td>
+                            <td class="align-middle">${product.category.categoryName}</td>
+                            <td class="align-middle" id="tooltip-container2">
+                                <a id="product-table-edit-${product.productId}" class="me-3 text-primary mx-1" data-bs-toggle="modal" data-bs-target="#productModal"><i class="fa-solid fa-pencil"></i></a>
+                                <a id="product-table-delete-${product.productId}" class="text-danger" ><i class="fa-solid fa-trash-can"></i></a>
+                            </td>
+                        </tr>
+                    `;
+        });
+        document.getElementById('product-table').innerHTML = result;
+
+        let productPage = '';
+        for (let i = 0; i < response.totalPages; i++) {
+            productPage += `
+                <li class="page-item ${i === response.number ? 'active' : ''}">
+                    <a class="page-link" onclick="getAllProductAdmin(${i}, ${size})">${i + 1}</a>
+                </li>
+            `;
+        }
+
+        document.getElementById('product-pageable').innerHTML = `
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    ${productPage}
+                </ul>
+            </nav>
+        `;
+    } catch (e) {
+        console.log(e.message)
+    }
+}

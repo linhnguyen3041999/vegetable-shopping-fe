@@ -42,7 +42,7 @@ async function getAllCartToTable(page = 0, size = 10) {
                 </ul>
             </nav>
         `;
-        
+
         carts.forEach(cart => {
             let cartEdit = document.getElementById(`order-table-edit-${cart.cartId}`);
             cartEdit.addEventListener('click', async () => {
@@ -144,4 +144,63 @@ function formatDate(dateString) {
         second: '2-digit'
     };
     return date.toLocaleDateString('en-GB', options).replace(/,/g, ' -');
+}
+
+document.getElementById('order-status-filter').addEventListener('change', function (ev) {
+    ev.preventDefault();
+    let cartStatus = document.getElementById('order-status-filter').value;
+    filterByStatus(cartStatus);
+})
+
+async function filterByStatus(cartStatus, page = 0, size = 10) {
+    try {
+        let {data : response} = await axios.get(`http://localhost:8080/api/v1/carts/getCartsByCartStatus?cartStatus=${cartStatus}&page=${page}&size=${size}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        console.log(response)
+        let carts = response.content;
+        let result = '';
+        carts.forEach(cart => {
+            let paymentMethodDisplay = cart.paymentMethod ? 'Payment on delivery' : 'Oline payment';
+            let paymentStatusDisplay = cart.paymentMethod ? 'Unpaid' : 'Paid';
+            result += `
+                 <tr class="odd">
+                    <td class="align-middle">${cart.cartId}</td>
+                    <td class="align-middle">${cart.createdDate}</td>
+                    <td class="align-middle">${paymentMethodDisplay}</td>
+                    <td class="align-middle">${paymentStatusDisplay}</td>
+                    <td class="align-middle">${cart.cartStatus}</td>
+                    <td class="align-middle">${cart.addressShipping}</td>
+                   <td class="align-middl e">${cart.shippingFee}</td>
+                    <td class="align-middle">${cart.totalAmount}</td>
+                    <td class="align-middle" id="tooltip-container2">
+                        <a id="order-table-edit-${cart.cartId}" class="me-3 text-primary mx-1" data-bs-toggle="modal" data-bs-target="#orderModal"><i class="fa-solid fa-pencil"></i></a>
+                    </td>
+                </tr>
+            `;
+        })
+        document.getElementById('order-table').innerHTML = result;
+
+        let orderPage = '';
+        for (let i = 0; i < response.totalPages; i++) {
+            orderPage += `
+                <li class="page-item ${i === response.number ? 'active' : ''}">
+                    <a class="page-link" onclick="getAllCartToTable(${i}, ${size})">${i + 1}</a>
+                </li>
+            `;
+        }
+
+        document.getElementById('order-pageable').innerHTML = `
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    ${orderPage}
+                </ul>
+            </nav>
+        `;
+
+    } catch (error) {
+        console.log(error.message);
+    }
 }
