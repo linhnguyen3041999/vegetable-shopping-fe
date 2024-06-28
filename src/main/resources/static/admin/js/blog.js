@@ -16,18 +16,25 @@ let currentPage = 1; // Biến toàn cục lưu trữ trang hiện tại
 
 async function getAllCategory() {
     try {
-        let { data: categories } = await axios.get('http://localhost:8080/api/v1/categories');
+        let response = await axios.get('http://localhost:8080/api/v1/categories');
+        let categories = response.data.content; // Lấy mảng categories từ content
+
+        if (!Array.isArray(categories)) {
+            throw new Error('Categories is not an array');
+        }
+
         let result = '';
         categories.forEach(category => {
             result += `
-                <option value=${category.categoryId} >${category.categoryName}</option>
+                <option value="${category.categoryId}">${category.categoryName}</option>
             `;
         });
-        document.getElementById('selectedBlog').innerHTML = result;
+        document.getElementById('selectedBlogs').innerHTML = result;
     } catch (error) {
         console.error('Error fetching categories:', error);
     }
 }
+
 
 async function getAllBlogs(pageNo = 1) {
     currentPage = pageNo; // Cập nhật trang hiện tại
@@ -73,7 +80,7 @@ async function fillFormWithBlogData(blogId) {
         document.getElementById('contentBlog').value = blog.blogContent;
         CKEDITOR.instances['contentBlog'].setData(blog.blogContent);
         document.querySelector(`input[name="statusActive"][value="${blog.blogActive ? 1 : 0}"]`).checked = true;
-        document.getElementById('selectedBlog').value = blog.blogCategory.categoryId;
+        document.getElementById('selectedBlogs').value = blog.blogCategory.categoryId;
         if (blog.blogImage) {
             hinhAnh = document.getElementById('imagePreview').src = `${blog.blogImage}`;
             console.log(hinhAnh);
@@ -87,8 +94,9 @@ async function fillFormWithBlogData(blogId) {
 
 async function resetFormNormal() {
     try {
-        let { data: categories } = await axios.get('http://localhost:8080/api/v1/categories');
-        currentCategoryId = categories[0].categoryId;
+        let response = await axios.get('http://localhost:8080/api/v1/categories');
+        let categories = response.data.content; // Lấy mảng categories từ content
+        let currentCategoryId = categories[0].categoryId;
         document.getElementById('titleBlog').value = '';
         document.querySelector('input[name="statusActive"][value="1"]').checked = true;
         document.getElementById('mockupID').value = '';
@@ -96,7 +104,7 @@ async function resetFormNormal() {
         CKEDITOR.instances['contentBlog'].setData('');
         document.getElementById('imagePreview').src = '';
         currentBlogId = null;
-        document.getElementById('selectedBlog').value = currentCategoryId;
+        document.getElementById('selectedBlogs').value = currentCategoryId;
     } catch (error) {
         console.error('Error resetting form:', error);
     }
@@ -138,7 +146,7 @@ async function addOrUpdateBlog() {
     formData.append('blogActive', document.querySelector('input[name="statusActive"]:checked').value);
     formData.append('blogContent', CKEDITOR.instances['contentBlog'].getData());
     formData.append('file', document.getElementById('mockupID').files[0]);
-    formData.append('categoryId', document.getElementById('selectedBlog').value);
+    formData.append('categoryId', document.getElementById('selectedBlogs').value);
     try {
         if (currentBlogId) {
             console.log(currentBlogId);

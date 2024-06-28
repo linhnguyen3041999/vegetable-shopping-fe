@@ -228,11 +228,11 @@ form {
     border-color: #A0A0A0;
 }
 
-/*#mockupID {*/
-/*    border: 1px solid #000000;*/
-/*    padding: 55px;*/
-/*    font-size: 35px;*/
-/*}*/
+#imagePreview, #blog-label-image {
+    display: none;
+    width: 145px;
+    height: 145px;
+}
 
 
 
