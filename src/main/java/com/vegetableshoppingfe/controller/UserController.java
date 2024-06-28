@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/vegetable-shopping")
 public class UserController {
+
     @GetMapping("/home")
     public String getHome() {
         return "users/index";
@@ -27,18 +28,17 @@ public class UserController {
         return "users/shop-details";
     }
 
-    @GetMapping("/shoping-cart")
-    public String getShoppingCart() {
-        return "users/shoping-cart";
-    }
-
     @GetMapping("/checkout-form")
     public String getCheckoutForm() {
         return "users/checkout";
     }
+    @GetMapping("/blog-details")
+    public String getBlogDetails(){
+        return "users/blog-details";
+    }
 
-    @GetMapping("shop-grid")
-    public String getShop() {
+    @GetMapping("/shop-grid")
+    public String getShop(){
         return "users/shop-grid";
     }
 
@@ -47,9 +47,19 @@ public class UserController {
         return "users/shop-details";
     }
 
-    @GetMapping("/blog-details")
-    public String showBlogDetails() {
-        return "users/blog-details";
+    @GetMapping("/shopping-cart")
+    public String getShoppingCart() {
+        return "users/shoping-cart";
+    }
+
+    @GetMapping("/shopping-cart/checkout")
+    public String getCheckout() {
+        return "/users/checkout-form";
+    }
+
+    @GetMapping("/user/login")
+    public String login() {
+        return "users/login";
     }
 
 }

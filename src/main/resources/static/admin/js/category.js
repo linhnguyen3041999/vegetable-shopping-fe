@@ -1,32 +1,56 @@
 window.getAllCategories();
 
-async function getAllCategories() {
+async function getAllCategories(page = 0, size = 10) {
     try {
-        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
+        let {data : response} = await axios.get(`http://localhost:8080/api/v1/categories?page=${page}&size=${size}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let categories = response.content;
         let result = '';
         categories.forEach(category => {
             result += `
-                        <tr>
-                            <td>${category.categoryId}</td>
-                            <td>${category.categoryName}</td>
-                            <td><img src="https://drive.google.com/thumbnail?id=${category.categoryImage}"></td>
-                            <td>
-                                <button id="category-table-edit-${category.categoryId}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i></button>
-                                <button id="category-table-delete-${category.categoryId}" class="btn btn-danger">
-                                <i class="fas fa-trash"></i></button>
+                        <tr class="odd">
+                            <td class="align-middle">${category.categoryId}</td>
+                            <td class="align-middle">${category.categoryName}</td>
+                            <td class="align-middle"><img src="${category.categoryImage}"></td>
+                            <td class="align-middle" id="tooltip-container2">
+                                <a id="category-table-edit-${category.categoryId}" class="me-3 text-primary mx-1" data-bs-toggle="modal" data-bs-target="#categoryModal"><i class="fa-solid fa-pencil"></i></a>
+                                <a id="category-table-delete-${category.categoryId}" class="text-danger" ><i class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
                        `;
         })
         document.getElementById('category-table').innerHTML = result;
 
+        let categoryPage = '';
+        for (let i = 0; i < response.totalPages; i++) {
+            categoryPage += `
+                <li class="page-item ${i === response.number ? 'active' : ''}">
+                    <a class="page-link" onclick="getAllCategories(${i}, ${size})">${i + 1}</a>
+                </li>
+            `;
+        }
+
+        document.getElementById('category-pageable').innerHTML = `
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    ${categoryPage}
+                </ul>
+            </nav>
+        `;
+
         categories.forEach(category => {
             //delete category
             let categoryDelete = document.getElementById(`category-table-delete-${category.categoryId}`);
             categoryDelete.addEventListener('click', async () => {
                 try {
-                    await axios.delete(`http://localhost:8080/api/v1/categories/${category.categoryId}`);
+                    await axios.delete(`http://localhost:8080/api/v1/categories/${category.categoryId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
                     Swal.fire({
                         title: 'Delete Category',
                         text: 'Delete successfully',
@@ -47,12 +71,16 @@ async function getAllCategories() {
             let categoryEdit = document.getElementById(`category-table-edit-${category.categoryId}`);
             categoryEdit.addEventListener('click', async () => {
                 try {
-                    let {data: response} = await axios.get(`http://localhost:8080/api/v1/categories/${category.categoryId}`);
+                    let {data: response} = await axios.get(`http://localhost:8080/api/v1/categories/${category.categoryId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
                     document.getElementById('category-id').value = response.categoryId;
                     document.getElementById('category-name').value = response.categoryName;
                     document.getElementById('category-image-show').style.display = 'block'
                     document.getElementById('category-label-image').style.display = 'none'
-                    document.getElementById('category-image-show').src = `https://drive.google.com/thumbnail?id=${category.categoryImage}`
+                    document.getElementById('category-image-show').src = `${category.categoryImage}`
                 } catch (error) {
                     Swal.fire({
                         title: 'Category',
@@ -100,6 +128,7 @@ async function addCategory() {
 
         await axios.post('http://localhost:8080/api/v1/categories', formData, {
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
             }
         });
@@ -150,7 +179,11 @@ document.getElementById('delete-category').addEventListener('click',
 async function deleteCategory() {
     try {
         let categoryId = document.getElementById('category-id').value;
-        await axios.delete(`http://localhost:8080/api/v1/categories/${categoryId}`)
+        await axios.delete(`http://localhost:8080/api/v1/categories/${categoryId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         Swal.fire({
             title: 'Category',
             text: 'Delete category successfully',
@@ -187,6 +220,7 @@ async function updateCategory() {
         let categoryId = document.getElementById('category-id').value;
         await axios.put(`http://localhost:8080/api/v1/categories/${categoryId}`, formData, {
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
             }
         });
@@ -205,5 +239,36 @@ async function updateCategory() {
             icon: 'error',
             button: 'Oke'
         });
+    }
+}
+
+async function findCategoryByNameOrId() {
+    const keyword = document.getElementById('find-by-name-or-id').value;
+    try {
+        const response = await axios.get(`http://localhost:8080/api/v1/categories/findInTable?keyword=${keyword}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let categories = response.data;
+        console.log(categories);
+        let result = '';
+        categories.forEach(category => {
+            result += `
+                        <tr class="odd">
+                            <td class="align-middle">${category.categoryId}</td>
+                            <td class="align-middle">${category.categoryName}</td>
+                            <td class="align-middle"><img src="${category.categoryImage}"></td>
+                            <td class="align-middle" id="tooltip-container2">
+                                <a id="category-table-edit-${category.categoryId}" class="me-3 text-primary mx-1" data-bs-toggle="modal" data-bs-target="#categoryModal"><i class="fa-solid fa-pencil"></i></a>
+                                <a id="category-table-delete-${category.categoryId}" class="text-danger" ><i class="fa-solid fa-trash-can"></i></a>
+                            </td>
+                        </tr>
+                       `;
+        })
+        document.getElementById('category-table').innerHTML = result;
+
+    }catch (error) {
+        console.log(e.message);
     }
 }
