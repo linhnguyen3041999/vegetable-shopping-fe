@@ -2,7 +2,7 @@ window.getAllCategories();
 
 async function getAllCategories(page = 0, size = 10) {
     try {
-        let {data : response} = await axios.get(`http://localhost:8080/api/v1/categories?page=${page}&size=${size}`, {
+        let {data: response} = await axios.get(`http://localhost:8080/api/v1/categories?page=${page}&size=${size}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -242,15 +242,15 @@ async function updateCategory() {
     }
 }
 
-async function findCategoryByNameOrId() {
-    const keyword = document.getElementById('find-by-name-or-id').value;
+async function findCategoryByCategoryName(page = 0, size = 10) {
     try {
-        const response = await axios.get(`http://localhost:8080/api/v1/categories/findInTable?keyword=${keyword}`, {
+        let keyword = document.getElementById('find-category-like-name').value;
+        const {data : response} = await axios.get(`http://localhost:8080/api/v1/categories/findCategoryLikeCategoryName?keyword=${keyword}&page=${page}&size=${size}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-        let categories = response.data;
+        let categories = response.content;
         console.log(categories);
         let result = '';
         categories.forEach(category => {
@@ -268,7 +268,23 @@ async function findCategoryByNameOrId() {
         })
         document.getElementById('category-table').innerHTML = result;
 
-    }catch (error) {
-        console.log(e.message);
+        let categoryPage = '';
+        for (let i = 0; i < response.totalPages; i++) {
+            categoryPage += `
+                <li class="page-item ${i === response.number ? 'active' : ''}">
+                    <a class="page-link" onclick="getAllCategories(${i}, ${size})">${i + 1}</a>
+                </li>
+            `;
+        }
+
+        document.getElementById('category-pageable').innerHTML = `
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    ${categoryPage}
+                </ul>
+            </nav>
+        `;
+    } catch (error) {
+        console.log(error.message);
     }
 }
