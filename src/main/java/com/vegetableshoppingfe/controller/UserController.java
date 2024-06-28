@@ -59,4 +59,8 @@ public class UserController {
         return "users/login";
     }
 
+    @GetMapping("/shopping-cart/checkout/vnpay-payment")
+    public String checkoutVNPayPayment() {
+        return "users/vnpay_status";
+    }
 }

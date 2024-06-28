@@ -6,11 +6,11 @@ async function getAllProduct() {
     try {
         // Gọi API để lấy dữ liệu sản phẩm
         let {data: products} = await axios.get('http://localhost:8080/api/v1/products');
-        let reponse =
         console.log(products); // Kiểm tra dữ liệu trong console
         // Biến để lưu trữ kết quả HTML
         let result = '';
-        products.forEach(product => {
+        let productsInContent = products.content;
+        productsInContent.forEach(product => {
             result += `
         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="product-item border my-3">
@@ -46,7 +46,7 @@ async function getAllProduct() {
         if(localStorage.getItem("items")){
             itemList = JSON.parse(localStorage.getItem("items"));
         }
-        products.forEach(product => {
+        productsInContent.forEach(product => {
             // Add
             let addToCart = document.getElementById(`add-to-cart-${product.productId}`);
             addToCart.addEventListener('click', async () => {
