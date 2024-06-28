@@ -119,6 +119,12 @@
     margin-right: 8px; /* Khoảng cách giữa dấu chấm và văn bản */
 }
 
+.hero__item.set-bg {
+    margin-top: 25px;
+}
+
+
+
 
 
 

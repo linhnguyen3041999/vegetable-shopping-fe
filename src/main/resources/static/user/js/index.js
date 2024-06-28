@@ -80,15 +80,18 @@ async function getAllProduct() {
 async function getAllCategoriesVertical(){
     try {
         // Gọi API để lấy dữ liệu the loai
-        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
-        console.log(categories); // Kiểm tra dữ liệu trong console
+        let responses= await axios.get('http://localhost:8080/api/v1/categories');
+        let categories = responses.data.content;
         // Biến để lưu trữ kết quả HTML
         let result = '';
+        if (!Array.isArray(categories)) {
+            throw new Error('Categories is not an array');
+        }
         categories.forEach(category => {
             result +=`
         <div class="col-lg-3">
                     <div class="categories__item set-bg">
-                        <img src="https://drive.google.com/thumbnail?id=${category.categoryImage}">
+                        <img src="${category.categoryImage}">
                         <h5><a href="#">${category.categoryName}</a></h5>
                     </div>
                 </div>
@@ -105,8 +108,8 @@ async function getAllCategoriesVertical(){
 async function getAllCategoriesHorizontal(){
     try {
         // Gọi API để lấy dữ liệu the loai
-        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
-        console.log(categories); // Kiểm tra dữ liệu trong console
+        let response = await axios.get('http://localhost:8080/api/v1/categories');
+        let categories = response.data.content;
         // Biến để lưu trữ kết quả HTML
         let result = '';
         categories.forEach(category => {
