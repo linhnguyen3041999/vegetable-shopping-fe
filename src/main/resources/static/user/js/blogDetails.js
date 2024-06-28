@@ -1,6 +1,7 @@
 async function getAllCategoriesVerticalBlogDetail() {
     try {
-        const { data: categories } = await axios.get('http://localhost:8080/api/v1/categories');
+        let response = await axios.get('http://localhost:8080/api/v1/categories');
+        let categories = response.data.content; // Lấy mảng categories từ content
         let result = '';
         categories.forEach(category => {
             result += `
