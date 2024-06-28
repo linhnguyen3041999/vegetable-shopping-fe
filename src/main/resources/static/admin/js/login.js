@@ -5,7 +5,6 @@ async function login() {
     await axios.post('http://localhost:8080/api/v1/auth/login', {username, password})
         .then(response => {
             let role = response.headers['x-role'];
-
             if (role == 'ROLE_ADMIN' || role == 'ROLE_SYSTEM') {
                 sessionStorage.setItem('admin', JSON.stringify(response))
                 setTimeout(function () {

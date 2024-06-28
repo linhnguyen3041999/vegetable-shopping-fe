@@ -1,17 +1,15 @@
-/**
- * call api load products to index
- * @returns {Promise<void>}
- */
+let token = sessionStorage.getItem('token');
+
 async function getAllProduct() {
-    try {
-        // Gọi API để lấy dữ liệu sản phẩm
-        let {data: products} = await axios.get('http://localhost:8080/api/v1/products');
-        let reponse =
-        console.log(products); // Kiểm tra dữ liệu trong console
-        // Biến để lưu trữ kết quả HTML
-        let result = '';
-        products.forEach(product => {
-            result += `
+  try {
+    // Gọi API để lấy dữ liệu sản phẩm
+    let {data: products} = await axios.get(
+        'http://localhost:8080/api/v1/products');
+    console.log(products); // Kiểm tra dữ liệu trong console
+    // Biến để lưu trữ kết quả HTML
+    let result = '';
+    products.forEach(product => {
+      result += `
         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="product-item border my-3">
                 <div class="position-relative bg-light overflow-hidden">
@@ -39,94 +37,74 @@ async function getAllProduct() {
             </div>
         </div>
       `;
-        });
-        // Hiển thị kết quả lên trang HTML
-        document.getElementById('product-list').innerHTML = result;
-        let itemList = [];
-        if(localStorage.getItem("items")){
-            itemList = JSON.parse(localStorage.getItem("items"));
+    });
+    // Hiển thị kết quả lên trang HTML
+    document.getElementById('product-list').innerHTML = result;
+    let itemList = [];
+    if (localStorage.getItem("items")) {
+      itemList = JSON.parse(localStorage.getItem("items"));
+    }
+    products.forEach(product => {
+      // Add
+      let addToCart = document.getElementById(
+          `add-to-cart-${product.productId}`);
+      addToCart.addEventListener('click', async () => {
+        const newItem = {
+          product: product,
+          quantity: 1,
+          price: product.price
         }
-        products.forEach(product => {
-            // Add
-            let addToCart = document.getElementById(`add-to-cart-${product.productId}`);
-            addToCart.addEventListener('click', async () => {
-                const newItem = {
-                    product: product,
-                    quantity: 1,
-                    price: product.price
-                }
-                if(itemList !== null){
-                    const index = itemList.findIndex(item => item.product.productId === newItem.product.productId);
-                    if (index !== -1) {
-                        const quantityChange = itemList[index].quantity + 1;
-                        itemList[index].quantity = quantityChange;
-                        itemList[index].price = itemList[index].quantity * newItem.price;
-                    } else {
-                        itemList.push(newItem);
-                    }
-                }
-                localStorage.setItem("items", JSON.stringify(itemList));
-                getAmount();
-                getCount();
-                swal.fire("Added to cart!");
-            });
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('product-list').innerHTML = '<p>Error fetching data</p>';
-    }
+        if (itemList !== null) {
+          const index = itemList.findIndex(
+              item => item.product.productId === newItem.product.productId);
+          if (index !== -1) {
+            const quantityChange = itemList[index].quantity + 1;
+            itemList[index].quantity = quantityChange;
+            itemList[index].price = itemList[index].quantity * newItem.price;
+          } else {
+            itemList.push(newItem);
+          }
+        }
+        localStorage.setItem("items", JSON.stringify(itemList));
+        getAmount();
+        getCount();
+        swal.fire("Added to cart!");
+      });
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    document.getElementById(
+        'product-list').innerHTML = '<p>Error fetching data</p>';
+  }
 }
 
-// getListCategory
-async function getAllCategoriesVertical(){
-    try {
-        // Gọi API để lấy dữ liệu the loai
-        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
-        console.log(categories); // Kiểm tra dữ liệu trong console
-        // Biến để lưu trữ kết quả HTML
-        let result = '';
-        categories.forEach(category => {
-            result +=`
-        <div class="col-lg-3">
-                    <div class="categories__item set-bg">
-                        <img src="https://drive.google.com/thumbnail?id=${category.categoryImage}">
-                        <h5><a href="#">${category.categoryName}</a></h5>
-                    </div>
-                </div>
-      `;
-        });
-        // Hiển thị kết quả lên trang HTML
-        document.getElementById('categories__slider owl-carousel').innerHTML = result;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('categories__slider owl-carousel').innerHTML = '<p>Error fetching data</p>';
-    }
-}
-
-async function getAllCategoriesHorizontal(){
-    try {
-        // Gọi API để lấy dữ liệu the loai
-        let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories');
-        console.log(categories); // Kiểm tra dữ liệu trong console
-        // Biến để lưu trữ kết quả HTML
-        let result = '';
-        categories.forEach(category => {
-            result +=`
-        <li><a href="#">${category.categoryName}</a></li>
-      `;
-        });
-        // Hiển thị kết quả lên trang HTML
-        document.getElementById('category-list').innerHTML = result;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('category-list').innerHTML = '<p>Error fetching data</p>';
-    }
+async function loadCategories() {
+  try {
+    // Gọi API để lấy dữ liệu the loai
+    let {data: categories} = await axios.get(
+        'http://localhost:8080/api/v1/categories');
+    categories.content.forEach(category => {
+      $('#category-list').append(
+          `<li><a href="#">${category.categoryName}</a></li>`
+      );
+      for (let i = 0; i < 9; i++) {
+        $('.categories__slider').owlCarousel('add',
+            `<div class="col-lg-3">
+                        <div class="categories__item set-bg" 
+                        data-setbg="${category.categoryImage}"
+                        style="background-image: url(${category.categoryImage});">
+                            <h5><a href="#">${category.categoryName}</a></h5>
+                        </div>
+                      </div>`).owlCarousel('update');
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 }
 
 // Gọi hàm khi trang được tải
 window.getAllProduct();
-window.getAllCategoriesVertical();
-
-window.getAllCategoriesHorizontal();
+window.loadCategories();
 window.getAmount();
 window.getCount();
