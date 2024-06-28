@@ -43,10 +43,9 @@ async function getAllBlogs(pageNo = 1) {
                     <td>${blog.blogId}</td>
                     <td>${blog.blogCategory.categoryId}</td>
                     <td class="fixed-width-title">${blog.blogTitle}</td>
-                    <td class="fixed-width-content">...</td>
                     <td class="mockup-cell"><img src="${blog.blogImage}"></td>
                     <td>${blogStatus}</td>
-                    <td><button class="btn btn-warning edit-button" data-blog-id="${blog.blogId}"><i class="fas fa-edit"></i></button></td>
+                    <td><button class="btn btn-green edit-button" data-blog-id="${blog.blogId}"><i class="fas fa-edit"></i></button></td>
                 </tr>     
             `;
         });
@@ -210,7 +209,6 @@ async function getAllBlogsTwo() {
                     <td>${blog.blogId}</td>
                     <td>${blog.blogCategory.categoryId}</td>
                     <td class="fixed-width-title">${blog.blogTitle}</td>
-                    <td class="fixed-width-content">...</td>
                     <td class="mockup-cell"><img src="${blog.blogImage}"></td>
                     <td>${blogStatus}</td>
                     <td><button class="btn btn-warning edit-button" data-blog-id="${blog.blogId}"><i class="fas fa-edit"></i></button></td>

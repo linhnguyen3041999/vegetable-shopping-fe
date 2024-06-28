@@ -1,0 +1,44 @@
+.blog__item__pic {
+    width: 100%;
+    height: 250px; /* Hoặc một chiều cao cố định phù hợp với thiết kế của bạn */
+    overflow: hidden; /* Ẩn phần dư của ảnh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog__item__pic img {
+    width: 100%;
+    height: auto; /* Giữ nguyên tỉ lệ của ảnh */
+    object-fit: cover; /* Cắt ảnh để vừa với khung hình */
+}
+.blog__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.blog__item__text {
+    flex-grow: 1;
+}
+
+.blog__item__text h5 {
+    height: 50px; /* Điều chỉnh chiều cao cho tiêu đề */
+    line-height: 1.4; /* Điều chỉnh dòng chữ để phù hợp */
+    overflow: hidden; /* Ẩn phần tiêu đề bị tràn */
+    text-overflow: ellipsis; /* Thêm dấu "..." khi tiêu đề bị tràn */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn số dòng của tiêu đề */
+    -webkit-box-orient: vertical;
+}
+
+.blog__item__text .truncatete {
+    margin-top: 10px; /* Khoảng cách giữa tiêu đề và đoạn văn */
+    height: 60px; /* Điều chỉnh chiều cao cho đoạn văn */
+    overflow: hidden; /* Ẩn phần văn bản bị tràn */
+    text-overflow: ellipsis; /* Thêm dấu "..." khi văn bản bị tràn */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Giới hạn số dòng của đoạn văn */
+    -webkit-box-orient: vertical;
+}

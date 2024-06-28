@@ -1,6 +1,6 @@
 let currentCategoryId = null;
 let searchTitle = null;
-const blogsPerPage = 4;
+const blogsPerPage = 6;
 let blogId = null;
 let blogsData = [];
 async function getAllCategoriesVertical() {
@@ -60,7 +60,9 @@ async function getBlogs(categoryId = null, blogTitle = null, pageNo = 1) {
                                 <li><i class="fa fa-calendar-o"></i> ${formattedDate} </li>
                             </ul>
                             <h5><a href="#">${blog.blogTitle}</a></h5>
-                            <p class="truncate">${blog.blogContent}</p>
+                            <div class="truncatete">
+                            <p>If you find the article title interesting, please click read more to continue reading.</p>
+                            </div>
                             <a href="#" class="blog__btn" data-blog-id="${blog.blogId}">READ MORE <span class="arrow_right" style="display: none">${blog.blogId}</span></a>
                         </div>
                     </div>
@@ -125,8 +127,4 @@ function formatDate(dateString) {
     const formattedMonth = month < 10 ? `0${month}` : month;
     return `${formattedDay}/${formattedMonth}/${year}`;
 }
-
-
-
-
 

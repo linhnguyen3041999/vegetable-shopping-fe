@@ -23,13 +23,9 @@
     <!--sweet alert-->
     <!--SweetAlert2 CSS and JS-->
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.min.css}">
-    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js}"></script>
-    <script th:src="@{//cdn.ckeditor.com/4.22.1/standard/ckeditor.js}"></script>
+
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}">
-    <!--axios-->
-    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
-            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 
 </head>
@@ -222,7 +218,7 @@
                         <a href="#category" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Category management
+                                Category Management
                             </p>
                         </a>
                     </li>
@@ -230,7 +226,7 @@
                         <a href="#product" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Product management
+                                Product Management
                             </p>
                         </a>
                     </li>
@@ -238,7 +234,7 @@
                         <a href="#account" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Account management
+                                Account Management
                             </p>
                         </a>
                     </li>
@@ -246,7 +242,7 @@
                         <a href="#coupon" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Coupon management
+                                Coupon Management
                             </p>
                         </a>
                     </li>
@@ -254,7 +250,7 @@
                         <a href="#order" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Order management
+                                Order Management
                             </p>
                         </a>
                     </li>
@@ -262,7 +258,7 @@
                         <a href="#textEditorBlog" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Text Editor Blog
+                                Blog Management
                             </p>
                         </a>
                     </li>
@@ -461,10 +457,8 @@
                             <button id="reset-category" type="button" class="btn btn-secondary">Reset Form
                             </button>
                         </form>
-
                         <br>
                         <hr>
-
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
@@ -521,7 +515,6 @@
                                            placeholder="" disabled>
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="product-name">Name</label>
@@ -535,7 +528,6 @@
                                            min="1" step="1">
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="product-price">Price</label>
@@ -605,10 +597,8 @@
                             <button id="reset-product" type="button" class="btn btn-secondary">Reset Form
                             </button>
                         </form>
-
                         <br>
                         <hr>
-
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
@@ -900,7 +890,7 @@
 
                 <div id="textEditorBlog">
                     <div>
-                        <h2 class="text-red">Text Editor Blog</h2>
+                        <h2 class="text-green">Blog Management</h2>
                         <form class="form-product" method="post" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <div class="form-group col-md-8">
@@ -919,16 +909,15 @@
                                         </label>
                                     </div>
                                 </div>
-
                                 <div class="form-group col-md-2">
-                                    <label for="mockupID">Mockup</label>
+                                    <label for="mockupID">Thumbnails</label>
                                     <input type="file" name="mockupID" class="form-control" id="mockupID"
-                                           placeholder="Choose File Mockup" accept="image/*">
+                                           placeholder="Choose File Thumbnails" accept="image/*">
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label>Selected Categories</label>
-                                    <select id="selectedBlog">
-
+                                <div class="form-group col-md-6">
+                                    <label for="selectedBlog">Selected Categories</label>
+                                    <select id="selectedBlog" class="form-control">
+<!--                                        getAllCategory-->
                                     </select>
                                 </div>
                             </div>
@@ -938,19 +927,18 @@
                                     <textarea id="contentBlog" rows="4" cols="50"></textarea>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label>Mockup demo image</label>
+                                    <label>Thumbnails demo</label>
                                     <img id="imagePreview"  style="display: block;">
-
+<!--                                    showImageMockup-->
                                 </div>
                             </div>
-                            <button type="button" name="createBlog" id="createBlog"  class="btn btn-primary">Save Blog</button>
-                            <button type="button" id="resetForm"  class="btn btn-secondary">Remote Form</button>
+                            <button type="button" name="createBlog" id="createBlog"  class="btn btn-green">Save Blog</button>
+                            <button type="button" id="resetForm"  class="btn btn-cement">Remote Form</button>
                             <p hidden="hidden" id="idBlogHidden"></p>
                         </form>
                     </div>
                     <br>
                     <hr>
-
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-bordered table-hover">
@@ -959,8 +947,7 @@
                                     <th>Blog ID</th>
                                     <th>Category</th>
                                     <th class="fixed-width-title">Title</th>
-                                    <th class="fixed-width-content">Content</th>
-                                    <th>Mockup</th>
+                                    <th>Thumbnails</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -980,7 +967,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -1008,17 +994,13 @@
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
 </footer>
 </div>
-
-<!-- ./wrapper -->
 <!-- REQUIRED SCRIPTS -->
-
 <!--link script-->
 <script th:src="@{/admin/js/dashboard.js}"></script>
 <script th:src="@{/admin/js/category.js}"></script>
 <script th:src="@{/admin/js/blog.js}"></script>
 <script th:src="@{/admin/js/product.js}"></script>
 <script th:src="@{/admin/js/cart.js}"></script>
-
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->
@@ -1034,7 +1016,12 @@
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js}"
         integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11.4.22/dist/sweetalert2.all.min.js}"></script>
+<!--CKEDITOR 4-->
+<script th:src="@{//cdn.ckeditor.com/4.22.1/full/ckeditor.js}"></script>
+<!--axios-->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
+        integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
-
 </html>
