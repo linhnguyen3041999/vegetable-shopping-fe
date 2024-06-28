@@ -30,5 +30,6 @@ async function getCount(){
         console.error('Error fetching data:', error);
     }
 }
+
 window.getAmount();
 window.getCount();

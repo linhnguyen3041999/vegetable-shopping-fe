@@ -1,24 +1,22 @@
-let currentCategoryId = null;
+let currentCategoryId = 1;
+let size = 6;
 
-async function loadProducts(categoryId, page = 0, size = 6) {
+async function loadProducts(categoryId, page = 0, sort = 'asc') {
     try {
-        let {data: response} = await axios.get(`http://localhost:8080/api/v1/products/category/${categoryId}?page=${page}&size=${size}`, {
+        let {data: response} = await axios.get(`http://localhost:8080/api/v1/products/category/${categoryId}?page=${page}&size=${size}&sort=${sort}`, {
             headers:{
                 'Content-Type': 'application/json'
             }
         });
-        console.log('Products:', response);
-        let productResult = '';
         let products = response.content;
+        $('#product-row').empty();
         products.forEach(product => {
-            productResult += `
+            $('#product-row').append(`
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" style="background-image: url(${product.photo})">
                             <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a id="add-to-cart-${product.productId}"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
@@ -27,29 +25,60 @@ async function loadProducts(categoryId, page = 0, size = 6) {
                         </div>
                     </div>
                 </div>
-            `;
-        });
-        document.getElementById('product-row').innerHTML = productResult;
+            `)
 
-        let pageNumbers = '';
+        });
+
+        $('.product__pagination').empty();
         for (let i = 0; i < response.totalPages; i++) {
-            pageNumbers += `
-                <li class="page-item ${i === response.number ? 'active' : ''}">
-                    <a class="page-link" onclick="loadProducts('${categoryId}', ${i}, ${size})">${i + 1}</a>
-                </li>
-            `;
+            if (page === i) {
+                $('.product__pagination').append(`
+                    <a class="active" onclick="loadProducts('${categoryId}', ${i})">${i}</a>
+                `)
+            }else {
+                $('.product__pagination').append(`
+                    <a onclick="loadProducts('${categoryId}', ${i})">${i}</a>
+                `)
+            }
+
         }
 
-        document.getElementById('page_number').innerHTML = `
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-end">
-                    ${pageNumbers}
-                </ul>
-            </nav>
-        `;
+        // Set total products
+        $('.productQuantity').text(response.totalElements);
+
+        //Sort Event
+        $('.productSorting').off('change').on('change', function () {
+            debugger
+            loadProducts(categoryId, page, this.value);
+        });
+
+        // Add to cart event
+        let addToCart = document.getElementById(
+            `add-to-cart-${product.productId}`);
+        addToCart.addEventListener('click', async () => {
+            const newItem = {
+                product: product,
+                quantity: 1,
+                price: product.price
+            }
+            if (itemList !== null) {
+                const index = itemList.findIndex(
+                    item => item.product.productId === newItem.product.productId);
+                if (index !== -1) {
+                    const quantityChange = itemList[index].quantity + 1;
+                    itemList[index].quantity = quantityChange;
+                    itemList[index].price = itemList[index].quantity * newItem.price;
+                } else {
+                    itemList.push(newItem);
+                }
+            }
+            localStorage.setItem("items", JSON.stringify(itemList));
+            getAmount();
+            getCount();
+            swal.fire("Added to cart!");
+        });
     } catch (error) {
         console.error('Error loading products:', error);
-        alert('Failed to load products');
     }
 }
 
@@ -94,23 +123,7 @@ async function getAllCategories() {
         });
     } catch (error) {
         console.error('Error loading categories:', error);
-        alert('Error loading categories');
     }
 }
-getAllCategories();
-let pageNumbers = '';
-for (let i = 0; i < response.totalPages; i++) {
-    pageNumbers += `
-        <li class="page-item ${i === response.number ? 'active' : ''}">
-            <a class="page-link" onclick="loadProducts('${categoryId}', ${i}, ${size})">${i + 1}</a>
-        </li>
-    `;
-}
 
-document.getElementById('page_number').innerHTML = `
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-end">
-            ${pageNumbers}
-        </ul>
-    </nav>
-`;
+window.loadProducts(1, 0);
