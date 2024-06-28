@@ -6,7 +6,7 @@ let blogsData = [];
 async function getAllCategoriesVertical() {
     try {
         let response = await axios.get('http://localhost:8080/api/v1/categories');
-        let categories = response.data.content; // Lấy mảng categories từ content
+        let categories = response.data.content;
         let result = '';
         categories.forEach(category => {
             result += `
@@ -90,7 +90,6 @@ async function getBlogs(categoryId = null, blogTitle = null, pageNo = 1) {
     }
 }
 
-// Render pagination buttons
 function renderPagination(totalPages, currentPage) {
     let paginationHTML = '';
     for (let i = 1; i <= totalPages; i++) {
@@ -108,13 +107,11 @@ function renderPagination(totalPages, currentPage) {
     });
 }
 
-// Fetch all blogs on page load
 document.getElementById('search-input').addEventListener('input', function(event) {
     searchTitle = this.value.trim();
     getBlogs(currentCategoryId, searchTitle);
 });
 
-// Initialize categories and blogs on page load
 getAllCategoriesVertical();
 getBlogs();
 
@@ -123,7 +120,6 @@ function formatDate(dateString) {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    // Đảm bảo rằng tháng và ngày có hai chữ số bằng cách thêm '0' khi cần thiết
     const formattedDay = day < 10 ? `0${day}` : day;
     const formattedMonth = month < 10 ? `0${month}` : month;
     return `${formattedDay}/${formattedMonth}/${year}`;

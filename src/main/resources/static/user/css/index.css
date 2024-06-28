@@ -25,50 +25,45 @@
     text-overflow: ellipsis;
 }
 
-/*chuyeern trang*/
 .pagination-btn {
-    color: #333;  /* Màu chữ mặc định */
-    text-decoration: none;  /* Loại bỏ gạch chân */
-    padding: 5px 10px;  /* Padding cho nút */
-    margin-right: 5px;  /* Khoảng cách giữa các nút */
-    border: 1px solid #ccc;  /* Viền nút */
-    border-radius: 3px;  /* Bo góc nút */
-    background-color: #fff;  /* Màu nền mặc định */
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
 }
 
 .pagination-btn:hover {
-    background-color: #f0f0f0;  /* Màu nền khi hover */
+    background-color: #f0f0f0;
 }
 
 .pagination-btn.active {
-    background-color: #7FAD39;  /* Màu nền khi active */
-    color: #fff;  /* Màu chữ khi active */
-    border-color: #7FAD39;  /* Màu viền khi active */
+    background-color: #7FAD39;
+    color: #fff;
+    border-color: #7FAD39;
 }
-/*chuyeern trang*/
 
-/* Kiểu dáng mặc định cho liên kết */
 #blog-sidebar-item a {
-    color: #333; /* Màu chữ mặc định */
-    text-decoration: none; /* Loại bỏ gạch chân */
+    color: #333;
+    text-decoration: none;
     display: block;
     padding: 10px;
 }
 
-/* Kiểu dáng khi hover vào liên kết */
 #blog-sidebar-item a:hover {
-    background-color: #f0f0f0; /* Màu nền khi hover */
+    background-color: #f0f0f0;
 }
 
-/* Kiểu dáng khi liên kết đang được chọn */
 #blog-sidebar-item a.active {
-    background-color: #7FAD39; /* Màu nền khi active */
-    color: #fff; /* Màu chữ khi active */
+    background-color: #7FAD39;
+    color: #fff;
 }
 
 #blog-sidebar-item {
-    max-height: 350px; /* Đặt chiều cao tối đa của danh sách */
-    overflow-y: auto; /* Thêm thanh cuộn dọc khi danh sách quá dài */
+    max-height: 350px;
+    overflow-y: auto;
 }
 
 #blog__details__hero__text__time {
@@ -87,7 +82,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px; /* Điều chỉnh khoảng cách dưới ảnh theo ý muốn */
+    margin-bottom: 20px;
 }
 
 .show-image-details img {
@@ -109,14 +104,14 @@
     color: darkgreen;
 }
 .show-blog-details ul {
-    list-style-type: none; /* Loại bỏ dấu chấm mặc định */
+    list-style-type: none;
 }
 
 .show-blog-details ul li::before {
-    content: "\2022"; /* Mã Unicode của dấu chấm */
-    color: #333; /* Màu sắc của dấu chấm */
-    font-size: 16px; /* Kích thước của dấu chấm */
-    margin-right: 8px; /* Khoảng cách giữa dấu chấm và văn bản */
+    content: "\2022";
+    color: #333;
+    font-size: 16px;
+    margin-right: 8px;
 }
 
 .hero__item.set-bg {

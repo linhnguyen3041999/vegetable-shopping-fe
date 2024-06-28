@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     CKEDITOR.replace('contentBlog');
-    getAllBlogs(); // Gọi hàm getAllBlogs khi trang được tải lần đầu
+    getAllBlogs();
     showImageMockup();
     pageBreak();
     resetFormNormal();
@@ -9,20 +9,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('createBlog').addEventListener('click', addOrUpdateBlog);
 });
 
-const blogsPerPage = 5; // Số lượng bài blog trên mỗi trang
+const blogsPerPage = 5;
 let currentBlogId = null;
 let currentCategoryId = null;
-let currentPage = 1; // Biến toàn cục lưu trữ trang hiện tại
+let currentPage = 1;
 
 async function getAllCategory() {
     try {
         let response = await axios.get('http://localhost:8080/api/v1/categories');
-        let categories = response.data.content; // Lấy mảng categories từ content
-
+        let categories = response.data.content;
         if (!Array.isArray(categories)) {
             throw new Error('Categories is not an array');
         }
-
         let result = '';
         categories.forEach(category => {
             result += `
@@ -35,9 +33,8 @@ async function getAllCategory() {
     }
 }
 
-
 async function getAllBlogs(pageNo = 1) {
-    currentPage = pageNo; // Cập nhật trang hiện tại
+    currentPage = pageNo;
     try {
         const { data: response } = await axios.get(`http://localhost:8080/api/v1/blogs?pageNo=${pageNo}&pageSize=${blogsPerPage}`);
         let blogs = response.blogs;
@@ -57,9 +54,7 @@ async function getAllBlogs(pageNo = 1) {
             `;
         });
         document.getElementById('table-blog-result').innerHTML = result;
-        // Gọi hàm renderPagination sau khi hiển thị danh sách blog
         renderPagination(totalPages, pageNo);
-        // Gắn sự kiện click vào nút edit trong danh sách blog
         document.querySelectorAll('.edit-button').forEach(button => {
             button.addEventListener('click', function () {
                 const blogId = this.getAttribute('data-blog-id');
@@ -95,7 +90,7 @@ async function fillFormWithBlogData(blogId) {
 async function resetFormNormal() {
     try {
         let response = await axios.get('http://localhost:8080/api/v1/categories');
-        let categories = response.data.content; // Lấy mảng categories từ content
+        let categories = response.data.content;
         let currentCategoryId = categories[0].categoryId;
         document.getElementById('titleBlog').value = '';
         document.querySelector('input[name="statusActive"][value="1"]').checked = true;
@@ -162,7 +157,7 @@ async function addOrUpdateBlog() {
                 timer: 2000,
                 showConfirmButton: false
             });
-            await getAllBlogs(currentPage); // Sửa lại để tải lại trang hiện tại
+            await getAllBlogs(currentPage);
             await resetFormNormal();
         } else {
             await axios.post('http://localhost:8080/api/v1/blogs', formData, {
@@ -177,7 +172,7 @@ async function addOrUpdateBlog() {
                 timer: 2000,
                 showConfirmButton: false
             });
-            await getAllBlogs(currentPage); // Sửa lại để tải lại trang hiện tại
+            await getAllBlogs(currentPage);
             await resetFormNormal();
         }
     } catch (error) {
@@ -197,7 +192,7 @@ function renderPagination(totalPages, currentPage) {
             event.preventDefault();
             const pageNo = parseInt(this.getAttribute('data-page'));
             console.log(`Page ${pageNo} clicked`);
-            getAllBlogs(pageNo);  // Đã sửa từ `getBlogs` thành `getAllBlogs`
+            getAllBlogs(pageNo);
             document.querySelectorAll('.pagination-btn').forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
         });

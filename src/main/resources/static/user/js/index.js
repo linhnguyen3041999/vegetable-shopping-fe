@@ -4,10 +4,8 @@
  */
 async function getAllProduct() {
     try {
-        // Gọi API để lấy dữ liệu sản phẩm
         let {data: products} = await axios.get('http://localhost:8080/api/v1/products');
-        console.log(products); // Kiểm tra dữ liệu trong console
-        // Biến để lưu trữ kết quả HTML
+        console.log(products);
         let result = '';
         products.forEach(product => {
             result += `
@@ -39,7 +37,6 @@ async function getAllProduct() {
         </div>
       `;
         });
-        // Hiển thị kết quả lên trang HTML
         document.getElementById('product-list').innerHTML = result;
         let itemList = [];
         if(localStorage.getItem("items")){
@@ -79,10 +76,8 @@ async function getAllProduct() {
 // getListCategory
 async function getAllCategoriesVertical(){
     try {
-        // Gọi API để lấy dữ liệu the loai
         let responses= await axios.get('http://localhost:8080/api/v1/categories');
         let categories = responses.data.content;
-        // Biến để lưu trữ kết quả HTML
         let result = '';
         if (!Array.isArray(categories)) {
             throw new Error('Categories is not an array');
@@ -97,7 +92,6 @@ async function getAllCategoriesVertical(){
                 </div>
       `;
         });
-        // Hiển thị kết quả lên trang HTML
         document.getElementById('categories__slider owl-carousel').innerHTML = result;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -107,17 +101,14 @@ async function getAllCategoriesVertical(){
 
 async function getAllCategoriesHorizontal(){
     try {
-        // Gọi API để lấy dữ liệu the loai
         let response = await axios.get('http://localhost:8080/api/v1/categories');
         let categories = response.data.content;
-        // Biến để lưu trữ kết quả HTML
         let result = '';
         categories.forEach(category => {
             result +=`
         <li><a href="#">${category.categoryName}</a></li>
       `;
         });
-        // Hiển thị kết quả lên trang HTML
         document.getElementById('category-list').innerHTML = result;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -125,10 +116,8 @@ async function getAllCategoriesHorizontal(){
     }
 }
 
-// Gọi hàm khi trang được tải
 window.getAllProduct();
 window.getAllCategoriesVertical();
-
 window.getAllCategoriesHorizontal();
 window.getAmount();
 window.getCount();

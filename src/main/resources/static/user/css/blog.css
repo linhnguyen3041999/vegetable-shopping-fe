@@ -1,7 +1,7 @@
 .blog__item__pic {
     width: 100%;
-    height: 250px; /* Hoặc một chiều cao cố định phù hợp với thiết kế của bạn */
-    overflow: hidden; /* Ẩn phần dư của ảnh */
+    height: 250px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,8 +9,8 @@
 
 .blog__item__pic img {
     width: 100%;
-    height: auto; /* Giữ nguyên tỉ lệ của ảnh */
-    object-fit: cover; /* Cắt ảnh để vừa với khung hình */
+    height: auto;
+    object-fit: cover;
 }
 .blog__item {
     display: flex;
@@ -24,21 +24,21 @@
 }
 
 .blog__item__text h5 {
-    height: 50px; /* Điều chỉnh chiều cao cho tiêu đề */
-    line-height: 1.4; /* Điều chỉnh dòng chữ để phù hợp */
-    overflow: hidden; /* Ẩn phần tiêu đề bị tràn */
-    text-overflow: ellipsis; /* Thêm dấu "..." khi tiêu đề bị tràn */
+    height: 50px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Giới hạn số dòng của tiêu đề */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
 .blog__item__text .truncatete {
-    margin-top: 10px; /* Khoảng cách giữa tiêu đề và đoạn văn */
-    height: 60px; /* Điều chỉnh chiều cao cho đoạn văn */
-    overflow: hidden; /* Ẩn phần văn bản bị tràn */
-    text-overflow: ellipsis; /* Thêm dấu "..." khi văn bản bị tràn */
+    margin-top: 10px;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Giới hạn số dòng của đoạn văn */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
