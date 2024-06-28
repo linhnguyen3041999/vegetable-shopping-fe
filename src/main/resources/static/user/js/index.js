@@ -88,5 +88,3 @@ async function loadCategories() {
 // Gọi hàm khi trang được tải
 window.getFeatureProduct();
 window.loadCategories();
-window.getAmount();
-window.getCount();
