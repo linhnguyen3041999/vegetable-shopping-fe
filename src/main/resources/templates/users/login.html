@@ -1,38 +1,3 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<!DOCTYPE html>
-<html lang="zxx">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Login</title>
-    <!-- Google Font -->
-    <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
-          rel="stylesheet">
-    <!-- Css Styles -->
-    <link rel="stylesheet" th:href="@{/user/template/css/bootstrap.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/user/template/css/font-awesome.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/user/template/css/elegant-icons.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/user/template/css/nice-select.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/user/template/css/jquery-ui.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/user/template/css/owl.carousel.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/user/template/css/slicknav.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/user/template/css/style.css}" type="text/css">
-
-    <!--axios-->
-    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
-            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <style>
-        .form-control-lg{
-            font-size: 16px;
-        }
-        .offset-xl-1{
-            margin-left: 0;
-        }
-    </style>
 
     <link rel="stylesheet" th:href="@{/user/css/login.css}">
     <!--    font aweasome -->
@@ -53,7 +18,7 @@
     <div class="humberger__menu__cart">
         <ul>
             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
+            <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
         </ul>
         <div class="header__cart__price">item: <span class="cart-sum-price-span"></span></div>
     </div>
@@ -79,7 +44,7 @@
                 <ul class="header__menu__dropdown">
                     <li><a href="./shop-details.html">Shop Details</a></li>
                     <li><a href="shopping-cart.html">Shoping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
+                    <li><a href="checkout-form.html">Check Out</a></li>
                     <li><a href="./blog-details.html">Blog Details</a></li>
                 </ul>
             </li>
@@ -156,7 +121,7 @@
                             <ul class="header__menu__dropdown">
                                 <li><a href="./shop-details.html">Shop Details</a></li>
                                 <li><a href="shopping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
+                                <li><a href="checkout-form.html">Check Out</a></li>
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
@@ -169,7 +134,7 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
+                        <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span class="cart-sum-price-span"></span></div>
                 </div>

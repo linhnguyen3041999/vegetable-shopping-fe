@@ -6,6 +6,7 @@ async function getAllProduct() {
     try {
         // Gọi API để lấy dữ liệu sản phẩm
         let {data: products} = await axios.get('http://localhost:8080/api/v1/products');
+        let reponse =
         console.log(products); // Kiểm tra dữ liệu trong console
         // Biến để lưu trữ kết quả HTML
         let result = '';
@@ -67,7 +68,7 @@ async function getAllProduct() {
                 localStorage.setItem("items", JSON.stringify(itemList));
                 getAmount();
                 getCount();
-                swal("Added to cart!");
+                swal.fire("Added to cart!");
             });
         });
     } catch (error) {
