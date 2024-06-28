@@ -72,7 +72,7 @@
                             <div class="user-menu-content">
                                 <a th:href="@{/vegetable-shopping/user/login}">Login</a>
                                 <a th:href="@{/vegetable-shopping/user/register}">Register</a>
-                                <a th:href="@{/vegetable-shopping/user/update-account}">Update account</a>
+                                <a onclick="checkout_logged()" th:href="@{/vegetable-shopping/user/update-account}">Update account</a>
                                 <a th:href="@{/vegetable-shopping/user/change-passwrod}">Change password</a>
                             </div>
                         </li>
@@ -534,6 +534,7 @@
     <!-- JS IN MY CONFIG -->
     <script th:src="@{/user/js/index.js}"></script>
     <script th:src="@{/user/js/cartItem.js}"></script>
+
     <!--sweet alert-->
     <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </body>

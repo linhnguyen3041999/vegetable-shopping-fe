@@ -1,4 +1,3 @@
-// Load data up table
 window.getAllProductAdmin();
 
 let lastProductId = null;
@@ -314,17 +313,19 @@ async function getCategoryToInputTableForm() {
     try {
         let {data: categories} = await axios.get('http://localhost:8080/api/v1/categories', {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcxOTU3MTUxMiwiZXhwIjoxNzIwMTc2MzEyfQ.CKtKA48ny_RyMFFuxTNSP_qkQgmeONI_AclLEMXyT_t2uf91l4f1WJ7FEMdVZhPQ`,
             }
         });
+        console.log(categories)
         let result = '<option>select category type</option>';
-        categories.forEach(category => {
+        categories.content.forEach(category => {
             result += `
                 <option value="${category.categoryId}">${category.categoryName}</option>
             `;
         })
         document.getElementById('product-category-id').innerHTML = result;
     } catch (error) {
+        console.log(error.message)
     }
 }
 

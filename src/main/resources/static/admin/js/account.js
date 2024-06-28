@@ -61,8 +61,8 @@ async function getAllUser(page = 0, size = 10) {
 
                 } catch (error) {
                     Swal.fire({
-                        title: 'Category',
-                        text: 'Load category to form failed',
+                        title: 'Account',
+                        text: 'Load account to form failed',
                         icon: 'warning',
                         button: 'Oke'
                     });
@@ -70,11 +70,41 @@ async function getAllUser(page = 0, size = 10) {
             })
         });
     } catch (error) {
+        console.log(error.message);
         Swal.fire({
-            title: 'Category',
+            title: 'Account',
             text: 'Uploading data to table failed',
             icon: 'error',
             button: 'Oke'
         });
     }
 }
+
+async function saveAccount() {
+    try {
+        let formData = new FormData();
+        formData.append('fullname', document.getElementById('full-name').value);
+        formData.append('phoneNumber', document.getElementById('phone-number').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('dayOfBirth', document.getElementById('day-of-birth').value);
+        formData.append('password', document.getElementById('password').value);
+        formData.append('address', document.getElementById('user-address').value);
+        formData.append('gender', document.querySelector('input[name="gender"]:checked').value);
+        await axios.post('http://localhost:8080/api/v1/users', formData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        Swal.fire({
+            title: 'Account',
+            text: 'Create account successfully',
+            icon: 'success',
+            button: 'Oke'
+        });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+

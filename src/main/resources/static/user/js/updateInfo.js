@@ -1,11 +1,9 @@
-console.log(sessionStorage.getItem('userInfor'));
-
 window.onload = function () {
     loadDataToForm()
 };
 async function loadDataToForm(){
     try {
-        let userInfo = sessionStorage.getItem('userInfor');
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfor'));
         document.getElementById('user-full-name').placeholder = userInfo.fullname;
         document.getElementById('user-email').placeholder = userInfo.email;
         document.getElementById('user-phone-number').placeholder = userInfo.phoneNumber;
@@ -18,16 +16,40 @@ async function loadDataToForm(){
 }
 async function updateAccount() {
     try {
-        let userId = 15
         let formData = new FormData();
-        formData.append('fullname', document.getElementById('user-full-name').value);
-        formData.append('email', document.getElementById('user-email').value);
-        formData.append('phoneNumber', document.getElementById('user-phone-number').value);
-        formData.append('gender', document.querySelector('input[name="gender"]:checked').value);
-        formData.append('dayOfBirth', document.getElementById('user-day-of-birth').value);
-        formData.append('address', document.getElementById('user-address').value);
+        let userId = JSON.parse(sessionStorage.getItem('userInfor')).userId;
+        let fullNameValue = document.getElementById('user-full-name').value;
+        let emailValue = document.getElementById('user-email').value;
+        let phoneNumberValue = document.getElementById('user-phone-number').value;
+        let dayOfBirthValue = document.getElementById('user-day-of-birth').value;
+        let addressValue = document.getElementById('user-address').value;
 
-        await axios.put(`http://localhost:8080/api/v1/users/${userId}`, formData)
+        if (fullNameValue.trim() !== "") {
+            formData.append('fullname', fullNameValue);
+        }
+        if (emailValue.trim() !== "") {
+            formData.append('email', emailValue);
+        }
+        if (phoneNumberValue.trim() !== "") {
+            formData.append('phoneNumber', phoneNumberValue);
+        }
+        let genderElement = document.querySelector('input[name="gender"]:checked').value;
+        if (genderElement) {
+            formData.append('gender', genderElement);
+        }
+        if (dayOfBirthValue.trim() !== "") {
+            formData.append('dayOfBirth', dayOfBirthValue);
+        }
+        if (addressValue.trim() !== "") {
+            formData.append('address', addressValue);
+        }
+
+
+        await axios.put(`http://localhost:8080/api/v1/users/${userId}`, formData, {
+            headers: {
+                 'Content-Type': 'application/json'
+            }
+        })
         Swal.fire({
             title: 'Update',
             text: 'Update account successfully',
@@ -38,25 +60,12 @@ async function updateAccount() {
             window.location.href = "/vegetable-shopping/home";
         }, 1000);
     } catch (err) {
-        console.log(err.message);
-    }
-}
-function checkout_logged(){
-    if(sessionStorage.getItem("token")){
-        window.location.href = '/vegetable-shopping/shopping-cart/checkout';
-    }else{
         Swal.fire({
-            title: "You are not logged in!",
-            text: "To be able to pay, please log in first!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Login"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '/vegetable-shopping/user/login';
-            }
+            title: 'Update Failed',
+            text: err.response.data.message,
+            icon: 'error',
+            button: 'OK'
         });
     }
 }
+
