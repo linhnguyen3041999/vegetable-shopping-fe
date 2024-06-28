@@ -11,11 +11,14 @@ async function register() {
             }
         })
         Swal.fire({
-            title: 'Category',
-            text: 'Add category successfully',
+            title: 'Register',
+            text: 'Create account successfully',
             icon: 'success',
             button: 'Oke'
         });
+        setTimeout(function () {
+            window.location.href = "/vegetable-shopping/home";
+        }, 1000);
     } catch (err) {
         console.log(err.message);
     }
