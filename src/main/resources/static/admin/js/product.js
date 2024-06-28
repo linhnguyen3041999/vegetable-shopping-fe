@@ -350,7 +350,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
     setupImagePreview('product-image', 'product-image-show', 'product-label-image');
     setupImagePreview('product-image2', 'product-image-show2', 'product-label-image2');
     setupImagePreview('product-image3', 'product-image-show3', 'product-label-image3');
