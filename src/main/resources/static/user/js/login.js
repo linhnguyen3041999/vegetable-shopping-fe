@@ -4,6 +4,12 @@ async function getUser(){
     sessionStorage.setItem('userInfor', JSON.stringify(userResponse.data));
 }
 
+document.getElementById('login-normal').addEventListener('click',
+    function (event) {
+        event.preventDefault();
+        login();
+    })
+
 async function login() {
     const username = document.getElementById('user-username').value;
     const password = document.getElementById('user-password').value;
@@ -34,8 +40,3 @@ async function login() {
             });
         });
 }
-document.getElementById('login-normal').addEventListener('click',
-    function (event) {
-        event.preventDefault();
-        login();
-})

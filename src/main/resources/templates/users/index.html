@@ -8,7 +8,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Test</title>
+    <title>Vegetable-Store | Home</title>
 
     <!-- Google Font -->
     <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
@@ -71,8 +71,9 @@
                             <a href="#"><i class="fa fa-user"></i></a>
                             <div class="user-menu-content">
                                 <a th:href="@{/vegetable-shopping/user/login}">Login</a>
-                                <a href="#">Register</a>
-                                <a href="#">Change password</a>
+                                <a th:href="@{/vegetable-shopping/user/register}">Register</a>
+                                <a onclick="checkout_logged()" th:href="@{/vegetable-shopping/user/update-account}">Update account</a>
+                                <a th:href="@{/vegetable-shopping/user/change-passwrod}">Change password</a>
                             </div>
                         </li>
                         <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
@@ -99,7 +100,6 @@
                         <span>Categories</span>
                     </div>
                     <ul id="category-list">
-                        <!--                        window.getAllCategories();-->
                     </ul>
                 </div>
             </div>
@@ -140,31 +140,6 @@
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-                            <h5><a href="#">Fresh Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -190,9 +165,7 @@
                     </div>
                 </div>
             </div>
-            <div id="product-list" class="row featured__filter">
-
-            </div>
+            <div id="product-list" class="row featured__filter"></div>
         </div>
     </section>
     <!-- Featured Section End -->
@@ -561,6 +534,7 @@
     <!-- JS IN MY CONFIG -->
     <script th:src="@{/user/js/index.js}"></script>
     <script th:src="@{/user/js/cartItem.js}"></script>
+
     <!--sweet alert-->
     <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </body>

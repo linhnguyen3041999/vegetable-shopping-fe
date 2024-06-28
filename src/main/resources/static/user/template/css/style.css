@@ -761,6 +761,7 @@ ol {
 	height: 431px;
 	display: flex;
 	align-items: center;
+	margin-top: 1rem;
 	padding-left: 75px;
 }
 
@@ -792,6 +793,7 @@ ol {
 
 .categories__item {
 	height: 270px;
+	width: 262.5px;
 	position: relative;
 }
 
@@ -1655,6 +1657,7 @@ ol {
 .product__pagination,
 .blog__pagination {
 	padding-top: 10px;
+	text-align: center;
 }
 
 .product__pagination a,
@@ -1678,6 +1681,13 @@ ol {
 
 .product__pagination a:hover,
 .blog__pagination a:hover {
+	background: #7fad39;
+	border-color: #7fad39;
+	color: #ffffff;
+}
+
+.product__pagination a.active,
+.blog__pagination a.active {
 	background: #7fad39;
 	border-color: #7fad39;
 	color: #ffffff;

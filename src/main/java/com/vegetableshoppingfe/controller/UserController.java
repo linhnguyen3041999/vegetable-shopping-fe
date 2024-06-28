@@ -1,7 +1,6 @@
 package com.vegetableshoppingfe.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,17 +14,17 @@ public class UserController {
     }
 
     @GetMapping("/blog")
-    public String getBlog(){
+    public String getBlog() {
         return "users/blog";
     }
 
     @GetMapping("/contact")
-    public String getContact(){
+    public String getContact() {
         return "users/contact";
     }
 
     @GetMapping("/shop-details")
-    public String getShopDetails(){
+    public String getShopDetails() {
         return "users/shop-details";
     }
 
@@ -57,6 +56,21 @@ public class UserController {
     @GetMapping("/user/login")
     public String login() {
         return "users/login";
+    }
+
+    @GetMapping("/user/register")
+    public String resgister() {
+        return "users/register";
+    }
+
+    @GetMapping("/user/update-account")
+    public String updateAccount() {
+        return "users/update-info";
+    }
+
+    @GetMapping("/user/change-password")
+    public String changePassword() {
+        return "users/change-password";
     }
 
     @GetMapping("/shopping-cart/checkout/vnpay-payment")
