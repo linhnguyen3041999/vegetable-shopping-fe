@@ -57,6 +57,37 @@ async function fillBlogDetail(categoryId = null, blogTitle = null, pageNo = 1) {
         document.getElementById('blog__details__hero__text__title').innerHTML = '<p>Error fetching blogs</p>';
     }
 }
+
+async function getThreeBlog() {
+    try {
+        // Gọi API để lấy dữ liệu sản phẩm
+        let {data: blogs} = await axios.get(
+            'http://localhost:8080/api/v1/blogs/threeBlogs');
+        blogs.forEach(blog => {
+            const formattedDate = formatDate(blog.blogDate);
+            console.log()
+            $('#three-blog-list').append(`
+          <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic" id="blog__item__pic">
+                            <img src="${blog.blogImage}"  alt="">
+                        </div>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i>${formattedDate}</li>
+                            </ul>
+                            <h5><a href="http://localhost:8081/vegetable-shopping/blog-details?blogId=${blog.blogId}">${blog.blogTitle}</a></h5>
+                            <p>If you find the article title interesting, please click read more to continue reading.</p>
+                        </div>
+                    </div>
+                </div>
+            `);
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+window.getThreeBlog();
 // Gọi hàm fillBlogDetail để lấy chi tiết blog
 fillBlogDetail();
 
@@ -65,7 +96,6 @@ function formatDate(dateString) {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    // Đảm bảo rằng tháng và ngày có hai chữ số bằng cách thêm '0' khi cần thiết
     const formattedDay = day < 10 ? `0${day}` : day;
     const formattedMonth = month < 10 ? `0${month}` : month;
     return `${formattedDay}/${formattedMonth}/${year}`;
