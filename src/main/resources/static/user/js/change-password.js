@@ -8,7 +8,7 @@ async function changePassword() {
        let userId = userInfo.userId;
        let formData = new FormData();
        let oldPassword = document.getElementById('old-user-password').value;
-       let newPassword = document.getElementById('user-password');
+       let newPassword = document.getElementById('user-password').value;
        formData.append('oldPassword', oldPassword);
        formData.append('newPassword', newPassword);
        await axios.put(`http://localhost:8080/api/v1/auth/${userId}`,formData, {

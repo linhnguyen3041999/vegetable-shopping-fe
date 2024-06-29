@@ -92,7 +92,7 @@ async function addOrder(){
                     confirmButtonText: "Go to cart",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = '/vegetable-shopping/shopping-cart';
+                        window.location.href = '/vegetable-shopping/shoping-cart';
                     }
                 });
                 console.error("Failed to create some cart items.");
