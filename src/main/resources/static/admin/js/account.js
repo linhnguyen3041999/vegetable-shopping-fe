@@ -70,13 +70,6 @@ async function getAllUser(page = 0, size = 10) {
             })
         });
     } catch (error) {
-        console.log(error.message);
-        Swal.fire({
-            title: 'Account',
-            text: 'Uploading data to table failed',
-            icon: 'error',
-            button: 'Oke'
-        });
     }
 }
 
