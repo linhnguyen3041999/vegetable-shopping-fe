@@ -8,12 +8,12 @@ async function countUsers() {
     try {
         let {data: countUsers} = await axios.get('http://localhost:8080/api/v1/users/countUsers', {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': 'Bearer ' + token
             }
         });
         document.getElementById('count-users').innerText = countUsers;
     } catch (e) {
-        console.log(e.message())
+        console.log(e.message)
     }
 }
 
@@ -25,7 +25,7 @@ async function countProducts() {
     try {
         let {data: countProducts} = await axios.get('http://localhost:8080/api/v1/products/countProducts', {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ` + token
             }
         });
         document.getElementById('count-products').innerText = countProducts;
@@ -41,7 +41,7 @@ async function countOrderInWeek() {
     try {
         let {data: countOrderInWeek} = await axios.get('http://localhost:8080/api/v1/carts/countOrderInWeek', {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ` + token
             }
         });
         document.getElementById('count-order-in-7day').innerText = countOrderInWeek;
@@ -56,7 +56,7 @@ async function chartJs() {
     try {
         let {data: yearReport} = await axios.get('http://localhost:8080/api/v1/carts/findYearOrder', {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ` + token
             }
         });
         let result = '';
@@ -83,7 +83,7 @@ async function updateChart(year) {
         let reportRevenueByMonth = document.getElementById('report-revenue-by-month').getContext('2d');
         let {data: reportMonth} = await axios.get(`http://localhost:8080/api/v1/reports/reportRevenueByMonth/${year}`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ` + token
             }
         });
         const labels = reportMonth.map(item => `M ${item.month}`);
@@ -130,7 +130,7 @@ window.getTopProducts();
 async function getTopProducts() {
     let {data: product} = await axios.get('http://localhost:8080/api/v1/reports/reportTopProducts', {
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ` + token
         }
     });
     let count = 0;
@@ -152,7 +152,7 @@ async function getTopUsersBuyMost() {
     try {
         let{data : users} = await axios.get('http://localhost:8080/api/v1/reports/reportTopUsersBuyLotOf', {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ` + token
             }
         });
         let resutl = '';
