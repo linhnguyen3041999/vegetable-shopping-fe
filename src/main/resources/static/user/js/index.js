@@ -148,3 +148,6 @@ function formatDate(dateString) {
 window.getFeatureProduct();
 window.loadCategories();
 window.getThreeBlog();
+
+
+
