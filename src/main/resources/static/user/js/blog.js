@@ -12,16 +12,6 @@ async function loadCategories() {
             $('#category-list').append(
                 `<li><a href="#">${category.categoryName}</a></li>`
             );
-            for (let i = 0; i < 9; i++) {
-                $('.categories__slider').owlCarousel('add',
-                    `<div class="col-lg-3">
-                        <div class="categories__item set-bg" 
-                        data-setbg="${category.categoryImage}"
-                        style="background-image: url(${category.categoryImage});">
-                            <h5><a href="#">${category.categoryName}</a></h5>
-                        </div>
-                      </div>`).owlCarousel('update');
-            }
         });
     } catch (error) {
         console.error('Error fetching data:', error);
