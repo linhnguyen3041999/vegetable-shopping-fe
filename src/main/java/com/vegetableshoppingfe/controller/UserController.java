@@ -2,6 +2,7 @@ package com.vegetableshoppingfe.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -32,6 +33,7 @@ public class UserController {
     public String getCheckoutForm() {
         return "users/checkout";
     }
+
     @GetMapping("/blog-details")
     public String getBlogDetails(){
         return "users/blog-details";
@@ -42,7 +44,7 @@ public class UserController {
         return "users/shop-grid";
     }
 
-    @GetMapping("/product/product-detail")
+    @GetMapping("/product/product-detail/{id}")
     public String getProductDetail() {
         return "users/shop-details";
     }

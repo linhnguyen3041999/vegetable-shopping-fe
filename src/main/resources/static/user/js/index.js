@@ -8,17 +8,17 @@ async function getFeatureProduct() {
         products.forEach(product => {
             $('#product-list').append(`
           <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
+                <div class="product__item">
                 <div class="product__item__pic set-bg" style="background-image: url(${product.photo})">
                     <ul class="product__item__pic__hover">
                         <li><a id="add-to-cart-${product.productId}"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
                 <div class="product__item__text">
-                    <h6><a href="#">${product.productName}</a></h6>
+                    <h6><a href="/vegetable-shopping/product/product-detail/${product.productId}">${product.productName}</a></h6>
                     <h5>$${product.price}</h5>
                 </div>
-            </div>
+                </div>
         </div>
         `);
 
