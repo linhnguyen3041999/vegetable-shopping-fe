@@ -77,4 +77,10 @@ public class UserController {
     public String checkoutVNPayPayment() {
         return "users/vnpay_status";
     }
+
+    @GetMapping("/user/order")
+    public String getOrder() {
+        return "users/follow-cart";
+    }
+
 }
