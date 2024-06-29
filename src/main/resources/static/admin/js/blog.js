@@ -78,6 +78,7 @@ async function fillFormWithBlogData(blogId) {
         document.getElementById('selectedBlogs').value = blog.blogCategory.categoryId;
         if (blog.blogImage) {
             hinhAnh = document.getElementById('imagePreview').src = `${blog.blogImage}`;
+            $('#blog-label-image').prop('hidden', true);
             console.log(hinhAnh);
         } else {
             document.getElementById('imagePreview').src = '#';
@@ -98,6 +99,7 @@ async function resetFormNormal() {
         document.getElementById('contentBlog').value = '';
         CKEDITOR.instances['contentBlog'].setData('');
         document.getElementById('imagePreview').src = '';
+        $('#blog-label-image').prop('hidden', false);
         currentBlogId = null;
         document.getElementById('selectedBlogs').value = currentCategoryId;
     } catch (error) {
