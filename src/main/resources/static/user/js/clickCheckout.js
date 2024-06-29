@@ -68,6 +68,9 @@ async function addOrder(){
             if(stringValue === ''){
                 sessionStorage.setItem('orderId', order.data.cartId);
                 if(getSelectedRadio() === 'true'){
+                    for (const cartItem of cartItemRequestList) {
+                        await axios.put(`http://localhost:8080/api/v1/products/quantity/${cartItem.productId}/${cartItem.quantity}`)
+                    }
                     localStorage.removeItem("items");
                     Swal.fire({
                         title: 'Success',
@@ -121,7 +124,7 @@ async function payWithVNPay(){
         try {
             const baseUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
             const formData = new URLSearchParams();
-            formData.append('amount', total_amount.slice(1));
+            formData.append('amount', Number(total_amount.replace(/[^0-9]/g, '')));
             formData.append('orderInfo', 'Payment invoice of ' + document.getElementById('fullname').value);
             formData.append('baseUrl', baseUrl);
             const response = await axios.post('http://localhost:8080/api/v1/checkout/vnpay/submitOrder', formData, {
