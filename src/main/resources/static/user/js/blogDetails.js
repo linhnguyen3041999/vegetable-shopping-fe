@@ -1,7 +1,7 @@
 async function getAllCategoriesVerticalBlogDetail() {
     try {
         let response = await axios.get('http://localhost:8080/api/v1/categories');
-        let categories = response.data.content; // Lấy mảng categories từ content
+        let categories = response.data.content;
         let result = '';
         categories.forEach(category => {
             result += `
@@ -11,6 +11,22 @@ async function getAllCategoriesVerticalBlogDetail() {
             `;
         });
         document.getElementById('blog-sidebar-item').innerHTML = result;
+        document.querySelectorAll('#blog-sidebar-item a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const categoryId = parseInt(this.getAttribute('data-category-id'));
+                if (currentCategoryId === categoryId) {
+                    currentCategoryId = null;
+                    this.classList.remove('active');
+                    fillBlogDetail();
+                } else {
+                    currentCategoryId = categoryId;
+                    document.querySelectorAll('#blog-sidebar-item a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                    fillBlogDetail(categoryId);
+                }
+            });
+        });
     } catch (error) {
         console.error('Error fetching categories:', error);
         document.getElementById('blog-sidebar-item').innerHTML = '<p>Error fetching categories</p>';

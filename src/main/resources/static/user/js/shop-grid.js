@@ -1,6 +1,9 @@
 let currentCategoryId = 1;
 let size = 6;
-
+let itemList = [];
+if (localStorage.getItem("items")) {
+    itemList = JSON.parse(localStorage.getItem("items"));
+}
 async function loadProducts(categoryId ='', page = 0, sort = 'asc') {
     try {
         let {data: response} = await axios.get(`http://localhost:8080/api/v1/products/category?id=${categoryId}&page=${page}&size=${size}&sort=${sort}`, {
@@ -27,6 +30,31 @@ async function loadProducts(categoryId ='', page = 0, sort = 'asc') {
                 </div>
             `)
 
+            // Add to cart event
+            let addToCart = document.getElementById(
+                `add-to-cart-${product.productId}`);
+            addToCart.addEventListener('click', async () => {
+                const newItem = {
+                    product: product,
+                    quantity: 1,
+                    price: product.price
+                }
+                if (itemList !== null) {
+                    const index = itemList.findIndex(
+                        item => item.product.productId === newItem.product.productId);
+                    if (index !== -1) {
+                        const quantityChange = itemList[index].quantity + 1;
+                        itemList[index].quantity = quantityChange;
+                        itemList[index].price = itemList[index].quantity * newItem.price;
+                    } else {
+                        itemList.push(newItem);
+                    }
+                }
+                localStorage.setItem("items", JSON.stringify(itemList));
+                getAmount();
+                getCount();
+                swal.fire("Added to cart!");
+            });
         });
 
         $('.product__pagination').empty();
@@ -51,77 +79,9 @@ async function loadProducts(categoryId ='', page = 0, sort = 'asc') {
             loadProducts(categoryId, page, this.value);
         });
 
-        // Add to cart event
-        let addToCart = document.getElementById(
-            `add-to-cart-${product.productId}`);
-        addToCart.addEventListener('click', async () => {
-            const newItem = {
-                product: product,
-                quantity: 1,
-                price: product.price
-            }
-            if (itemList !== null) {
-                const index = itemList.findIndex(
-                    item => item.product.productId === newItem.product.productId);
-                if (index !== -1) {
-                    const quantityChange = itemList[index].quantity + 1;
-                    itemList[index].quantity = quantityChange;
-                    itemList[index].price = itemList[index].quantity * newItem.price;
-                } else {
-                    itemList.push(newItem);
-                }
-            }
-            localStorage.setItem("items", JSON.stringify(itemList));
-            getAmount();
-            getCount();
-            swal.fire("Added to cart!");
-        });
+
     } catch (error) {
         console.error('Error loading products:', error);
-    }
-}
-
-async function getAllCategories() {
-    try {
-        let response = await axios.get('http://localhost:8080/api/v1/categories');
-        let categories = response.data;
-        console.log('Categories:', categories); // Kiểm tra dữ liệu nhận được từ API
-
-        let result = '';
-
-        categories.forEach(category => {
-            result += `<li><a class="mx-2" href="#" id="category-id-${category.categoryId}">${category.categoryName}</a></li>`;
-        });
-
-        console.log('Result HTML:', result); // Kiểm tra HTML được tạo ra
-
-        document.getElementById('category-shop-grid-menu').innerHTML = result;
-
-        let menuItems = document.querySelectorAll('#category-shop-grid-menu li a'); // Lấy thẻ a thay vì thẻ li
-        console.log('Menu Items:', menuItems); // Kiểm tra các item được tạo ra
-
-        let currentActiveItem = null;
-
-        menuItems.forEach(item => {
-            item.addEventListener('click', async (event) => {
-                event.preventDefault();
-
-                if (currentActiveItem) {
-                    currentActiveItem.classList.remove('active');
-                }
-
-                const clickedItem = event.target.parentElement;
-                clickedItem.classList.add('active');
-                currentActiveItem = clickedItem;
-
-                const categoryId = event.target.id.split('-')[2];
-                currentCategoryId = categoryId;
-                currentPage = 0; // Đặt lại trang hiện tại về 0
-                await loadProducts(categoryId, currentPage);
-            });
-        });
-    } catch (error) {
-        console.error('Error loading categories:', error);
     }
 }
 

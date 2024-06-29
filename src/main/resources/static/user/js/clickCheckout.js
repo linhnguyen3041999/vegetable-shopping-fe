@@ -27,8 +27,8 @@ async function addOrder(){
     formData.append('note', document.getElementById('note').value);
     formData.append('paymentMethod',  getSelectedRadio());
     formData.append('paymentStatus', getSelectedRadio() === 'true' ? 'false' : 'true');
-    formData.append('shippingFee', parseFloat(shipping_fee.slice(1)));
-    formData.append('totalAmount', parseFloat(total_amount.slice(1)));
+    formData.append('shippingFee', parseFloat(shipping_fee.replace(/[^0-9]/g, '')));
+    formData.append('totalAmount', parseFloat(total_amount.replace(/[^0-9]/g, '')));
     formData.append('userId', userId);
 
 
@@ -68,6 +68,9 @@ async function addOrder(){
             if(stringValue === ''){
                 sessionStorage.setItem('orderId', order.data.cartId);
                 if(getSelectedRadio() === 'true'){
+                    for (const cartItem of cartItemRequestList) {
+                        await axios.put(`http://localhost:8080/api/v1/products/quantity/${cartItem.productId}/${cartItem.quantity}`)
+                    }
                     localStorage.removeItem("items");
                     Swal.fire({
                         title: 'Success',
@@ -121,7 +124,7 @@ async function payWithVNPay(){
         try {
             const baseUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
             const formData = new URLSearchParams();
-            formData.append('amount', total_amount.slice(1));
+            formData.append('amount', Number(total_amount.replace(/[^0-9]/g, '')));
             formData.append('orderInfo', 'Payment invoice of ' + document.getElementById('fullname').value);
             formData.append('baseUrl', baseUrl);
             const response = await axios.post('http://localhost:8080/api/v1/checkout/vnpay/submitOrder', formData, {
@@ -139,18 +142,45 @@ async function payWithVNPay(){
 
 
 function getSelectedRadio() {
-    const selectedRadio = document.querySelector('input[name="payment_method"]:checked');
-    if (!selectedRadio.isNull) {
-        return selectedRadio.value;
+
+    const radios = document.getElementsByName('payment_method');
+
+    let isRadioChecked = false;
+
+    for (const radio of radios) {
+        if (radio.checked) {
+            isRadioChecked = true;
+            break;
+        }
     }
+    if(isRadioChecked){
+        const selectedRadio = document.querySelector('input[name="payment_method"]:checked');
+        if (!selectedRadio.isNull) {
+            return selectedRadio.value;
+        }
+    }else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please choose a payment method",
+        });
+    }
+
 }
 
 document.getElementById('order_submit').addEventListener('click', function (evt){
     evt.preventDefault();
-    if(getSelectedRadio() === 'true'){
+    let address = document.getElementById('address_shipping').value;
+    if(getSelectedRadio() === 'true' && address.length > 0){
         addOrder();
-    }else if(getSelectedRadio() === 'false'){
+    }else if(getSelectedRadio() === 'false' && address.length > 0){
         payWithVNPay();
+    }else if(getSelectedRadio().isNull || address.length === 0){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter the address",
+        });
     }
 });
 

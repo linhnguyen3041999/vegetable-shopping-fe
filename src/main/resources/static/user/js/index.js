@@ -8,17 +8,17 @@ async function getFeatureProduct() {
         products.forEach(product => {
             $('#product-list').append(`
           <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
+                <div class="product__item">
                 <div class="product__item__pic set-bg" style="background-image: url(${product.photo})">
                     <ul class="product__item__pic__hover">
                         <li><a id="add-to-cart-${product.productId}"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
                 <div class="product__item__text">
-                    <h6><a href="#">${product.productName}</a></h6>
-                    <h5>$${product.price}</h5>
+                    <h6><a href="/vegetable-shopping/product/product-detail/${product.productId}">${product.productName}</a></h6>
+                    <h5>${product.price}VND</h5>
                 </div>
-            </div>
+                </div>
         </div>
         `);
 
@@ -69,8 +69,7 @@ async function loadCategories() {
             $('#category-list').append(
                 `<li><a href="#">${category.categoryName}</a></li>`
             );
-            for (let i = 0; i < 9; i++) {
-                $('.categories__slider').owlCarousel('add',
+            $('.categories__slider').owlCarousel('add',
                     `<div class="col-lg-3">
                         <div class="categories__item set-bg" 
                         data-setbg="${category.categoryImage}"
@@ -78,8 +77,7 @@ async function loadCategories() {
                             <h5><a href="#">${category.categoryName}</a></h5>
                         </div>
                       </div>`).owlCarousel('update');
-            }
-        });
+            });
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -148,3 +146,6 @@ function formatDate(dateString) {
 window.getFeatureProduct();
 window.loadCategories();
 window.getThreeBlog();
+
+
+

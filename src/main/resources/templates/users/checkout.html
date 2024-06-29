@@ -40,6 +40,55 @@
     <div class="loader"></div>
 </div>
 
+<!-- Humberger Begin -->
+<div class="humberger__menu__overlay"></div>
+<div class="humberger__menu__wrapper">
+    <div class="humberger__menu__logo">
+        <a href="#"><img src="img/logo.png" alt=""></a>
+    </div>
+    <div class="humberger__menu__cart">
+        <ul>
+            <div class="header__cart">
+                <ul>
+                    <li class="user-menu">
+                        <a href="#"><i class="fa fa-user"></i></a>
+                        <div class="user-menu-content" id="userMenuContent1">
+                        </div>
+                    </li>
+                    <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span
+                            class="cart-count-item-span">1</span></a></li>
+                </ul>
+                <div class="header__cart__price">item: <span class="cart-sum-price-span">200$</span></div>
+            </div>
+        </ul>
+    </div>
+    <div class="humberger__menu__widget">
+    </div>
+    <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+            <li class="active"><a href="./home">Home</a></li>
+            <li><a href="./shop-grid">Shop</a></li>
+            <li><a href="#">Pages</a>
+                <ul class="header__menu__dropdown">
+                    <li><a href="./shop-details">Shop Details</a></li>
+                    <li><a href="./shoping-cart">Shoping Cart</a></li>
+                    <li><a href="./checkout">Check Out</a></li>
+                </ul>
+            </li>
+            <li><a href="./blog">Blog</a></li>
+            <li><a href="./contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="humberger__menu__contact">
+        <ul>
+            <li><i class="fa fa-envelope"></i> togetherwewin@m2m.com</li>
+            <li>Free Shipping for all Order of $99</li>
+        </ul>
+    </div>
+</div>
+<!-- Humberger End -->
+
 <!-- Header Section Begin -->
 <header class="header">
     <div class="container">
@@ -59,7 +108,6 @@
                                 <li><a href="./shop-details">Shop Details</a></li>
                                 <li><a href="./shoping-cart">Shopping Cart</a></li>
                                 <li><a href="./checkout-form">Check Out</a></li>
-                                <li><a href="./blog-details">Blog Details</a></li>
                             </ul>
                         </li>
                         <li><a href="./blog">Blog</a></li>
@@ -72,15 +120,13 @@
                     <ul>
                         <li class="user-menu">
                             <a href="#"><i class="fa fa-user"></i></a>
-                            <div class="user-menu-content">
-                                <a href="#">Login</a>
-                                <a href="#">Register</a>
-                                <a href="#">Change password</a>
+                            <div class="user-menu-content" id="userMenuContent">
                             </div>
                         </li>
-                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a href="./shoping-cart"><i class="fa fa-shopping-bag"></i> <span
+                                class="cart-count-item-span">1</span></a></li>
                     </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
+                    <div class="header__cart__price">item: <span class="cart-sum-price-span">200$</span></div>
                 </div>
             </div>
         </div>
@@ -89,7 +135,7 @@
         </div>
     </div>
 </header>
-    <!-- Header Section End -->
+<!-- Header Section End -->
 
     <!-- Hero Section Begin -->
     <section class="hero hero-normal">
@@ -358,6 +404,7 @@
 <script th:src="@{/user/template/js/mixitup.min.js}"></script>
 <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
 <script th:src="@{/user/template/js/main.js}"></script>
+<script th:src="@{/user/js/total.js}"></script>
 </body>
 
 </html>

@@ -30,9 +30,7 @@ window.onload = async function () {
     if (vnp_TransactionStatus) {
         try {
             let result = '';
-            let link_result = '';
             if(vnp_TransactionStatus === '00'){
-                localStorage.removeItem("items");
                 document.getElementById('title_status').innerText = 'Payment success'
                  result += `
                         <tr>
@@ -52,7 +50,17 @@ window.onload = async function () {
                             <td><span>${vnp_TransactionNo}</span></td>
                         </tr>
                  `
+                document.getElementById('t_body').innerHTML = result;
+                let itemList = [];
+                if(localStorage.getItem("items")){
+                    itemList = JSON.parse(localStorage.getItem("items"));
+                }
+                const cartItems = itemList;
+                for (const cartItem of cartItems) {
+                    await axios.put(`http://localhost:8080/api/v1/products/quantity/${cartItem.productId}/${cartItem.quantity}`)
+                }
                 document.getElementById('back_result').innerHTML = `<a class="text-body" href="/vegetable-shopping/home"> < Continue shopping</a>`
+                localStorage.removeItem("items");
             }else{
                 let orderId = sessionStorage.getItem('orderId');
                 await axios.delete(`http://localhost:8080/api/v1/carts/${orderId}`);
