@@ -3,38 +3,28 @@ let searchTitle = null;
 const blogsPerPage = 6;
 let blogId = null;
 let blogsData = [];
-async function getAllCategoriesVertical() {
+async function loadCategories() {
     try {
-        let response = await axios.get('http://localhost:8080/api/v1/categories');
-        let categories = response.data.content;
-        let result = '';
-        categories.forEach(category => {
-            result += `
-                <li>
-                    <a href="#" data-category-id="${category.categoryId}">${category.categoryName}</a>
-                </li>
-            `;
-        });
-        document.getElementById('blog-sidebar-item').innerHTML = result;
-        document.querySelectorAll('#blog-sidebar-item a').forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                const categoryId = parseInt(this.getAttribute('data-category-id'));
-                if (currentCategoryId === categoryId) {
-                    currentCategoryId = null;
-                    this.classList.remove('active');
-                    getBlogs();
-                } else {
-                    currentCategoryId = categoryId;
-                    document.querySelectorAll('#blog-sidebar-item a').forEach(a => a.classList.remove('active'));
-                    this.classList.add('active');
-                    getBlogs(categoryId, searchTitle);
-                }
-            });
+        // Gọi API để lấy dữ liệu the loai
+        let {data: categories} = await axios.get(
+            'http://localhost:8080/api/v1/categories');
+        categories.content.forEach(category => {
+            $('#category-list').append(
+                `<li><a href="#">${category.categoryName}</a></li>`
+            );
+            for (let i = 0; i < 9; i++) {
+                $('.categories__slider').owlCarousel('add',
+                    `<div class="col-lg-3">
+                        <div class="categories__item set-bg" 
+                        data-setbg="${category.categoryImage}"
+                        style="background-image: url(${category.categoryImage});">
+                            <h5><a href="#">${category.categoryName}</a></h5>
+                        </div>
+                      </div>`).owlCarousel('update');
+            }
         });
     } catch (error) {
-        console.error('Error fetching categories:', error);
-        document.getElementById('blog-sidebar-item').innerHTML = '<p>Error fetching categories</p>';
+        console.error('Error fetching data:', error);
     }
 }
 
@@ -112,7 +102,7 @@ document.getElementById('search-input').addEventListener('input', function(event
     getBlogs(currentCategoryId, searchTitle);
 });
 
-getAllCategoriesVertical();
+window.loadCategories()
 getBlogs();
 
 function formatDate(dateString) {
