@@ -139,18 +139,45 @@ async function payWithVNPay(){
 
 
 function getSelectedRadio() {
-    const selectedRadio = document.querySelector('input[name="payment_method"]:checked');
-    if (!selectedRadio.isNull) {
-        return selectedRadio.value;
+
+    const radios = document.getElementsByName('payment_method');
+
+    let isRadioChecked = false;
+
+    for (const radio of radios) {
+        if (radio.checked) {
+            isRadioChecked = true;
+            break;
+        }
     }
+    if(isRadioChecked){
+        const selectedRadio = document.querySelector('input[name="payment_method"]:checked');
+        if (!selectedRadio.isNull) {
+            return selectedRadio.value;
+        }
+    }else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please choose a payment method",
+        });
+    }
+
 }
 
 document.getElementById('order_submit').addEventListener('click', function (evt){
     evt.preventDefault();
-    if(getSelectedRadio() === 'true'){
+    let address = document.getElementById('address_shipping').value;
+    if(getSelectedRadio() === 'true' && address.length > 0){
         addOrder();
-    }else if(getSelectedRadio() === 'false'){
+    }else if(getSelectedRadio() === 'false' && address.length > 0){
         payWithVNPay();
+    }else if(getSelectedRadio().isNull || address.length === 0){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter the address",
+        });
     }
 });
 
