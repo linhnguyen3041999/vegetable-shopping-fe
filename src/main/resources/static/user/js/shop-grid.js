@@ -1,6 +1,9 @@
 let currentCategoryId = 1;
 let size = 6;
-
+let itemList = [];
+if (localStorage.getItem("items")) {
+    itemList = JSON.parse(localStorage.getItem("items"));
+}
 async function loadProducts(categoryId ='', page = 0, sort = 'asc') {
     try {
         let {data: response} = await axios.get(`http://localhost:8080/api/v1/products/category?id=${categoryId}&page=${page}&size=${size}&sort=${sort}`, {
