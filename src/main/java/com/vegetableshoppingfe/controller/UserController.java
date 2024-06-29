@@ -23,10 +23,6 @@ public class UserController {
         return "users/contact";
     }
 
-    @GetMapping("/shop-details")
-    public String getShopDetails() {
-        return "users/shop-details";
-    }
 
     @GetMapping("/blog-details")
     public String getBlogDetails(){
