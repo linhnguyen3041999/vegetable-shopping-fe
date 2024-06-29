@@ -133,7 +133,7 @@ function checkout_check(){
             confirmButtonText: "Login"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '/vegetable-shopping/user/login';
+                window.location.href = '/vegetable-shopping/login';
             }
         });
     }
