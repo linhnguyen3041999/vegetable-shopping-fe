@@ -1,7 +1,13 @@
 
 async function register() {
     try {
-        validateRegister();
+        // validateRegister();
+        var form = document.getElementById('registrationForm');
+            for(var i=0; i < form.elements.length; i++){
+                if(form.elements[i].value === '' && form.elements[i].hasAttribute('required')){
+                    return false;
+                }
+            }
         let formData = new FormData();
         formData.append('username', document.getElementById('user-username').value);
         formData.append('password', document.getElementById('user-password').value);
@@ -55,15 +61,15 @@ function validateRegister() {
 }
 
 document.getElementById('submit-registration').addEventListener('click', function (e) {
-    let inputs = document.getElementsByTagName('input');
-    for (let i = 0; i < inputs.length; i++) {
-
-        inputs[i].classList.add('italic-red-input');
-
-        inputs[i].addEventListener('input', function() {
-            this.classList.remove('italic-red-input');
-        });
-    }
+    // let inputs = document.getElementsByTagName('input');
+    // for (let i = 0; i < inputs.length; i++) {
+    //
+    //     inputs[i].classList.add('italic-red-input');
+    //
+    //     inputs[i].addEventListener('input', function() {
+    //         this.classList.remove('italic-red-input');
+    //     });
+    // }
 
     register();
 });

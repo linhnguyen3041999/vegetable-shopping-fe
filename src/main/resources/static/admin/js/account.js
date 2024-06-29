@@ -80,21 +80,37 @@ async function getAllUser(page = 0, size = 10) {
     }
 }
 
+document.getElementById('save-account').addEventListener('click',
+    function (e) {
+    saveAccount();
+    })
+
 async function saveAccount() {
     try {
-        let formData = new FormData();
-        formData.append('fullname', document.getElementById('full-name').value);
-        formData.append('phoneNumber', document.getElementById('phone-number').value);
-        formData.append('email', document.getElementById('email').value);
-        formData.append('dayOfBirth', document.getElementById('day-of-birth').value);
-        formData.append('password', document.getElementById('password').value);
-        formData.append('address', document.getElementById('user-address').value);
-        formData.append('gender', document.querySelector('input[name="gender"]:checked').value);
-        await axios.post('http://localhost:8080/api/v1/users', formData, {
+        let userRequest = {
+            fullname: document.getElementById('full-name').value,
+            phoneNumber: document.getElementById('phone-number').value,
+            email: document.getElementById('email').value,
+            dayOfBirth: document.getElementById('day-of-birth').value,
+            password: document.getElementById('password').value,
+            address: document.getElementById('user-address').value,
+            gender: document.querySelector('input[name="gender"]:checked').value,
+            active: document.querySelector('input[name="active"]:checked').value
+        };
+
+        let role = document.querySelector('input[name="role"]:checked').value;
+
+        let accountRequestWithRole = {
+            userRequest: userRequest,
+            role: role
+        };
+
+        await axios.post('http://localhost:8080/api/v1/users/saveWithRole', accountRequestWithRole, {
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
+        });
+
         Swal.fire({
             title: 'Account',
             text: 'Create account successfully',
@@ -102,9 +118,37 @@ async function saveAccount() {
             button: 'Oke'
         });
     } catch (error) {
-        console.log(error.message);
+        Swal.fire({
+            title: 'Account',
+            text: 'Create account not successfully',
+            icon: 'error',
+            button: 'Oke'
+        });
     }
 }
+
+document.getElementById('reset-account').addEventListener('click', function(v) {
+    v.preventDefault();
+    resetFormAccount();
+})
+function resetFormAccount() {
+    document.getElementById('user-id').value = null;
+    document.getElementById('full-name').value = null;
+    document.getElementById('phone-number').value = null;
+    document.getElementById('email').value = null;
+    document.getElementById('email').value = null;
+    document.getElementById('day-of-birth').value = null;
+    document.getElementById('password').value = null;
+    document.getElementById('user-address').value = null;
+    document.getElementById('gender-male').checked = true;
+    document.getElementById('active-yes').checked = true;
+    document.getElementById('admin-yes').checked = true;
+}
+
+document.getElementById('create-account').addEventListener('click', () => {
+    document.getElementById('save-account').disabled = true;
+});
+
 
 
 
