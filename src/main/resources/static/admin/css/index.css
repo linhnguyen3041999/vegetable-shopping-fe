@@ -188,7 +188,7 @@ form {
     margin: 20px auto;
 }
 
-.btn-green {
+.btn-green!important {
     background-color: #7FAD39;
     color: white;
     border: 2px solid #7FAD39;
@@ -201,12 +201,12 @@ form {
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-.btn-green:hover {
+.btn-green:hover!important {
     background-color: #6d9730;
     border-color: #6d9730;
 }
 
-.btn-cement {
+.btn-cement!important {
     background-color: #B0B0B0;
     color: white;
     border: 2px solid #B0B0B0;
@@ -219,12 +219,12 @@ form {
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-.btn-cement:hover {
+.btn-cement:hover!important {
     background-color: #A0A0A0;
     border-color: #A0A0A0;
 }
 
-#pagination img{
+#pagination img !important {
     width: 50px;
     height: 50px;
 }
