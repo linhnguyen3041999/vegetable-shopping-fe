@@ -10,11 +10,11 @@ async function getAllItem() {
                 result += `
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="https://drive.google.com/thumbnail?id=${cartItem.product.photo}" alt="ImgProduct">
+                                        <img src="${cartItem.product.photo}" alt="ImgProduct">
                                         <h5>${cartItem.product.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        $${cartItem.product.price}
+                                        ${cartItem.product.price}VND
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
@@ -26,7 +26,7 @@ async function getAllItem() {
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        $${cartItem.price}
+                                        ${cartItem.price}VND
                                     </td>
                                     <td class="shoping__cart__item__close">
                                         <span id="icon_close_${index}" class="icon_close"></span>
