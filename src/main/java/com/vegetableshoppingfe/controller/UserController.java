@@ -59,7 +59,7 @@ public class UserController {
         return "/users/checkout-form";
     }
 
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String login() {
         return "users/login";
     }

@@ -1,27 +1,25 @@
 function checkLogin1() {
-    let checkValue = JSON.parse(sessionStorage.getItem('userName'));
-    console.log(checkValue);
-    let userMenuContent1 = document.getElementById('userMenuContent1');
-    let userMenuContent2 = document.getElementById('userMenuContent');
-    console.log(userMenuContent);
+    let checkValue = sessionStorage.getItem('token');
+    let userMenuContent = document.getElementById('userMenuContent');
+    $('#userMenuContent').empty();
     if (checkValue == null) {
-        userMenuContent1.innerHTML = `
-                <a href="./user/login">Login</a>
+        $('#userMenuContent').append(`
+                <a href="./login">Login</a>
                 <a href="./user/register">Register</a>
-            `;
-        userMenuContent2.innerHTML = `
-                <a href="./user/login">Login</a>
-                <a href="./user/register">Register</a>
-            `;
+        `)
     } else {
-        userMenuContent1.innerHTML = `
+        $('#userMenuContent').append(`
                 <a onclick="checkout_logged()" href="./user/update-account">Update account</a>
                 <a href="./user/change-password">Change password</a>
-            `;
-        userMenuContent2.innerHTML = `
-                <a onclick="checkout_logged()" href="./user/update-account">Update account</a>
-                <a href="./user/change-password">Change password</a>
-            `;
+                <a onclick="logout()">Log out</a>
+        `)
     }
 }
-checkLogin1();
+
+function logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userName');
+    window.location.href = "/vegetable-shopping/home";
+}
+
+window.checkLogin1();

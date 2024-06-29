@@ -97,7 +97,7 @@ function checkout_logged() {
             confirmButtonText: "Login"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '/vegetable-shopping/user/login';
+                window.location.href = '/vegetable-shopping/login';
             }
         });
     }
@@ -133,7 +133,7 @@ async function getThreeBlog() {
     }
 }
 
-function formatDate(dateString) {
+function formatDate(dateString){
     const date = new Date(dateString);
     const day = date.getDate();
     const month = date.getMonth() + 1;
