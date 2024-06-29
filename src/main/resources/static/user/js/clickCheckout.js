@@ -1,14 +1,13 @@
 async function itemUser() {
     try {
-        const username = sessionStorage.getItem('userName');
-        const userResponse = await axios.get(`http://localhost:8080/api/v1/users/${username}`);
+        const userInfor = JSON.parse(sessionStorage.getItem('userInfor'));
 
         // Update UI elements
-        document.getElementById('fullname').value = userResponse.data.fullname || 'N/A'; // Set default if fullName is missing
-        document.getElementById('phone_number').value = userResponse.data.phoneNumber || 'N/A';
+        document.getElementById('fullname').value = userInfor.fullname || 'N/A'; // Set default if fullName is missing
+        document.getElementById('phone_number').value = userInfor.phoneNumber || 'N/A';
 
         // Return user ID as a string (assuming it's already a string)
-        return userResponse.data.userId; // Explicit conversion if necessary
+        return userInfor.userId; // Explicit conversion if necessary
     } catch (error) {
         console.error('Error fetching user:', error);
         // Handle errors gracefully, e.g., display an error message to the user
@@ -20,7 +19,6 @@ async function addOrder(){
     const userToken = sessionStorage.getItem('token');
     let shipping_fee = document.getElementById('shipping-fee').textContent;
     let total_amount = document.getElementById('total-amount').textContent;
-
     const userId = await itemUser();
 
     let formData = new FormData();
@@ -46,57 +44,63 @@ async function addOrder(){
             itemList = JSON.parse(localStorage.getItem("items"));
         }
         const cartItems = itemList;
-        let isOK = true;
-        let theErrorOfItem = '';
+        let cartItemRequestList = [];
         for (const cartItem of cartItems) {
-            let formDataItem = new FormData();
-            formDataItem.append('quantity', cartItem.quantity);
-            formDataItem.append('price', cartItem.price);
-            formDataItem.append('productId', cartItem.product.productId);
-            formDataItem.append('cartId', order.data.cartId);
-            try {
-                const cartItemResponse = await axios.post('http://localhost:8080/api/v1/cartItems', formDataItem , {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${userToken}`
-                    }
-                });
-                console.log(cartItemResponse.data);
-                if(cartItemResponse.data === ''){
-                    isOK = false;
-                    theErrorOfItem += 'The quantity of ' + cartItem.product.productName + "is greater than the inventory quantity " + "(" + cartItem.product.quantity + ').\n';
-                }
-
-            } catch (error) {
-                console.error("Failed to create some cart items:", error);
+            let CartItemRequest = {
+                quantity: cartItem.quantity,
+                price: cartItem.price,
+                productId: cartItem.product.productId,
+                cartId: order.data.cartId
             }
+            cartItemRequestList.push(CartItemRequest);
         }
-        //Check if all cart items were successfully created before clearing localStorage
-        if(isOK && theErrorOfItem === ''){
-            localStorage.removeItem("items");
-            Swal.fire({
-                title: 'Success',
-                text: 'You have paid for your order',
-                icon: 'success'
-            })
-            setTimeout(function () {
-                window.location.href = "/vegetable-shopping/home";
-            }, 1000);
-        }else{
-            await axios.delete(`http://localhost:8080/api/v1/carts/${order.data.cartId}`);
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: theErrorOfItem,
-                showCancelButton: true,
-                confirmButtonText: "Go to cart",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '/vegetable-shopping/shopping-cart';
+        try {
+            let theErrorOfItem  = await axios.post('http://localhost:8080/api/v1/cartItems', cartItemRequestList, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`
                 }
             });
-            console.error("Failed to create some cart items.");
+
+            const stringBuilder = theErrorOfItem.data;
+            const stringValue = stringBuilder.toString();
+
+            if(stringValue === ''){
+                sessionStorage.setItem('orderId', order.data.cartId);
+                if(getSelectedRadio() === 'true'){
+                    localStorage.removeItem("items");
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'You have paid for your order',
+                        icon: 'success'
+                    })
+                    setTimeout(function () {
+                        window.location.href = "/vegetable-shopping/home";
+                    }, 1000);
+                }
+                return true;
+            }else{
+                await axios.delete(`http://localhost:8080/api/v1/carts/${order.data.cartId}`);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: stringValue,
+                    showCancelButton: true,
+                    confirmButtonText: "Go to cart",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/vegetable-shopping/shopping-cart';
+                    }
+                });
+                console.error("Failed to create some cart items.");
+                return false;
+            }
+        } catch (error) {
+            console.error("Failed to create some cart items:", error);
         }
+
+        //Check if all cart items were successfully created before clearing localStorage
+
 
     }catch (error){
         Swal.fire({
@@ -105,9 +109,34 @@ async function addOrder(){
             text: "You were unable to pay, please try again",
         });
         console.error(error);
+        return false;
     }
 
 }
+
+async function payWithVNPay(){
+    let canAddToCart = await addOrder();
+    let total_amount = document.getElementById('total-amount').textContent;
+    if(canAddToCart){
+        try {
+            const baseUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+            const formData = new URLSearchParams();
+            formData.append('amount', total_amount.slice(1));
+            formData.append('orderInfo', 'Payment invoice of ' + document.getElementById('fullname').value);
+            formData.append('baseUrl', baseUrl);
+            const response = await axios.post('http://localhost:8080/api/v1/checkout/vnpay/submitOrder', formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            const paymentUrl = response.data;
+            window.location.href = paymentUrl; // Redirect to VNPay payment gateway
+        } catch (error) {
+            console.error('Error creating payment:', error);
+        }
+    }
+}
+
 
 function getSelectedRadio() {
     const selectedRadio = document.querySelector('input[name="payment_method"]:checked');
@@ -118,8 +147,10 @@ function getSelectedRadio() {
 
 document.getElementById('order_submit').addEventListener('click', function (evt){
     evt.preventDefault();
-    if(!getSelectedRadio().isNull){
+    if(getSelectedRadio() === 'true'){
         addOrder();
+    }else if(getSelectedRadio() === 'false'){
+        payWithVNPay();
     }
 });
 

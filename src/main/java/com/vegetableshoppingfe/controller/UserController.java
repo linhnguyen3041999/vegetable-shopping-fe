@@ -28,10 +28,6 @@ public class UserController {
         return "users/shop-details";
     }
 
-    @GetMapping("/checkout-form")
-    public String getCheckoutForm() {
-        return "users/checkout";
-    }
     @GetMapping("/blog-details")
     public String getBlogDetails(){
         return "users/blog-details";
@@ -77,4 +73,8 @@ public class UserController {
         return "users/change-password";
     }
 
+    @GetMapping("/shopping-cart/checkout/vnpay-payment")
+    public String checkoutVNPayPayment() {
+        return "users/vnpay_status";
+    }
 }
