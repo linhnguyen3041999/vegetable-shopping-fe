@@ -30,7 +30,6 @@ window.onload = async function () {
     if (vnp_TransactionStatus) {
         try {
             let result = '';
-            let link_result = '';
             if(vnp_TransactionStatus === '00'){
                 document.getElementById('title_status').innerText = 'Payment success'
                  result += `
@@ -51,7 +50,7 @@ window.onload = async function () {
                             <td><span>${vnp_TransactionNo}</span></td>
                         </tr>
                  `
-
+                document.getElementById('t_body').innerHTML = result;
                 let itemList = [];
                 if(localStorage.getItem("items")){
                     itemList = JSON.parse(localStorage.getItem("items"));

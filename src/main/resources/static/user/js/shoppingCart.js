@@ -109,13 +109,13 @@ function checkout_check(){
             window.location.href = '/vegetable-shopping/shopping-cart/checkout';
         }else{
             Swal.fire({
-                title: "You are not logged in!",
-                text: "To be able to pay, please log in first!",
+                title: "Opp...!",
+                text: "Please add product to cart",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Login"
+                confirmButtonText: "Go to home"
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = '/vegetable-shopping/home';
