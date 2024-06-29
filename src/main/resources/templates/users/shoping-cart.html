@@ -11,10 +11,9 @@
     <title>Vegetable-Store | Home</title>
 
     <!-- Google Font -->
-    <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}" rel="stylesheet">
-
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
+          rel="stylesheet">
     <!-- Css Styles -->
-    <!--    Css Style-->
     <link rel="stylesheet" th:href="@{/user/template/css/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/font-awesome.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/elegant-icons.css}" type="text/css">
@@ -23,13 +22,13 @@
     <link rel="stylesheet" th:href="@{/user/template/css/owl.carousel.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/slicknav.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/style.css}" type="text/css">
-
+    <!--axios-->
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
             integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--    css     -->
     <link rel="stylesheet" th:href="@{/user/css/index.css}">
-
+    <link rel="stylesheet" th:href="@{/user/css/boxitem.css}">
 </head>
 
 <body>
@@ -44,7 +43,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a th:href="@{/vegetable-shopping/home}"><img th:src="@{/user/template/img/logo.png}" alt=""></a>
+                    <a href="./home"><img th:src="@{/user/template/img/logo.png}" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -71,12 +70,13 @@
                         <li class="user-menu">
                             <a href="#"><i class="fa fa-user"></i></a>
                             <div class="user-menu-content">
-                                <a href="#">Login</a>
-                                <a href="#">Register</a>
-                                <a href="#">Change password</a>
+                                <a th:href="@{/vegetable-shopping/user/login}">Login</a>
+                                <a th:href="@{/vegetable-shopping/user/register}">Register</a>
+                                <a onclick="checkout_logged()" th:href="@{/vegetable-shopping/user/update-account}">Update account</a>
+                                <a th:href="@{/vegetable-shopping/user/change-passwrod}">Change password</a>
                             </div>
                         </li>
-                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
+                        <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span class="cart-sum-price-span"></span></div>
                 </div>
@@ -87,7 +87,7 @@
         </div>
     </div>
 </header>
-    <!-- Header Section End -->
+<!-- Header Section End -->
 
     <!-- Hero Section Begin -->
     <section class="hero hero-normal">

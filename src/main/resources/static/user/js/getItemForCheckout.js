@@ -5,9 +5,6 @@ list.forEach(item =>{
 });
 document.getElementById('product_checkout').innerHTML = result;
 
-// const userInfor = JSON.parse(sessionStorage.getItem("userData"));
-// document.getElementById("fullname").value = userInfor.fullName;
-// document.getElementById("phone_number").value = userInfor.phoneNumber;
 
 async function setAmount(){
     let shopping_fee = 20000;
