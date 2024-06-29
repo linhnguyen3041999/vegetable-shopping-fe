@@ -77,4 +77,8 @@ public class UserController {
         return "users/change-password";
     }
 
+    @GetMapping("/cart-following")
+    public String getCartFollowing() {
+        return "users/cart-following";
+    }
 }
