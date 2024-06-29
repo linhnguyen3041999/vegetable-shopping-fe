@@ -1,10 +1,10 @@
 let currentCategoryId = 1;
 let size = 6;
 
-async function loadProducts(categoryId, page = 0, sort = 'asc') {
+async function loadProducts(categoryId ='', page = 0, sort = 'asc') {
     try {
-        let {data: response} = await axios.get(`http://localhost:8080/api/v1/products/category/${categoryId}?page=${page}&size=${size}&sort=${sort}`, {
-            headers:{
+        let {data: response} = await axios.get(`http://localhost:8080/api/v1/products/category?id=${categoryId}&page=${page}&size=${size}&sort=${sort}`, {
+            headers: {
                 'Content-Type': 'application/json'
             }
         });
@@ -35,7 +35,7 @@ async function loadProducts(categoryId, page = 0, sort = 'asc') {
                 $('.product__pagination').append(`
                     <a class="active" onclick="loadProducts('${categoryId}', ${i})">${i}</a>
                 `)
-            }else {
+            } else {
                 $('.product__pagination').append(`
                     <a onclick="loadProducts('${categoryId}', ${i})">${i}</a>
                 `)
@@ -48,7 +48,6 @@ async function loadProducts(categoryId, page = 0, sort = 'asc') {
 
         //Sort Event
         $('.productSorting').off('change').on('change', function () {
-            debugger
             loadProducts(categoryId, page, this.value);
         });
 
@@ -126,4 +125,31 @@ async function getAllCategories() {
     }
 }
 
-window.loadProducts(1, 0);
+async function loadCategoryToGrid() {
+    try {
+        let {data: response} = await axios.get(`http://localhost:8080/api/v1/categories`);
+        let categories = response.content;
+        let result = '';
+        categories.forEach(category => {
+            result += `
+                 <li><a id="category-gird-${category.categoryId}" href="#">${category.categoryName}</a></li>
+            `;
+        })
+        document.getElementById('category-shop-grid-menu').innerHTML = result;
+
+        categories.forEach(category => {
+            // let categoryId = document.getElementById(`category-gird-${category.categoryId}`).value;
+            document.getElementById(`category-gird-${category.categoryId}`).addEventListener('click',
+                async function ()  {
+                let categoryId = category.categoryId;
+                    console.log(categoryId)
+                loadProducts(categoryId, page = 0);
+            })
+        })
+    } catch (error) {
+        logger.error(error.message);
+    }
+}
+
+window.loadCategoryToGrid();
+window.loadProducts();

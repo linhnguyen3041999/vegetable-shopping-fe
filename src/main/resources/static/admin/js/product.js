@@ -1,9 +1,8 @@
-window.getAllProductAdmin();
-
 let lastProductId = null;
 
 async function getAllProductAdmin(page = 0, size = 10) {
     try {
+        debugger
         let {data: response} = await axios.get(`http://localhost:8080/api/v1/products?page=${page}&size=${size}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -405,3 +404,5 @@ async function getProductsLikeProductName(page = 0, size = 10) {
         console.log(e.message)
     }
 }
+
+window.getAllProductAdmin();

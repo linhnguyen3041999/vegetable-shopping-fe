@@ -4,7 +4,7 @@ async function getAllCategories(page = 0, size = 10) {
     try {
         let {data: response} = await axios.get(`http://localhost:8080/api/v1/categories?page=${page}&size=${size}`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': 'Bearer ' + token
             }
         });
         let categories = response.content;
@@ -48,7 +48,7 @@ async function getAllCategories(page = 0, size = 10) {
                 try {
                     await axios.delete(`http://localhost:8080/api/v1/categories/${category.categoryId}`, {
                         headers: {
-                            'Authorization': `Bearer ${token}`
+                            'Authorization': 'Bearer ' + token
                         }
                     });
                     Swal.fire({
@@ -73,7 +73,7 @@ async function getAllCategories(page = 0, size = 10) {
                 try {
                     let {data: response} = await axios.get(`http://localhost:8080/api/v1/categories/${category.categoryId}`, {
                         headers: {
-                            'Authorization': `Bearer ${token}`
+                            'Authorization': 'Bearer ' + token
                         }
                     });
                     document.getElementById('category-id').value = response.categoryId;
@@ -128,7 +128,7 @@ async function addCategory() {
 
         await axios.post('http://localhost:8080/api/v1/categories', formData, {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': 'Bearer ' + token,
                 'Content-Type': 'multipart/form-data'
             }
         });
@@ -181,7 +181,7 @@ async function deleteCategory() {
         let categoryId = document.getElementById('category-id').value;
         await axios.delete(`http://localhost:8080/api/v1/categories/${categoryId}`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': 'Bearer ' + token
             }
         })
         Swal.fire({
@@ -220,7 +220,7 @@ async function updateCategory() {
         let categoryId = document.getElementById('category-id').value;
         await axios.put(`http://localhost:8080/api/v1/categories/${categoryId}`, formData, {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': 'Bearer ' + token,
                 'Content-Type': 'multipart/form-data'
             }
         });
@@ -247,7 +247,7 @@ async function findCategoryByCategoryName(page = 0, size = 10) {
         let keyword = document.getElementById('find-category-like-name').value;
         const {data : response} = await axios.get(`http://localhost:8080/api/v1/categories/findCategoryLikeCategoryName?keyword=${keyword}&page=${page}&size=${size}`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': 'Bearer ' + token
             }
         });
         let categories = response.content;

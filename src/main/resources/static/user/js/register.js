@@ -1,7 +1,13 @@
 
 async function register() {
     try {
-        validateRegister();
+        // validateRegister();
+        var form = document.getElementById('registrationForm');
+            for(var i=0; i < form.elements.length; i++){
+                if(form.elements[i].value === '' && form.elements[i].hasAttribute('required')){
+                    return false;
+                }
+            }
         let formData = new FormData();
         formData.append('username', document.getElementById('user-username').value);
         formData.append('password', document.getElementById('user-password').value);
@@ -40,16 +46,32 @@ function validateRegister() {
         document.getElementById('password-message').textContent = "Passwords not match!";
     }
     if (username.trim() === "") {
-        document.getElementById('error-username').textContent = "Please enter a username";
+        document.getElementById('user-username').placeholder = "Username must be between 5 and 30 characters";
     }
     if (email.trim() === "") {
-        document.getElementById('error-email').textContent = "Please enter a email address";
+        document.getElementById('user-email').placeholder = "Please enter a email address";
     }
     if (password.trim() === "") {
-        document.getElementById('error-password').textContent = "Please enter a password";
+        document.getElementById('user-password').placeholder = "Password must be at least 8 characters";
     }
     if (confirmPassword.trim() === "") {
-        document.getElementById('error-confirm-password').textContent = "Please enter a confirmation password";
+        document.getElementById('user-ConfirmPassword').placeholder = "Please enter a confirmation password";
         return;
     }
 }
+
+document.getElementById('submit-registration').addEventListener('click', function (e) {
+    // let inputs = document.getElementsByTagName('input');
+    // for (let i = 0; i < inputs.length; i++) {
+    //
+    //     inputs[i].classList.add('italic-red-input');
+    //
+    //     inputs[i].addEventListener('input', function() {
+    //         this.classList.remove('italic-red-input');
+    //     });
+    // }
+
+    register();
+});
+
+
