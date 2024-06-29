@@ -117,4 +117,8 @@ public class UserController {
     public String getShop1(){
         return "users/shop-grid";
     }
+    @GetMapping("/shopping-cart/checkout/vnpay-payment")
+    public String checkoutVNPayPayment() {
+        return "users/vnpay_status";
+    }
 }
