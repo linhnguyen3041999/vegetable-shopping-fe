@@ -26,8 +26,7 @@ async function login() {
         })
 }
 
-document.getElementById('login').addEventListener('click',
-    function (event) {
-        event.preventDefault();
-        login();
-    })
+$('#login').off('click').on('click', function (event) {
+    event.preventDefault();
+    login();
+});
