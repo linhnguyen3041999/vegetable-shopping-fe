@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="zxx">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
@@ -8,10 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vegetable-Store | Home</title>
+
     <!-- Google Font -->
     <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
           rel="stylesheet">
-    <!--    Css Style-->
+    <!-- Css Styles -->
     <link rel="stylesheet" th:href="@{/user/template/css/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/font-awesome.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/user/template/css/elegant-icons.css}" type="text/css">
@@ -26,8 +28,7 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--    css     -->
     <link rel="stylesheet" th:href="@{/user/css/index.css}">
-    <link rel="stylesheet" th:href="@{/user/css/blog.css}">
-
+    <link rel="stylesheet" th:href="@{/user/css/boxitem.css}">
 </head>
 
 <body>
@@ -69,14 +70,15 @@
                         <li class="user-menu">
                             <a href="#"><i class="fa fa-user"></i></a>
                             <div class="user-menu-content">
-                                <a href="#">Login</a>
-                                <a href="#">Register</a>
-                                <a href="#">Change password</a>
+                                <a th:href="@{/vegetable-shopping/user/login}">Login</a>
+                                <a th:href="@{/vegetable-shopping/user/register}">Register</a>
+                                <a onclick="checkout_logged()" th:href="@{/vegetable-shopping/user/update-account}">Update account</a>
+                                <a th:href="@{/vegetable-shopping/user/change-passwrod}">Change password</a>
                             </div>
                         </li>
-                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a th:href="@{/vegetable-shopping/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
                     </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
+                    <div class="header__cart__price">item: <span class="cart-sum-price-span"></span></div>
                 </div>
             </div>
         </div>
