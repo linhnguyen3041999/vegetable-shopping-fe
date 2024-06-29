@@ -1,5 +1,3 @@
-let lastProductId = null;
-
 async function getAllProductAdmin(page = 0, size = 10) {
     try {
         debugger
@@ -26,7 +24,6 @@ async function getAllProductAdmin(page = 0, size = 10) {
                             </td>
                         </tr>
                     `;
-            lastProductId = product.productId;
         });
         document.getElementById('product-table').innerHTML = result;
 
@@ -145,11 +142,14 @@ async function addProduct() {
                 'Content-Type': 'multipart/form-data'
             }
         });
+
+        let productId = productResponse.data;
+
         try {
-            if (lastProductId !== null) {
-                await addProductPhoto('product-image2', lastProductId);
-                await addProductPhoto('product-image3', lastProductId);
-                await addProductPhoto('product-image4', lastProductId);
+            if (productId !== null) {
+                await addProductPhoto('product-image2', productId);
+                await addProductPhoto('product-image3', productId);
+                await addProductPhoto('product-image4', productId);
             }
         } catch (error) {
             Swal.fire({
@@ -198,6 +198,7 @@ async function addProductPhoto(imageElementId, productId) {
                 }
             });
         } catch (error) {
+            console.log(error.message);
         }
     } else {
     }
