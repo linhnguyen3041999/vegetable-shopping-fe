@@ -90,6 +90,7 @@ async function loadCategories() {
         // Gọi API để lấy dữ liệu the loai
         let {data: categories} = await axios.get(
             'http://localhost:8080/api/v1/categories');
+        $('#category-list').empty();
         categories.content.forEach(category => {
             $('#category-list').append(
                 `<li><a href="#">${category.categoryName}</a></li>`
