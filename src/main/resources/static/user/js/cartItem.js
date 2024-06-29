@@ -7,7 +7,7 @@ async function getAmount(){
         }
         const elements = document.querySelectorAll('.cart-sum-price-span');
         elements.forEach((element) => {
-            element.textContent = "$" +  sumPrice;
+            element.textContent = sumPrice + "VND";
         });
         return Number(sumPrice);
     }catch (error) {

@@ -16,7 +16,7 @@ async function getFeatureProduct() {
                 </div>
                 <div class="product__item__text">
                     <h6><a href="/vegetable-shopping/product/product-detail/${product.productId}">${product.productName}</a></h6>
-                    <h5>$${product.price}</h5>
+                    <h5>${product.price}VND</h5>
                 </div>
                 </div>
         </div>
