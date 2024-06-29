@@ -27,8 +27,8 @@ async function addOrder(){
     formData.append('note', document.getElementById('note').value);
     formData.append('paymentMethod',  getSelectedRadio());
     formData.append('paymentStatus', getSelectedRadio() === 'true' ? 'false' : 'true');
-    formData.append('shippingFee', parseFloat(shipping_fee.slice(1)));
-    formData.append('totalAmount', parseFloat(total_amount.slice(1)));
+    formData.append('shippingFee', parseFloat(shipping_fee.replace(/[^0-9]/g, '')));
+    formData.append('totalAmount', parseFloat(total_amount.replace(/[^0-9]/g, '')));
     formData.append('userId', userId);
 
 
