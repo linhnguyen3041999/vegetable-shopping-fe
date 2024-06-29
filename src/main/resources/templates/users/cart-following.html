@@ -11,7 +11,8 @@
     <title>Vegetable-Store | Home</title>
 
     <!-- Google Font -->
-    <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}" rel="stylesheet">
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap}"
+          rel="stylesheet">
 
     <!-- Css Styles -->
     <!--    Css Style-->
@@ -27,9 +28,11 @@
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js}"
             integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!--    css     -->
     <link rel="stylesheet" th:href="@{/user/css/index.css}">
-
 </head>
 
 <body>
@@ -76,7 +79,8 @@
                                 <a href="#">Change password</a>
                             </div>
                         </li>
-                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span class="cart-count-item-span"></span></a></li>
+                        <li><a th:href="@{/shopping-cart}"><i class="fa fa-shopping-bag"></i> <span
+                                class="cart-count-item-span"></span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span class="cart-sum-price-span"></span></div>
                 </div>
@@ -87,128 +91,131 @@
         </div>
     </div>
 </header>
-    <!-- Header Section End -->
+<!-- Header Section End -->
 
-    <!-- Hero Section Begin -->
-    <section class="hero hero-normal">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>Categories</span>
-                        </div>
-                        <ul id="category-list">
-                            <!--                        window.getAllCategories();-->
-                        </ul>
+<!-- Hero Section Begin -->
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Categories</span>
                     </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
-                            </div>
-                        </div>
-                    </div>
+                    <ul id="category-list">
+                        <!--                        window.getAllCategories();-->
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" th:attr="data-setbg=@{/user/template/img/breadcrumb.jpg}">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Your Order</h2>
-                        <div class="breadcrumb__option">
-                            <a th:href="@{/vegetable-shopping/home}">Home</a>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="#">
+                            <input type="text" placeholder="What do yo u need?">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+65 11.188.888</h5>
+                            <span>support 24/7 time</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Breadcrumb Section End -->
+    </div>
+</section>
+<!-- Hero Section End -->
 
-    <!-- Shoping Cart Section Begin -->
-    <section class="shoping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Cart ID</th>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Status</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody-cart-items">
-                                <tr>
-                                    <td >001</td>
-                                    <td>horseradish</td>
-                                    <td>02</td>
-                                    <td>Delivering</td>
-                                    <td>2.99</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__btns">
-                        <a th:href="@{/vegetable-shopping/home}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-<!--                    <div class="shoping__continue">-->
-<!--                        <div class="shoping__discount">-->
-<!--                            <h5>Discount Codes</h5>-->
-<!--                            <form action="#">-->
-<!--                                <input type="text" placeholder="Enter your coupon code">-->
-<!--                                <button type="submit" class="site-btn">APPLY COUPON</button>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                </div>
-                <div class="col-lg-6">
-                    <div class="shoping__checkout">
-                        <h5>Cart Total</h5>
-                        <ul>
-                            <li>Payment method</li>
-                            <li>Total <span class="cart-sum-price-span"></span></li>
-                        </ul>
-                        <button onclick="checkout_check()" class="primary-btn w-100 border-0">PROCEED TO CHECKOUT</button>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" th:attr="data-setbg=@{/user/template/img/breadcrumb.jpg}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Your Order</h2>
+                    <div class="breadcrumb__option">
+                        <a th:href="@{/vegetable-shopping/home}"></a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Shoping Cart Section End -->
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
 
-    <!-- Footer Section Begin -->
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Payment Method</th>
+                            <th>Payment Status</th>
+                            <th>Order Status</th>
+                            <th>Total Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>000001</td>
+                            <td>
+                                <h5>Vegetable’s Package</h5>
+                            </td>
+                            <td>
+                                $55.00
+                            </td>
+                            <td>
+                                01
+                            </td>
+                            <td>
+                                $110.00
+                            </td>
+                            <td class="shoping__cart__item__close">
+                                <i class="fa-regular fa-eye"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>000002</td>
+                            <td>
+                                <h5>Fresh Garden Vegetable</h5>
+                            </td>
+                            <td>
+                                $39.00
+                            </td>
+                            <td>
+                                <div class="quantity">
+                                    <div>
+                                        01
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                $39.99
+                            </td>
+                            <td class="shoping__cart__item__close">
+                                <i class="fa-regular fa-eye"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
+
+<!-- Footer Section Begin -->
 <footer class="footer spad">
     <div class="container">
         <div class="row">
@@ -265,31 +272,37 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template modified by  <i class="fa fa-heart" aria-hidden="true">  </i><a href="#" target="_blank">Together We Win</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                    <div class="footer__copyright__text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template modified by <i class="fa fa-heart"
+                                                                               aria-hidden="true"> </i><a href="#"
+                                                                                                          target="_blank">Together
+                                We Win</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
                     <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                 </div>
             </div>
         </div>
     </div>
 </footer>
-    <!-- Footer Section End -->
+<!-- Footer Section End -->
 
-    <!-- Js Plugins -->
-    <script th:src="@{/user/template/js/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{/user/template/js/bootstrap.min.js}"></script>
-    <script th:src="@{/user/template/js/jquery.nice-select.min.js}"></script>
-    <script th:src="@{/user/template/js/jquery-ui.min.js}"></script>
-    <script th:src="@{/user/template/js/jquery.slicknav.js}"></script>
-    <script th:src="@{/user/template/js/mixitup.min.js}"></script>
-    <script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/user/template/js/main.js}"></script>
-    <!-- JS IN MY CONFIG -->
-    <script th:src="@{/user/js/shoppingCart.js}"></script>
-    <script th:src="@{/user/js/cartItem.js}"></script>
-    <!--sweet alert-->
-    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+<!-- Js Plugins -->
+<script th:src="@{/user/template/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/user/template/js/bootstrap.min.js}"></script>
+<script th:src="@{/user/template/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/user/template/js/jquery-ui.min.js}"></script>
+<script th:src="@{/user/template/js/jquery.slicknav.js}"></script>
+<script th:src="@{/user/template/js/mixitup.min.js}"></script>
+<script th:src="@{/user/template/js/owl.carousel.min.js}"></script>
+<script th:src="@{/user/template/js/main.js}"></script>
+<!-- JS IN MY CONFIG -->
+<script th:src="@{/user/js/shoppingCart.js}"></script>
+<script th:src="@{/user/js/cartItem.js}"></script>
+<!--sweet alert-->
+<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
 </body>
 
 </html>
