@@ -4,13 +4,14 @@ function checkLogin1() {
     $('#userMenuContent').empty();
     if (checkValue == null) {
         $('#userMenuContent').append(`
-                <a href="./login">Login</a>
-                <a href="./user/register">Register</a>
+                <a href="/vegetable-shopping/login">Login</a>
+                <a href="/vegetable-shopping/user/register">Register</a>
         `)
     } else {
         $('#userMenuContent').append(`
-                <a onclick="checkout_logged()" href="./user/update-account">Update account</a>
-                <a href="./user/change-password">Change password</a>
+                <a href="/vegetable-shopping/user/order">Your orders</a>
+                <a href="/vegetable-shopping/user/update-account">Update account</a>
+                <a href="/vegetable-shopping/user/change-password">Change password</a>
                 <a onclick="logout()">Log out</a>
         `)
     }

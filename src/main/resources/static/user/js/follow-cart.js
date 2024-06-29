@@ -72,5 +72,19 @@ async function loadOrderToTable() {
         console.log(e.message);
     }
 }
-
+async function loadCategories() {
+    try {
+        // Gọi API để lấy dữ liệu the loai
+        let {data: categories} = await axios.get(
+            'http://localhost:8080/api/v1/categories');
+        categories.content.forEach(category => {
+            $('#category-list').append(
+                `<li><a href="#">${category.categoryName}</a></li>`
+            );
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
 window.loadOrderToTable();
+window.loadCategories();

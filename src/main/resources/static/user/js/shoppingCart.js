@@ -106,7 +106,7 @@ async function getAllItem() {
 function checkout_check(){
     if(sessionStorage.getItem("token")){
         if(localStorage.getItem("items")){
-            window.location.href = '/vegetable-shopping/shopping-cart/checkout';
+            window.location.href = '/vegetable-shopping/checkout-form';
         }else{
             Swal.fire({
                 title: "Opp...!",
